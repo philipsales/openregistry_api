@@ -1,0 +1,639 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Biobanking API",
+    "version": "0.1"
+  },
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Get list of users",
+        "description": "Returns a list of users",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a user",
+        "description": "Adds a new user to the user's list",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "The user to create.",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/User"
+                },
+                {
+                  "properties": {
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User successfully created.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/users/{username}": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "The user's chosen username",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Get specific user",
+        "description": "Returns user",
+        "responses": {
+          "200": {
+            "description": "User.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a user",
+        "description": "update user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "The user to update",
+            "schema": {
+              "properties": {
+                "fullname": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully updated."
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user",
+        "description": "Delete a single user identified by id",
+        "responses": {
+          "204": {
+            "description": "User successfuly deleted."
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/users/me/{username}": {
+      "parameters": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "The user's chosen username",
+          "type": "string"
+        }
+      ],
+      "patch": {
+        "summary": "Update own account",
+        "description": "update own user's account",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "account update",
+            "schema": {
+              "properties": {
+                "fullname": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully updated."
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/questions": {
+      "get": {
+        "operationId": "api.questions.get_questions",
+        "summary": "Get all questions",
+        "responses": {
+          "200": {
+            "description": "Return questions",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Question"
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "operationId": "api.questions.post_question",
+        "summary": "Create a question",
+        "parameters": [
+          {
+            "name": "questions",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Questions"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Questions created",
+            "schema": {
+              "$ref": "#/definitions/Questions"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/questions/{question_id}": {
+      "parameters": [
+        {
+          "name": "question_id",
+          "in": "path",
+          "required": true,
+          "description": "The question's ID",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "operationId": "api.questions.get_question",
+        "summary": "Get a single question",
+        "responses": {
+          "200": {
+            "description": "Return question",
+            "schema": {
+              "$ref": "#/definitions/Question"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "api.questions.delete_question",
+        "summary": "Remove a question",
+        "responses": {
+          "204": {
+            "description": "Question was deleted"
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/cases": {
+      "get": {
+        "operationId": "api.cases.get_cases",
+        "summary": "Get all cases",
+        "responses": {
+          "200": {
+            "description": "Return cases",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Case"
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "operationId": "api.cases.post_case",
+        "summary": "Create case",
+        "parameters": [
+          {
+            "name": "case",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Case"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Case created",
+            "schema": {
+              "$ref": "#/definitions/Case"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/cases/{case_id}": {
+      "parameters": [
+        {
+          "name": "case_id",
+          "in": "path",
+          "required": true,
+          "description": "The case ID",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "operationId": "api.cases.get_case",
+        "summary": "Get a single case",
+        "responses": {
+          "200": {
+            "description": "Return question",
+            "schema": {
+              "$ref": "#/definitions/Case"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "operationId": "api.cases.delete_case",
+        "summary": "Remove a case",
+        "responses": {
+          "204": {
+            "description": "Case was deleted"
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "username",
+        "fullname"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "username": {
+          "type": "string"
+        },
+        "fullname": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "Users": {
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
+        }
+      }
+    },
+    "Question": {
+      "type": "object",
+      "required": [
+        "key",
+        "label",
+        "type",
+        "order"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier",
+          "example": "123",
+          "readOnly": true
+        },
+        "key": {
+          "type": "string",
+          "description": "Question's key or human code identifier",
+          "example": "Susie",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "label": {
+          "type": "string",
+          "description": "Question's key or human friendly identifier",
+          "example": "Susie",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of Question",
+          "example": "text|email|password|checkbox|dropdown",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "description": "Default value or possible selection",
+          "example": "mandotory"
+        },
+        "options": {
+          "type": "string",
+          "description": "Default options or possible selection",
+          "example": "example|'Male|Female'"
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Default value or possible selection"
+        },
+        "order": {
+          "type": "integer",
+          "description": "Order of question"
+        }
+      }
+    },
+    "Questions": {
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Question"
+          }
+        }
+      }
+    },
+    "Answer": {
+      "type": "object",
+      "required": [
+        "question_key",
+        "question_answer"
+      ],
+      "properties": {
+        "question_key": {
+          "type": "string",
+          "description": "Unique identifier",
+          "example": "NAME"
+        },
+        "question_answer": {
+          "type": "string",
+          "description": "Answer to question",
+          "example": "Noona"
+        }
+      }
+    },
+    "Case": {
+      "type": "object",
+      "required": [
+        "case_number"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier",
+          "example": "123",
+          "readOnly": true
+        },
+        "case_number": {
+          "type": "string",
+          "description": "Unique identifier",
+          "example": "123"
+        },
+        "answers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Answer"
+          }
+        }
+      }
+    },
+    "Cases": {
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Case"
+          }
+        }
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "properties": {
+              "field": {
+                "type": "string"
+              },
+              "error": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "userMessage": {
+          "type": "string"
+        },
+        "internalMessage": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {
+    "Standard500ErrorResponse": {
+      "description": "An unexpected error occured."
+    },
+    "Standard400ErrorResponse": {
+      "description": "Incorrect parameters submitted.",
+      "schema": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Standard401ErrorResponse": {
+      "description": "Unauthorized"
+    },
+    "Standard404ErrorResponse": {
+      "description": "Resource does not exists."
+    },
+    "Standard409ErrorResponse": {
+      "description": "Your app is making too many requests and is being rate limited. 429s can trigger on a per-app or per-user basis."
+    }
+  }
+}
