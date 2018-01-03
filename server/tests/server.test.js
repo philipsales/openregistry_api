@@ -20,8 +20,23 @@ describe('/api-docs', () => {
 
 describe('/users', () => {
     describe('#GET /users', () => {
-        it('should get all users');
-        it('should return 401 when user is not authenticated');
+        it('should get all users', (done) => {
+            request(app)
+                .get('/users')
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.data.length).toBe(2);
+                    expect(res.body.data[0].username).toBeTruthy();
+                    expect(res.body.data[0].fullname).toBeTruthy();
+                    expect(res.body.data[0].password).toBeFalsy();
+                })
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            request(app).get('/users').expect(401).end(done);
+        });
     });
     
     describe('#POST /users', () => {

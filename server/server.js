@@ -52,6 +52,18 @@ app.delete('/users/token', authenticate, (req, res) => {
     });
 });
 
+app.get('/users', authenticate, (req, res) => {
+    User.find().then((users) => {
+        
+        var data = users.map((user) => user.toJSON());
+        console.log(data);
+        console.log('---------------------------');
+        res.send({data});
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
+
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
 });
