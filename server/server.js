@@ -6,7 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 const _ = require('lodash');
 
 const swaggerDocument = require('../swagger.json');
-var {User} = require('./models/user');
+var {User, UserError} = require('./models/user');
 var {mongoose} = require('./db/mongoose');
 
 var app = express();
@@ -22,9 +22,13 @@ app.post('/users', (req, res) => {
         return saved_user.generateAuthToken();
     }).then((token) => {
         return res.header('jwt', token).status(201).send(user);
-    }).catch((e) => {
-        console.log(e);
-        return res.status(400).send(e);
+    }).catch((error) => {
+        if (error instanceof UserError) {
+            return res.status(400).send(JSON.parse(error.message));
+        } else {
+            console.log(error);
+            return res.status(500).send(error);
+        }
     });
 });
 

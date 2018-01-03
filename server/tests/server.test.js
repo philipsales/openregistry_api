@@ -35,7 +35,6 @@ describe('/users', () => {
                 .send({username, fullname, password})
                 .expect(201)
                 .expect((res) => {
-                    console.log(res.headers);
                     expect(res.headers['jwt']).toBeTruthy();
                     expect(res.body._id).toBeTruthy();
                     expect(res.body.username).toBe(username);
@@ -50,6 +49,36 @@ describe('/users', () => {
                     User.findOne({username}).then((user) => { 
                         expect(user).toBeTruthy();
                         expect(user.password).not.toBe(password);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should return 400 validation error when the username is already existing', (done) => {
+            var username = users[0].username;
+            var fullname = 'Kristhian Tiu3';
+            var password = '123!';
+    
+            request(app)
+                .post('/users')
+                .send({username, fullname, password})
+                .expect(400)
+                .expect((res) => {
+                    expect(res.body.code).toBe(400);
+                    expect(res.body.errors).toBeTruthy();
+                    expect(res.body.errors.length).not.toBe(0);
+                    expect(res.body.userMessage).toBeTruthy();
+                    expect(res.body.internalMessage).toBeTruthy();
+                })
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    User.find({username}).then((user) => { 
+                        expect(user.length).toBe(1);
                         done();
                     }).catch((e) => {
                         done(e);

@@ -3,6 +3,13 @@ var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+class UserError extends Error {
+    constructor(message) {
+      super(message); // (1)
+      this.name = "UserError"; // (2)
+    }
+};
+
 var UserSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -57,15 +64,31 @@ UserSchema.methods.generateAuthToken = function() {
     });
 };
 
-
 UserSchema.methods.toJSON = function() {
     var user = this;
     var userObject = user.toObject();
     return _.pick(userObject, ['_id', 'username', 'fullname']);
 };
 
+UserSchema.post('save', function(error, res, next) {
+    if (error.name === 'MongoError' && error.code === 11000) {
+        next(new UserError(JSON.stringify({
+            code: 400,
+            errors: [{
+                field: 'username',
+                error: 'duplicate'
+            }],
+            userMessage: 'Username already taken. Please choose another.',
+            internalMessage: 'duplicate username on users table'
+        })));
+    } else {
+      next();
+    }
+});
+
 var User = mongoose.model('User', UserSchema);
 
 module.exports = {
-    User
+    User,
+    UserError
 };
