@@ -198,7 +198,6 @@ describe('/users', () => {
         it('should return 401 when user is not authenticated', (done) => {
             request(app)
                 .get(`/users/me/${users[0]._id.toHexString()}`)
-                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
                 .expect(401)
                 .end(done);
         });

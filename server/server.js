@@ -82,6 +82,18 @@ app.get('/users/:id', authenticate, (req, res) => {
     });
 });
 
+app.get('/users/me/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+    if(req.user.id === id){
+        return res.send(req.user);
+    } else {
+        return res.status(401).send();
+    }
+});
+
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
 });
