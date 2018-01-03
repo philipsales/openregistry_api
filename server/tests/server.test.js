@@ -152,6 +152,66 @@ describe('/users', () => {
         it('should update own user account');
         it('should return 401 when user is not authenticated');
     });
+
+    describe('#POST /users/token', () => {
+        it('should login user and return auth token', (done) => {
+            request(app)
+                .post('/users/token')
+                .send({
+                    username: users[0].username,
+                    password: users[0].password
+                })
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.token).toBeTruthy();
+                })
+                .end((err, res) => {
+                    if(err) {
+                        return done(err)
+                    }
+    
+                    User.findById(users[0]._id).then((user) =>{
+                        expect(user.toObject().tokens[1]).toMatchObject({
+                            access: 'auth',
+                            token: res.body.token
+                        });
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+    
+
+        it('should return 400 if invalid credentials', (done) => {
+            request(app)
+            .post('/users/token')
+            .send({
+                username: users[1].username,
+                password: (users[1].password + 'no')
+            })
+            .expect(400)
+            .expect((res) => {
+                expect(res.headers['x-auth']).toBeFalsy();
+            })
+            .end((err, res) => {
+                if(err) {
+                    return done(err)
+                }
+    
+                User.findById(users[1]._id).then((user) =>{
+                    expect(user.tokens.length).toBe(1);
+                    done();
+                }).catch((e) => {
+                    done(e);
+                });
+            });
+        });
+    });
+
+    describe('#DELETE /users/token', () => {
+
+    });
 });
 
 describe('/questions', () => {

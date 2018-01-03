@@ -1,4 +1,5 @@
 const {ObjectID} = require('mongodb');
+const jwt = require('jsonwebtoken');
 
 const {User} = require('./../../models/user');
 
@@ -9,12 +10,20 @@ const users = [{
     _id: userOneId,
     username: 'b.kristhian.tiu@gmail.com',
     fullname: 'Kristhian Tiu',
-    password: 'userOnePass'
+    password: 'userOnePass',
+    tokens: [{
+        access: 'auth',
+        token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET).toString()
+    }]
 }, {
     _id: userTwoId,
     username: 'b.kristhian.tiu2@gmail.com',
     fullname: 'Chan Tiu',
-    password: 'userTwoPass'
+    password: 'userTwoPass',
+    tokens: [{
+        access: 'auth',
+        token: jwt.sign({_id: userTwoId, access: 'auth'}, process.env.JWT_SECRET).toString()
+    }]
 }];
 
 const populateUsers = (done) => {
