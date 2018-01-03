@@ -157,9 +157,6 @@
           "401": {
             "$ref": "#/responses/Standard401ErrorResponse"
           },
-          "404": {
-            "$ref": "#/responses/Standard404ErrorResponse"
-          },
           "409": {
             "$ref": "#/responses/Standard409ErrorResponse"
           },

@@ -6,8 +6,9 @@ const swaggerUi = require('swagger-ui-express');
 const _ = require('lodash');
 
 const swaggerDocument = require('../swagger.json');
-var {User, UserError} = require('./models/user');
 var {mongoose} = require('./db/mongoose');
+var {authenticate} = require('./middleware/authenticate');
+var {User, UserError} = require('./models/user');
 
 var app = express();
 const port = process.env.PORT;
@@ -41,6 +42,14 @@ app.post('/users/token', (req, res) => {
     }).catch((err) => {
         return res.status(400).send();
     })
+});
+
+app.delete('/users/token', authenticate, (req, res) => {
+    req.user.removeToken(req.token).then(() => {
+        res.status(200).send();
+    }, () => {
+        res.status(400).send();
+    });
 });
 
 app.listen(port, () => {
