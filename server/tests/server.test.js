@@ -2,6 +2,10 @@ const expect = require('expect');
 const request = require('supertest');
 
 const {app} = require('./../server');
+const {User} = require('./../models/user');
+const {users, populateUsers} = require('./seed/seed');
+
+beforeEach(populateUsers);
 
 describe('/api-docs', () => {
     describe('#GET /api-docs', () => {
@@ -21,7 +25,36 @@ describe('/users', () => {
     });
     
     describe('#POST /users', () => {
-        it('should create user');
+        it('should create user', (done) => {
+            var username = 'b.kristhian.tiu3@gmail.com';
+            var fullname = 'Kristhian Tiu3';
+            var password = '123!';
+    
+            request(app)
+                .post('/users')
+                .send({username, fullname, password})
+                .expect(201)
+                .expect((res) => {
+                    expect(res.headers['JWT']).toBeTruthy();
+                    expect(res.body._id).toBeTruthy();
+                    expect(res.body.fullname).toBe(fullname);
+                    expect(res.body.username).toBe(username);
+                })
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    User.findOne({username}).then((user) => { d
+                        expect(user).toBeTruthy();
+                        expect(user.password).not.toBe(password);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
         it('should return 400 validation error with the field details when fields are incorrect');
     });
 
