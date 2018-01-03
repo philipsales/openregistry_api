@@ -55,7 +55,18 @@
           "201": {
             "description": "User successfully created.",
             "schema": {
-              "$ref": "#/definitions/User"
+              "allOf": [
+                {
+                  "properties": {
+                    "user": {
+                      "$ref": "#/definitions/User"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
             }
           },
           "400": {
@@ -194,6 +205,80 @@
           },
           "400": {
             "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/users/token": {
+      "post": {
+        "summary": "Request token",
+        "description": "Get a token using valid user credentials",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "The user to create.",
+            "schema": {
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully created.",
+            "schema": {
+              "allOf": [
+                {
+                  "properties": {
+                    "user": {
+                      "$ref": "#/definitions/User"
+                    },
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove token",
+        "description": "Remove a token",
+        "parameters": [
+          {
+            "$ref": "#/parameters/jwtAuthorization"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Token successfuly deleted."
           },
           "401": {
             "$ref": "#/responses/Standard401ErrorResponse"
@@ -436,6 +521,15 @@
           }
         }
       }
+    }
+  },
+  "parameters": {
+    "jwtAuthorization": {
+      "name": "Authorization",
+      "description": "JWT token",
+      "type": "string",
+      "in": "header",
+      "required": true
     }
   },
   "definitions": {
