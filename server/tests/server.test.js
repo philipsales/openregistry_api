@@ -136,7 +136,7 @@ describe('/users', () => {
         });
     });
 
-    describe('#GET /users/:username', () => {
+    describe('#GET /users/:id', () => {
         it('should get a specific user', (done) => {
             request(app)
                 .get(`/users/${users[0]._id.toHexString()}`)
@@ -167,27 +167,52 @@ describe('/users', () => {
         });
     });
 
-    describe('#PATCH /users/:username', () => {
+    describe('#PATCH /users/:id', () => {
         it('should update a user');
         it('should update fullname of a user');
         it('should not update other details of user aside from fullname');
         it('should return 401 when user is not authenticated');
     });
 
-    describe('#DELETE /users/:username', () => {
+    describe('#DELETE /users/:id', () => {
         it('should soft delete a user');
         it('should return 404 when user is not existing');
         it('should return 404 when user is soft deleted already');
         it('should return 401 when user is not authenticated');
     });
 
-    describe('#GET /users/me/:username', () => {
-        it('should get my account');
-        it('should return 401 when user is not authenticated');
-        it('should return 401 when user is accessing other users');
+    describe('#GET /users/me/:id', () => {
+        it('should get my account', (done) => {
+            request(app)
+                .get(`/users/me/${users[0]._id.toHexString()}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.username).toBeTruthy();
+                    expect(res.body.fullname).toBeTruthy();
+                    expect(res.body.password).toBeFalsy();
+                })
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            request(app)
+                .get(`/users/me/${users[0]._id.toHexString()}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(401)
+                .end(done);
+        });
+
+        it('should return 401 when user is accessing other users', (done) => {
+            request(app)
+                .get(`/users/me/${users[0]._id.toHexString()}`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .expect(401)
+                .end(done);
+        });
     });
 
-    describe('#PATCH /users/me/:username', () => {
+    describe('#PATCH /users/me/:id', () => {
         it('should update own user account');
         it('should return 401 when user is not authenticated');
     });
