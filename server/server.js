@@ -32,6 +32,17 @@ app.post('/users', (req, res) => {
     });
 });
 
+app.post('/users/token', (req, res) => {
+    var body = _.pick(req.body, ['username', 'password']);
+    User.findByCredentials(body.username, body.password).then((user) => {
+        return user.generateAuthToken().then((token) => {
+            res.status(200).send({user, token});
+        });
+    }).catch((err) => {
+        return res.status(400).send();
+    })
+});
+
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
 });

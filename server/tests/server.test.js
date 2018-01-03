@@ -155,15 +155,18 @@ describe('/users', () => {
 
     describe('#POST /users/token', () => {
         it('should login user and return auth token', (done) => {
+            var username = users[0].username;
+            var password = users[0].password;
             request(app)
                 .post('/users/token')
-                .send({
-                    username: users[0].username,
-                    password: users[0].password
-                })
+                .send({username, password})
                 .expect(200)
                 .expect((res) => {
                     expect(res.body.token).toBeTruthy();
+                    expect(res.body.user._id).toBeTruthy();
+                    expect(res.body.user.username).toBe(username);
+                    expect(res.body.user.fullname).toBeTruthy();
+                    expect(res.body.user.password).toBeFalsy();
                 })
                 .end((err, res) => {
                     if(err) {
@@ -192,7 +195,7 @@ describe('/users', () => {
             })
             .expect(400)
             .expect((res) => {
-                expect(res.headers['x-auth']).toBeFalsy();
+                expect(res.body.token).toBeFalsy();
             })
             .end((err, res) => {
                 if(err) {
