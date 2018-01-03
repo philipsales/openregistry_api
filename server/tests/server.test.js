@@ -1,5 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
+const {ObjectID} = require('mongodb');
 
 const {app} = require('./../server');
 const {User} = require('./../models/user');
@@ -175,10 +176,68 @@ describe('/users', () => {
     });
 
     describe('#DELETE /users/:id', () => {
-        it('should soft delete a user');
-        it('should return 404 when user is not existing');
-        it('should return 404 when user is soft deleted already');
-        it('should return 401 when user is not authenticated');
+        it('should soft delete a user', (done) => {
+            var hexId = users[1]._id.toHexString();
+            request(app)
+                .delete(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)    
+                .expect((res) => {
+                    expect(res.body._id).toBe(hexId);
+                })
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+                    User.find({
+                        _id: hexId,
+                        isDeleted: false
+                    }).then((user) => {
+                        expect(user).toEqual([]);
+                        return done();
+                    }).catch((err) => done(err));
+                });
+        });
+
+        it('should return 404 when user is not existing', (done) => {
+            var hexId = new ObjectID();
+            request(app)
+                .delete(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(404) 
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+                    User.find({
+                        _id: hexId,
+                        isDeleted: false
+                    }).then((user) => {
+                        expect(user).toEqual([]);
+                        return done();
+                    }).catch((err) => done(err));
+                });
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            var hexId = users[0]._id.toHexString();
+            request(app)
+                .delete(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}invalid`)
+                .expect(401) 
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+                    User.find({
+                        _id: hexId,
+                        isDeleted: false
+                    }).then((user) => {
+                        expect(user).toBeTruthy();
+                        return done();
+                    }).catch((err) => done(err));
+                });
+        });
     });
 
     describe('#GET /users/me/:id', () => {

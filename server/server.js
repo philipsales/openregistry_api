@@ -82,6 +82,33 @@ app.get('/users/:id', authenticate, (req, res) => {
     });
 });
 
+app.delete('/users/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    if(!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+
+    User.findOneAndUpdate({
+        _id: id,
+        isDeleted: false
+    }, {
+        $set: {
+            isDeleted: true       
+        }
+    }, {
+        new: true
+    }).then((user) => {
+        if (user) {
+            res.send(user);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((error) => {
+        res.status(400).send();
+    });
+});
+
 app.get('/users/me/:id', authenticate, (req, res) => {
     var id = req.params.id;
     if (!ObjectID.isValid(id)) {

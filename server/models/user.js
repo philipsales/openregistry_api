@@ -33,6 +33,12 @@ var UserSchema = new mongoose.Schema({
         require: true,
         minLength: 6
     },
+    isDeleted: {
+        type: Boolean,
+        require: true,
+        minLength: 6,
+        default: false
+    },
     tokens: [{
         access: {
             type: String,
