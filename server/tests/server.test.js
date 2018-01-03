@@ -137,10 +137,34 @@ describe('/users', () => {
     });
 
     describe('#GET /users/:username', () => {
-        it('should get a specific user');
-        it('should return 404 when user is not existing');
-        it('should return 404 when user is soft deleted already');
-        it('should return 401 when user is not authenticated');
+        it('should get a specific user', (done) => {
+            request(app)
+                .get(`/users/${users[0]._id.toHexString()}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.username).toBeTruthy();
+                    expect(res.body.fullname).toBeTruthy();
+                    expect(res.body.password).toBeFalsy();
+                })
+                .end(done);
+        });
+
+        it('should return 404 when user is not existing', (done) => {
+            request(app)
+                .get(`/users/${users[0]._id.toHexString()}notvalid`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(404)
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            request(app)
+                .get(`/users/${users[0]._id.toHexString()}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}notvalid`)
+                .expect(401)
+                .end(done);
+        });
     });
 
     describe('#PATCH /users/:username', () => {

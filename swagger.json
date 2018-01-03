@@ -78,13 +78,13 @@
         }
       }
     },
-    "/users/{username}": {
+    "/users/{id}": {
       "parameters": [
         {
-          "name": "username",
+          "name": "id",
           "in": "path",
           "required": true,
-          "description": "The user's chosen username",
+          "description": "The user's id",
           "type": "string"
         }
       ],
@@ -166,13 +166,13 @@
         }
       }
     },
-    "/users/me/{username}": {
+    "/users/me/{id}": {
       "parameters": [
         {
-          "name": "username",
+          "name": "id",
           "in": "path",
           "required": true,
-          "description": "The user's chosen username",
+          "description": "The user's ID",
           "type": "string"
         }
       ],

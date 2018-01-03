@@ -2,6 +2,7 @@ require('./config/config');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const {ObjectID} = require('mongodb');
 const swaggerUi = require('swagger-ui-express');
 const _ = require('lodash');
 
@@ -56,11 +57,28 @@ app.get('/users', authenticate, (req, res) => {
     User.find().then((users) => {
         
         var data = users.map((user) => user.toJSON());
-        console.log(data);
-        console.log('---------------------------');
         res.send({data});
     }, (e) => {
         res.status(400).send(e);
+    });
+});
+
+app.get('/users/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+    User.findOne({
+        _id: id
+    }).then((user) => {
+        if (user){
+            res.send(user);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((e) => {
+        res.status(400).send();
     });
 });
 
