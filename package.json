@@ -11,7 +11,8 @@
     "lodash": "^4.17.4",
     "mongodb": "^3.0.1",
     "mongoose": "^4.5.9",
-    "swagger-ui-express": "^2.0.13"
+    "swagger-ui-express": "^2.0.13",
+    "validator": "^9.2.0"
   },
   "devDependencies": {
     "expect": "^22.0.3",

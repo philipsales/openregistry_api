@@ -68,7 +68,9 @@ describe('/users', () => {
                 .expect((res) => {
                     expect(res.body.code).toBe(400);
                     expect(res.body.errors).toBeTruthy();
-                    expect(res.body.errors.length).not.toBe(0);
+                    expect(res.body.errors.length).toBe(1);
+                    expect(res.body.errors[0].field).toBe('username');
+                    expect(res.body.errors[0].error).toBe('duplicate');
                     expect(res.body.userMessage).toBeTruthy();
                     expect(res.body.internalMessage).toBeTruthy();
                 })
@@ -86,7 +88,37 @@ describe('/users', () => {
                 });
         });
 
-        it('should return 400 validation error with the field details when fields are incorrect');
+        it('should return 400 validation error on invalid email address', (done) => {
+            var username = 'not-a-valid-email';
+            var fullname = 'Kristhian Tiu3';
+            var password = '123!';
+    
+            request(app)
+                .post('/users')
+                .send({username, fullname, password})
+                .expect(400)
+                .expect((res) => {
+                    expect(res.body.code).toBe(400);
+                    expect(res.body.errors).toBeTruthy();
+                    expect(res.body.errors.length).toBe(1);
+                    expect(res.body.errors[0].field).toBe('username');
+                    expect(res.body.errors[0].error).toBe('invalid email address');
+                    expect(res.body.userMessage).toBeTruthy();
+                    expect(res.body.internalMessage).toBeTruthy();
+                })
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    User.find({username}).then((user) => { 
+                        expect(user.length).toBe(0);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
     });
 
     describe('#GET /users/:username', () => {

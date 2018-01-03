@@ -2,6 +2,7 @@ const _ = require('lodash');
 var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const validator = require('validator');
 
 class UserError extends Error {
     constructor(message) {
@@ -16,7 +17,11 @@ var UserSchema = new mongoose.Schema({
         required: true,
         minLength: 6,
         trim: true,
-        unique: true
+        unique: true,
+        validate: {
+            validator: validator.isEmail,
+            message: '{VALUE} is not a valid email'
+        }
     },
     fullname: {
         type: String,
@@ -80,6 +85,17 @@ UserSchema.post('save', function(error, res, next) {
             }],
             userMessage: 'Username already taken. Please choose another.',
             internalMessage: 'duplicate username on users table'
+        })));
+    } else if (error.name === 'ValidationError' && error.errors.username) {
+        const invalidEmailMessage = error.errors.username.message;
+        next(new UserError(JSON.stringify({
+            code: 400,
+            errors: [{
+                field: 'username',
+                error: 'invalid email address'
+            }],
+            userMessage: invalidEmailMessage,
+            internalMessage: 'validation errors'
         })));
     } else {
       next();
