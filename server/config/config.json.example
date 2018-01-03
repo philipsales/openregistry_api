@@ -1,10 +1,12 @@
 {
     "test": {
         "PORT": 3000,
-        "MONGODB_URI": "mongodb://localhost:27017/BiobankAPITest"
+        "MONGODB_URI": "mongodb://localhost:27017/BiobankAPITest",
+        "JWT_SECRET": "SADWDAWADAcasdadwadacawdawd1213!@12121212"
     },
     "development": {
         "PORT": 3000,
-        "MONGODB_URI": "mongodb://localhost:27017/BiobankAPI"
+        "MONGODB_URI": "mongodb://localhost:27017/BiobankAPI",
+        "JWT_SECRET": "fsdfaeqwdaef213124123123@!3123123SAdasdda"
     }
 }

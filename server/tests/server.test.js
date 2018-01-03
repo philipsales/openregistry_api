@@ -35,17 +35,19 @@ describe('/users', () => {
                 .send({username, fullname, password})
                 .expect(201)
                 .expect((res) => {
-                    expect(res.headers['JWT']).toBeTruthy();
+                    console.log(res.headers);
+                    expect(res.headers['jwt']).toBeTruthy();
                     expect(res.body._id).toBeTruthy();
-                    expect(res.body.fullname).toBe(fullname);
                     expect(res.body.username).toBe(username);
+                    expect(res.body.fullname).toBe(fullname);
+                    expect(res.body.password).toBeFalsy();
                 })
                 .end((err) => {
                     if (err) {
                         return done(err);
                     }
 
-                    User.findOne({username}).then((user) => { d
+                    User.findOne({username}).then((user) => { 
                         expect(user).toBeTruthy();
                         expect(user.password).not.toBe(password);
                         done();

@@ -19,8 +19,11 @@ app.post('/users', (req, res) => {
     var body = _.pick(req.body, ['username', 'fullname', 'password']);
     var user = new User(body);
     user.save().then((saved_user) => {
-        return res.status(201).send(saved_user);
-    }, (e) => {
+        return saved_user.generateAuthToken();
+    }).then((token) => {
+        return res.header('jwt', token).status(201).send(user);
+    }).catch((e) => {
+        console.log(e);
         return res.status(400).send(e);
     });
 });

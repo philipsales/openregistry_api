@@ -4,8 +4,10 @@
   "description": "API for PCARI bionbank",
   "main": "app.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.4",
     "mongodb": "^3.0.1",
     "mongoose": "^4.5.9",
