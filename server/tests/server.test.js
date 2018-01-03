@@ -35,11 +35,11 @@ describe('/users', () => {
                 .send({username, fullname, password})
                 .expect(201)
                 .expect((res) => {
-                    expect(res.headers['jwt']).toBeTruthy();
-                    expect(res.body._id).toBeTruthy();
-                    expect(res.body.username).toBe(username);
-                    expect(res.body.fullname).toBe(fullname);
-                    expect(res.body.password).toBeFalsy();
+                    expect(res.body.token).toBeTruthy();
+                    expect(res.body.user._id).toBeTruthy();
+                    expect(res.body.user.username).toBe(username);
+                    expect(res.body.user.fullname).toBe(fullname);
+                    expect(res.body.user.password).toBeFalsy();
                 })
                 .end((err) => {
                     if (err) {

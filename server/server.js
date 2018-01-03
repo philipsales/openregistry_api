@@ -21,7 +21,7 @@ app.post('/users', (req, res) => {
     user.save().then((saved_user) => {
         return saved_user.generateAuthToken();
     }).then((token) => {
-        return res.header('jwt', token).status(201).send(user);
+        return res.status(201).send({user,token});
     }).catch((error) => {
         if (error instanceof UserError) {
             return res.status(400).send(JSON.parse(error.message));
