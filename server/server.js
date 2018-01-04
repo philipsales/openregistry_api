@@ -146,6 +146,34 @@ app.get('/users/me/:id', authenticate, (req, res) => {
     }
 });
 
+app.patch('/users/me/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+    if(req.user.id === id){
+        var body = _.pick(req.body, ['fullname', 'password']);
+        User.findOneAndUpdate({
+            _id: id,
+            isDeleted: false
+        }, {
+            $set: body
+        }, {
+            new: true
+        }).then((user) => {
+            if (user) {
+                return res.send(user);
+            } else {
+                return res.status(404).send();
+            }
+        }).catch((error) => {
+            return res.status(400).send();
+        });
+    } else {
+        return res.status(401).send();
+    }
+});
+
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
 });

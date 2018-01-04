@@ -65,6 +65,22 @@ UserSchema.pre('save', function(next){
     }
 });
 
+UserSchema.pre('findOneAndUpdate', function(next){
+    const passwordUpdate = this.getUpdate().$set.password;
+    if(passwordUpdate){
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(passwordUpdate, salt, (err, hash) => {
+                this.findOneAndUpdate({}, {
+                    password: hash 
+                });
+                next();
+            });
+        });
+    } else {
+        next();
+    }
+});
+
 UserSchema.methods.generateAuthToken = function() {
     var user = this;
     var access = 'auth';
