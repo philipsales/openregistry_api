@@ -109,6 +109,31 @@ app.delete('/users/:id', authenticate, (req, res) => {
     });
 });
 
+app.patch('/users/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['fullname']);
+    if(!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    User.findOneAndUpdate({
+        _id: id,
+        isDeleted: false
+    }, {
+        $set: body
+    }, {
+        new: true
+    }).then((user) => {
+        if (user) {
+            res.send(user);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((error) => {
+        res.status(400).send();
+    });
+});
+
 app.get('/users/me/:id', authenticate, (req, res) => {
     var id = req.params.id;
     if (!ObjectID.isValid(id)) {

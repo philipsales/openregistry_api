@@ -169,10 +169,78 @@ describe('/users', () => {
     });
 
     describe('#PATCH /users/:id', () => {
-        it('should update a user');
-        it('should update fullname of a user');
-        it('should not update other details of user aside from fullname');
-        it('should return 401 when user is not authenticated');
+        it('should update fullname of a user', (done) => {
+            var hexId = users[0]._id.toHexString();
+            var user = {
+                fullname: 'Kristhian Tiu Edited'
+            }
+            request(app)
+                .patch(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(user)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.fullname).toEqual(user.fullname)
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    User.findOne({_id: users[0]._id}).then((updated_user) => { 
+                        expect(updated_user._id).toBeTruthy();
+                        expect(updated_user.fullname).toBe(user.fullname);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should not update other details of user aside from fullname', (done) => {
+            var hexId = users[0]._id.toHexString();
+            var user = {
+                username: 'anewemailto@gmail.com',
+                fullname: 'Kristhian Tiu Edited'
+            }
+            request(app)
+                .patch(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(user)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.username).not.toBe(user.username);
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    User.findOne({_id: users[0]._id}).then((updated_user) => { 
+                        expect(updated_user._id).toBeTruthy();
+                        expect(updated_user.username).not.toBe(user.username);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            var hexId = users[0]._id.toHexString();
+            var user = {
+                username: 'anewemailto@gmail.com',
+                fullname: 'Kristhian Tiu Edited'
+            }
+            request(app)
+                .patch(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}notvalid`)
+                .send(user)
+                .expect(401)
+                .end(done);
+        });
     });
 
     describe('#DELETE /users/:id', () => {
