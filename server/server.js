@@ -5,7 +5,8 @@ const swaggerUi = require('swagger-ui-express');
 
 const swaggerDocument = require('../swagger.json');
 var {mongoose} = require('./db/mongoose');
-var users = require('../users/users')
+var users = require('../users/users');
+var permissions = require('../permissions/permissions');
 
 var app = express();
 const port = process.env.PORT;
@@ -15,6 +16,7 @@ app.use('/api-docs',
         swaggerUi.setup(swaggerDocument));
 
 app.use('/users', users);
+app.use('/permissions', permissions);
 
 app.listen(port, () => {
     console.log(`Started on port ${port}`);

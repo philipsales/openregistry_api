@@ -4,9 +4,10 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('./../server');
 const {User} = require('./../models/user');
-const {users, populateUsers} = require('./seed/seed');
+const {users, populateUsers, permissions, populatePermissions} = require('./seed/seed');
 
 beforeEach(populateUsers);
+beforeEach(populatePermissions);
 
 describe('/api-docs', () => {
     describe('#GET /api-docs', () => {
@@ -571,5 +572,25 @@ describe('/cases', () => {
         it('should return 401 when user is not authenticated');
         it('should return 404 when case is not existing');
         it('should return 404 when case is already soft deleted');
+    });
+});
+
+describe('GET /permissions', () => {
+    it('should get all permissions', (done) => {
+        request(app)
+            .get('/permissions')
+            .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.data.length).toBe(2);
+                expect(res.body.data[0].perm_code).toBeTruthy();
+                expect(res.body.data[0].application).toBeTruthy();
+                expect(res.body.data[0].description).toBeFalsy();
+            })
+            .end(done);
+    });
+
+    it('should return 401 when user is not authenticated', (done) => {
+        request(app).get('/permissions').expect(401).end(done);
     });
 });
