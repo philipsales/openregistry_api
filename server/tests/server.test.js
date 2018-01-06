@@ -160,6 +160,14 @@ describe('/users', () => {
                 .end(done);
         });
 
+        it('should return 404 when user is existing but deleted', (done) => {
+            request(app)
+                .get(`/users/${users[2]._id.toHexString()}`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .expect(404)
+                .end(done);
+        });
+
         it('should return 401 when user is not authenticated', (done) => {
             request(app)
                 .get(`/users/${users[0]._id.toHexString()}`)
@@ -229,6 +237,20 @@ describe('/users', () => {
                 });
         });
 
+        it('should return 404 when user is already deleted', (done) => {
+            var hexId = users[2]._id.toHexString();
+            var user = {
+                username: 'anewemailto@gmail.com',
+                fullname: 'Kristhian Tiu Edited'
+            }
+            request(app)
+                .patch(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .send(user)
+                .expect(404)
+                .end(done);
+        });
+
         it('should return 401 when user is not authenticated', (done) => {
             var hexId = users[0]._id.toHexString();
             var user = {
@@ -288,6 +310,15 @@ describe('/users', () => {
                 });
         });
 
+        it('should return 404 when user is already deleted', (done) => {
+            var hexId = users[2]._id.toHexString();;
+            request(app)
+                .delete(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .expect(404) 
+                .end(done);
+        });
+
         it('should return 401 when user is not authenticated', (done) => {
             var hexId = users[0]._id.toHexString();
             request(app)
@@ -326,6 +357,13 @@ describe('/users', () => {
         it('should return 401 when user is not authenticated', (done) => {
             request(app)
                 .get(`/users/me/${users[0]._id.toHexString()}`)
+                .expect(401)
+                .end(done);
+        });
+
+        it('should return 401 when user is deleted', (done) => {
+            request(app)
+                .get(`/users/me/${users[2]._id.toHexString()}`)
                 .expect(401)
                 .end(done);
         });
@@ -402,6 +440,20 @@ describe('/users', () => {
                 });
         });
 
+        it('should return 401 when user is already deleted', (done) => {
+            var hexId = users[2]._id.toHexString();
+            var user = {
+                username: 'anewemailto@gmail.com',
+                fullname: 'Kristhian Tiu Edited'
+            }
+            request(app)
+                .patch(`/users/me/${hexId}`)
+                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
+                .send(user)
+                .expect(401)
+                .end(done);
+        });
+
         it('should return 401 when user is not authenticated', (done) => {
             var hexId = users[0]._id.toHexString();
             var user = {
@@ -449,7 +501,6 @@ describe('/users', () => {
                 });
         });
     
-
         it('should return 400 if invalid credentials', (done) => {
             request(app)
             .post('/users/token')
@@ -467,6 +518,31 @@ describe('/users', () => {
                 }
     
                 User.findById(users[1]._id).then((user) =>{
+                    expect(user.tokens.length).toBe(1);
+                    done();
+                }).catch((e) => {
+                    done(e);
+                });
+            });
+        });
+
+        it('should return 404 if user is deleted', (done) => {
+            request(app)
+            .post('/users/token')
+            .send({
+                username: users[2].username,
+                password: (users[2].password)
+            })
+            .expect(400)
+            .expect((res) => {
+                expect(res.body.token).toBeFalsy();
+            })
+            .end((err, res) => {
+                if(err) {
+                    return done(err)
+                }
+    
+                User.findById(users[2]._id).then((user) =>{
                     expect(user.tokens.length).toBe(1);
                     done();
                 }).catch((e) => {
@@ -592,5 +668,32 @@ describe('GET /permissions', () => {
 
     it('should return 401 when user is not authenticated', (done) => {
         request(app).get('/permissions').expect(401).end(done);
+    });
+});
+
+describe('/roles', () => {
+    describe('#GET /roles', () => {
+        it('should get all roles');
+        it('should return 401 when user is not authenticated');
+    });
+    
+    describe('#POST /roles', () => {
+        it('should get a specific roles');
+        it('should return 401 when user is not authenticated');
+        it('should return 400 validation error with the field details when fields are incorrect');
+    });
+
+    describe('#GET /roles/:id', () => {
+        it('should get a specific role');
+        it('should return 401 when user is not authenticated');
+        it('should return 404 when role can not be found');
+        it('should return 404 when role is soft deleted');
+    });
+
+    describe('#DELETE /roles/:id', () => {
+        it('should delete a specific role');
+        it('should return 401 when user is not authenticated');
+        it('should return 404 when role can not be found');
+        it('should return 404 when role is already soft deleted');
     });
 });

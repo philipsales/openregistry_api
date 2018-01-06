@@ -48,7 +48,7 @@ router.delete('/token', authenticate, (req, res) => {
 });
 
 router.get('/', authenticate, (req, res) => {
-    User.find().then((users) => {
+    User.find({isDeleted: false}).then((users) => {
         
         var data = users.map((user) => user.toJSON());
         res.send({data});
@@ -64,7 +64,8 @@ router.get('/:id', authenticate, (req, res) => {
         return;
     }
     User.findOne({
-        _id: id
+        _id: id,
+        isDeleted: false
     }).then((user) => {
         if (user){
             res.send(user);

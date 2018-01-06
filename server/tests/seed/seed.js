@@ -6,12 +6,14 @@ const {Permission} = require('./../../models/permission');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
+const userThreeId = new ObjectID();
 
 const users = [{
     _id: userOneId,
     username: 'b.kristhian.tiu@gmail.com',
     fullname: 'Kristhian Tiu',
     password: 'userOnePass',
+    isDeleted: false,
     tokens: [{
         access: 'auth',
         token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET).toString()
@@ -21,9 +23,20 @@ const users = [{
     username: 'b.kristhian.tiu2@gmail.com',
     fullname: 'Chan Tiu',
     password: 'userTwoPass',
+    isDeleted: false,
     tokens: [{
         access: 'auth',
         token: jwt.sign({_id: userTwoId, access: 'auth'}, process.env.JWT_SECRET).toString()
+    }],
+},{
+    _id: userThreeId,
+    username: 'angelobriones@gmail.com',
+    fullname: 'AngeloBriones',
+    password: 'userThreePass',
+    isDeleted: true,
+    tokens: [{
+        access: 'auth',
+        token: jwt.sign({_id: userThreeId, access: 'auth'}, process.env.JWT_SECRET).toString()
     }]
 }];
 
@@ -43,7 +56,8 @@ const populateUsers = (done) => {
     User.remove({}).then(() => {
         var userOne = new User(users[0]).save();
         var userTwo = new User(users[1]).save();
-        return Promise.all([userOne, userTwo])
+        var userThree = new User(users[2]).save();
+        return Promise.all([userOne, userTwo, userThree])
     }).then(() => done());
 };
 

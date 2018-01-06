@@ -112,6 +112,7 @@ UserSchema.statics.findByToken = function(token) {
 
     return User.findOne({
         '_id': decoded._id,
+        'isDeleted': false,
         'tokens.token': token,
         'tokens.access': 'auth'
     });
@@ -119,7 +120,7 @@ UserSchema.statics.findByToken = function(token) {
 
 UserSchema.statics.findByCredentials = function(username, password) {
     var User = this;
-    return User.findOne({username}).then((user) => {
+    return User.findOne({username, isDeleted: false}).then((user) => {
         if (!user){
             return Promise.reject();
         }
