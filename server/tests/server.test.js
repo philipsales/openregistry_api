@@ -4,10 +4,11 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('./../server');
 const {User} = require('./../models/user');
-const {users, populateUsers, permissions, populatePermissions} = require('./seed/seed');
+const {users, populateUsers, permissions, populatePermissions, roles, populateRoles} = require('./seed/seed');
 
 beforeEach(populateUsers);
 beforeEach(populatePermissions);
+beforeEach(populateRoles);
 
 describe('/api-docs', () => {
     describe('#GET /api-docs', () => {
@@ -673,8 +674,28 @@ describe('GET /permissions', () => {
 
 describe('/roles', () => {
     describe('#GET /roles', () => {
-        it('should get all roles');
-        it('should return 401 when user is not authenticated');
+        it('should get all roles', (done) => {
+            request(app)
+                .get('/roles')
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    console.log(res.body.data);
+                    expect(res.body.data.length).toBe(2);
+                    expect(res.body.data[0]._id).toBeTruthy();
+                    expect(res.body.data[0].rolename).toBeTruthy();
+                    expect(res.body.data[0].permissions).toBeFalsy();
+                })
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            request(app)
+                .get('/roles')
+                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
+                .expect(401)
+                .end(done);
+        });
     });
     
     describe('#POST /roles', () => {

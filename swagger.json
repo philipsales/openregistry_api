@@ -292,6 +292,196 @@
         }
       }
     },
+    "/roles": {
+      "get": {
+        "summary": "Get list of roles",
+        "description": "Returns a list of roles",
+        "responses": {
+          "200": {
+            "description": "A list of roles",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "rolename": {
+                        "type": "string"
+                      },
+                      "isActive": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a role",
+        "description": "Adds a new role to the role's list",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "body",
+            "description": "The role to create.",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Role successfully created.",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/roles/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "The role's id",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "summary": "Get specific role",
+        "description": "Returns role",
+        "responses": {
+          "200": {
+            "description": "Role.",
+            "schema": {
+              "$ref": "#/definitions/Role"
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a role",
+        "description": "update role",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "body",
+            "description": "The role to update",
+            "schema": {
+              "properties": {
+                "rolename": {
+                  "type": "string"
+                },
+                "permissions": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "isActive": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User successfully updated."
+          },
+          "400": {
+            "$ref": "#/responses/Standard400ErrorResponse"
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "404": {
+            "$ref": "#/responses/Standard404ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
+    "/permissions": {
+      "get": {
+        "summary": "Get list of permisions",
+        "description": "Returns a list of permissions",
+        "responses": {
+          "200": {
+            "description": "A list of permissions",
+            "schema": {
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "perm_code": {
+                        "type": "string"
+                      },
+                      "application": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/responses/Standard401ErrorResponse"
+          },
+          "409": {
+            "$ref": "#/responses/Standard409ErrorResponse"
+          },
+          "500": {
+            "$ref": "#/responses/Standard500ErrorResponse"
+          }
+        }
+      }
+    },
     "/questions": {
       "get": {
         "operationId": "api.questions.get_questions",
@@ -558,6 +748,39 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/User"
+          }
+        }
+      }
+    },
+    "Role": {
+      "required": [
+        "rolename"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "readOnly": true
+        },
+        "rolename": {
+          "type": "string"
+        },
+        "permissions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
+    },
+    "Roles": {
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Role"
           }
         }
       }

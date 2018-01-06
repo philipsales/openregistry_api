@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 
 const {User} = require('./../../models/user');
 const {Permission} = require('./../../models/permission');
+const {Role} = require('./../../models/role');
+
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
@@ -52,6 +54,18 @@ const permissions = [{
     describe: 'can delete a new user'
 }];
 
+const roles = [{
+    _id: new ObjectID(),
+    rolename: 'Admin',
+    permissions: ['add_user', 'delete_user'],
+    isActive: true
+}, {
+    _id: new ObjectID(),
+    rolename: 'Guest',
+    permissions: [],
+    isActive: false
+}];
+
 const populateUsers = (done) => {
     User.remove({}).then(() => {
         var userOne = new User(users[0]).save();
@@ -69,9 +83,19 @@ const populatePermissions = (done) => {
     }).then(() => done());
 };
 
+const populateRoles = (done) => {
+    Role.remove({}).then(() => {
+        var roleOne = new Role(roles[0]).save();
+        var roleTwo = new Role(roles[1]).save();
+        return Promise.all([roleOne, roleTwo])
+    }).then(() => done());
+};
+
 module.exports = {
     users,
     populateUsers,
     permissions,
-    populatePermissions
+    populatePermissions,
+    roles,
+    populateRoles
 } 
