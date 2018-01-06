@@ -3,6 +3,7 @@
 var express = require('express')
 var router = express.Router();
 const bodyParser = require('body-parser');
+const {ObjectID} = require('mongodb');
 
 var {authenticate} = require('../server/middleware/authenticate');
 var {Role} = require('../server/models/role');
@@ -19,6 +20,25 @@ router.get('/', authenticate, (req, res) => {
         res.send({data});
     }, (e) => {
         res.status(400).send(e);
+    });
+});
+
+router.get('/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+    Role.findOne({
+        _id: id
+    }).then((role) => {
+        if (role){
+            res.send(role);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((e) => {
+        res.status(400).send();
     });
 });
 
