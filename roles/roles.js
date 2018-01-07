@@ -1,14 +1,32 @@
 'use strict';
 
+const _ = require('lodash');
 var express = require('express')
 var router = express.Router();
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 
 var {authenticate} = require('../server/middleware/authenticate');
-var {Role} = require('../server/models/role');
+var {Role, RoleError} = require('../server/models/role');
 
 router.use(bodyParser.json());
+
+router.post('/', authenticate, (req, res) => {
+    var body = _.pick(req.body, ['rolename', 'permissions', 'isActive']);
+    var role = new Role(body);
+
+    role.save().then((saved_role) => {
+        //console.log(saved_role);
+        return res.status(201).send(saved_role);
+    }).catch((error) => {
+        if (error instanceof RoleError) {
+            return res.status(400).send(JSON.parse(error.message));
+        } else {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+    });
+});
 
 router.get('/', authenticate, (req, res) => {
     Role.find().then((roles) => {

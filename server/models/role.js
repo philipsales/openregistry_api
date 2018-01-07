@@ -1,5 +1,13 @@
 var mongoose = require('mongoose');
 const _ = require('lodash');
+var {Permission} = require('./permission');
+
+class RoleError extends Error {
+    constructor(message) {
+      super(message);
+      this.name = "RoleError";
+    }
+};
 
 var RoleSchema = new mongoose.Schema({
     rolename: {
@@ -19,11 +27,61 @@ var RoleSchema = new mongoose.Schema({
 RoleSchema.methods.toJSON = function() {
     var role = this;
     var roleObject = role.toObject();
-    return _.pick(roleObject, ['_id', 'rolename', 'permissions']);
+    return _.pick(roleObject, ['_id', 'rolename', 'permissions', 'isActive']);
 };
+
+RoleSchema.pre('save', function(next) {
+    var user = this;
+    var permissions = user.permissions;
+    var permcopy = permissions.slice();
+    var total_permissions = permissions.length;
+    if(total_permissions > 0){
+        for(var i=0; i < total_permissions; ++i){
+            Permission.findOne({perm_code: permissions[i]}, function (err, doc) {
+                if (err || !doc) {
+                    next(new RoleError(JSON.stringify({
+                        code: 400,
+                        errors: [{
+                            field: 'permissions',
+                            error: 'invalid'
+                        }],
+                        userMessage: 'One or more permissions are invalid. Please check.',
+                        internalMessage: 'possible invalid permissions'
+                    })));
+                } else {
+                    const index = permcopy.indexOf(doc.perm_code);
+                    permcopy.splice(index, 1);
+
+                    if(permcopy.length == 0){
+                        next();
+                    }
+                }
+            });
+        }
+    } else {
+        next();
+    }
+});
+
+RoleSchema.post('save', function(error, res, next) {
+    if (error.name === 'MongoError' && error.code === 11000) {
+        next(new RoleError(JSON.stringify({
+            code: 400,
+            errors: [{
+                field: 'rolename',
+                error: 'duplicate'
+            }],
+            userMessage: 'Rolename already taken. Please choose another.',
+            internalMessage: 'duplicate rolename on roles table'
+        })));
+    } else {
+      next();
+    }
+});
 
 var Role = mongoose.model('Role', RoleSchema);
 
 module.exports = {
-    Role
+    Role,
+    RoleError
 };
