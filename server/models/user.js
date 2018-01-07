@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
+var {Role} = require('./role');
 
 class UserError extends Error {
     constructor(message) {
@@ -39,6 +40,7 @@ var UserSchema = new mongoose.Schema({
         minLength: 6,
         default: false
     },
+    roles: [String],
     tokens: [{
         access: {
             type: String,
@@ -50,6 +52,12 @@ var UserSchema = new mongoose.Schema({
         }
     }]
 });
+
+UserSchema.methods.toJSON = function() {
+    var user = this;
+    var userObject = user.toObject();
+    return _.pick(userObject, ['_id', 'username', 'fullname', 'roles']);
+};
 
 UserSchema.pre('save', function(next){
     var user = this;
@@ -76,6 +84,40 @@ UserSchema.pre('findOneAndUpdate', function(next){
                 next();
             });
         });
+    } else {
+        next();
+    }
+});
+
+UserSchema.pre('findOneAndUpdate', function(next){
+    const rolesUpdate = this.getUpdate().$set.roles;
+    if(rolesUpdate && rolesUpdate.length > 0) {
+        var rolescopy = rolesUpdate.slice();
+        var total_roles = rolesUpdate.length;
+        if(total_roles > 0){
+            for(var i=0; i < total_roles; ++i){
+                Role.findOne({rolename: rolesUpdate[i]}, function (err, doc) {
+                    if (err || !doc) {
+                        console.log('waley');
+                        next(new UserError(JSON.stringify({
+                            code: 400,
+                            errors: [{
+                                field: 'roles',
+                                error: 'invalid'
+                            }],
+                            userMessage: 'One or more roles are invalid. Please check.',
+                            internalMessage: 'possible invalid roles'
+                        })));
+                    } else {
+                        const index = rolescopy.indexOf(doc.rolename);
+                        rolescopy.splice(index, 1);
+                        if(rolescopy.length == 0){
+                            next();
+                        }
+                    }
+                });
+            }
+        }
     } else {
         next();
     }
@@ -135,12 +177,6 @@ UserSchema.statics.findByCredentials = function(username, password) {
             })
         });
     });
-};
-
-UserSchema.methods.toJSON = function() {
-    var user = this;
-    var userObject = user.toObject();
-    return _.pick(userObject, ['_id', 'username', 'fullname']);
 };
 
 UserSchema.post('save', function(error, res, next) {

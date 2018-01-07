@@ -49,8 +49,11 @@ router.delete('/token', authenticate, (req, res) => {
 
 router.get('/', authenticate, (req, res) => {
     User.find({isDeleted: false}).then((users) => {
-        
-        var data = users.map((user) => user.toJSON());
+        var data = users.map((user) => {
+            var out = user.toJSON();
+            delete out.roles;
+            return out;
+        });
         res.send({data});
     }, (e) => {
         res.status(400).send(e);
@@ -106,7 +109,7 @@ router.delete('/:id', authenticate, (req, res) => {
 
 router.patch('/:id', authenticate, (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['fullname']);
+    var body = _.pick(req.body, ['fullname', 'roles']);
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
@@ -125,7 +128,12 @@ router.patch('/:id', authenticate, (req, res) => {
             res.status(404).send();
         }
     }).catch((error) => {
-        res.status(400).send();
+        if (error instanceof UserError) {
+            return res.status(400).send(JSON.parse(error.message));
+        } else {
+            console.log(error);
+            return res.status(500).send(error);
+        }
     });
 });
 

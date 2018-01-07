@@ -4,9 +4,11 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('../../server/server');
 const {User, UserError} = require('../../server/models/user');
-const {users, populateUsers} = require('../../server/tests/seed/seed');
+const {users, populateUsers, populatePermissions, populateRoles} = require('../../server/tests/seed/seed');
 
 beforeEach(populateUsers);
+beforeEach(populatePermissions);
+beforeEach(populateRoles);
 
 
 describe('/users', () => {
@@ -21,6 +23,7 @@ describe('/users', () => {
                     expect(res.body.data[0].username).toBeTruthy();
                     expect(res.body.data[0].fullname).toBeTruthy();
                     expect(res.body.data[0].password).toBeFalsy();
+                    expect(res.body.data[0].roles).toBeFalsy();
                 })
                 .end(done);
         });
@@ -137,6 +140,7 @@ describe('/users', () => {
                     expect(res.body.username).toBeTruthy();
                     expect(res.body.fullname).toBeTruthy();
                     expect(res.body.password).toBeFalsy();
+                    expect(res.body.roles).toBeTruthy();
                 })
                 .end(done);
         });
@@ -219,6 +223,61 @@ describe('/users', () => {
                     User.findOne({_id: users[0]._id}).then((updated_user) => { 
                         expect(updated_user._id).toBeTruthy();
                         expect(updated_user.username).not.toBe(user.username);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should update roles of user', (done) => {
+            var hexId = users[0]._id.toHexString();
+            var user = {
+                roles: ['Admin', 'Guest']
+            }
+            request(app)
+                .patch(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(user)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.roles.length).toBe(2)
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    User.findOne({_id: users[0]._id}).then((updated_user) => { 
+                        expect(updated_user._id).toBeTruthy();
+                        expect(updated_user.roles).toContain('Admin');
+                        expect(updated_user.roles).toContain('Guest');
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should return 400 if some roles are not existent', (done) => {
+            var hexId = users[0]._id.toHexString();
+            var user = {
+                roles: ['Admin', 'Ewan']
+            }
+            request(app)
+                .patch(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(user)
+                .expect(400)
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    User.findOne({_id: users[0]._id}).then((updated_user) => { 
+                        expect(updated_user._id).toBeTruthy();
+                        expect(updated_user.roles.length).toBe(users[0].roles.length);
                         done();
                     }).catch((e) => {
                         done(e);
