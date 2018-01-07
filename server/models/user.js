@@ -98,7 +98,6 @@ UserSchema.pre('findOneAndUpdate', function(next){
             for(var i=0; i < total_roles; ++i){
                 Role.findOne({rolename: rolesUpdate[i]}, function (err, doc) {
                     if (err || !doc) {
-                        console.log('waley');
                         next(new UserError(JSON.stringify({
                             code: 400,
                             errors: [{
