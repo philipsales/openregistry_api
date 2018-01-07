@@ -60,4 +60,34 @@ router.get('/:id', authenticate, (req, res) => {
     });
 });
 
+
+router.patch('/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['rolename', 'permissions', 'isActive']);
+    if(!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+
+    Role.findOneAndUpdate({
+        _id: id
+    }, {
+        $set: body
+    }, {
+        new: true
+    }).then((role) => {
+        if (role) {
+            res.send(role);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((error) => {
+        if (error instanceof RoleError) {
+            return res.status(400).send(JSON.parse(error.message));
+        } else {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+    });
+});
+
 module.exports = router

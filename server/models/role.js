@@ -63,7 +63,44 @@ RoleSchema.pre('save', function(next) {
     }
 });
 
-RoleSchema.post('save', function(error, res, next) {
+
+RoleSchema.pre('findOneAndUpdate', function(next){
+    const permissionsUpdate = this.getUpdate().$set.permissions;
+    if(permissionsUpdate){
+        var permcopy = permissionsUpdate.slice();
+        var total_permissions = permissionsUpdate.length;
+        if(total_permissions > 0){
+            for(var i=0; i < total_permissions; ++i){
+                Permission.findOne({perm_code: permissionsUpdate[i]}, function (err, doc) {
+                    if (err || !doc) {
+                        next(new RoleError(JSON.stringify({
+                            code: 400,
+                            errors: [{
+                                field: 'permissions',
+                                error: 'invalid'
+                            }],
+                            userMessage: 'One or more permissions are invalid. Please check.',
+                            internalMessage: 'possible invalid permissions'
+                        })));
+                    } else {
+                        const index = permcopy.indexOf(doc.perm_code);
+                        permcopy.splice(index, 1);
+
+                        if(permcopy.length == 0){
+                            next();
+                        }
+                    }
+                });
+            }
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
+
+var handleDuplicateRolename = function(error, res, next) {
     if (error.name === 'MongoError' && error.code === 11000) {
         next(new RoleError(JSON.stringify({
             code: 400,
@@ -77,7 +114,11 @@ RoleSchema.post('save', function(error, res, next) {
     } else {
       next();
     }
-});
+};
+
+RoleSchema.post('save', handleDuplicateRolename);
+RoleSchema.post('findOneAndUpdate', handleDuplicateRolename);
+
 
 var Role = mongoose.model('Role', RoleSchema);
 

@@ -186,9 +186,191 @@ describe('/roles', () => {
     });
 
     describe('#PATCH /roles/:id', () => {
-        it('should update rolename of a role');
-        it('should update isActive of a role');
-        it('should update permissions');
-        it('should return 401 when user is not authenticated');
+        it('should update rolename of a role', (done) => {
+            var hexId = roles[0]._id.toHexString();
+            var seed = {
+                rolename: 'Administrator'
+            }
+            request(app)
+                .patch(`/roles/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(seed)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.rolename).toEqual(seed.rolename)
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    Role.findOne({_id: roles[0]._id}).then((updated_role) => { 
+                        expect(updated_role._id).toBeTruthy();
+                        expect(updated_role.rolename).toBe(seed.rolename);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should update role\'s permissions to updated value', (done) => {
+            var hexId = roles[0]._id.toHexString();
+            var seed = {
+                permissions: ['add_user']
+            }
+            request(app)
+                .patch(`/roles/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(seed)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.permissions.length).toBe(1)
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    Role.findOne({_id: roles[0]._id}).then((updated_role) => { 
+                        expect(updated_role._id).toBeTruthy();
+                        expect(updated_role.permissions.length).toBe(1);
+                        expect(updated_role.permissions).toContain('add_user');
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should update role\'s permissions to [] if permissions is []', (done) => {
+            var hexId = roles[0]._id.toHexString();
+            var seed = {
+                permissions: []
+            }
+            request(app)
+                .patch(`/roles/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(seed)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.permissions.length).toBe(0)
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    Role.findOne({_id: roles[0]._id}).then((updated_role) => { 
+                        expect(updated_role._id).toBeTruthy();
+                        expect(updated_role.permissions.length).toBe(0);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should return 400 if there are non existing permissions', (done) => {
+            var hexId = roles[0]._id.toHexString();
+            var seed = {
+                permissions: ['add_user', 'ewan']
+            }
+            request(app)
+                .patch(`/roles/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(seed)
+                .expect(400)
+                .expect((res) => {
+                    expect(res.body.code).toBe(400);
+                    expect(res.body.errors).toBeTruthy();
+                    expect(res.body.errors.length).toBe(1);
+                    expect(res.body.errors[0].field).toBe('permissions');
+                    expect(res.body.errors[0].error).toBe('invalid');
+                    expect(res.body.userMessage).toBeTruthy();
+                    expect(res.body.internalMessage).toBeTruthy();
+                })
+                .end(done);
+        });
+
+        it('should return 400 if duplicate rolename', (done) => {
+            var hexId = roles[0]._id.toHexString();
+            var seed = {
+                rolename: 'Guest'
+            }
+            request(app)
+                .patch(`/roles/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(seed)
+                .expect(400)
+                .expect((res) => {
+                    expect(res.body.code).toBe(400);
+                    expect(res.body.errors).toBeTruthy();
+                    expect(res.body.errors.length).toBe(1);
+                    expect(res.body.errors[0].field).toBe('rolename');
+                    expect(res.body.errors[0].error).toBe('duplicate');
+                    expect(res.body.userMessage).toBeTruthy();
+                    expect(res.body.internalMessage).toBeTruthy();
+                })
+                .end(done);
+        });
+
+        it('should update isActive of a role', (done) => {
+            var hexId = roles[0]._id.toHexString();
+            var seed = {
+                isActive: false
+            }
+            request(app)
+                .patch(`/roles/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(seed)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.isActive).toEqual(seed.isActive)
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    Role.findOne({_id: roles[0]._id}).then((updated_role) => { 
+                        expect(updated_role._id).toBeTruthy();
+                        expect(updated_role.isActive).toBe(seed.isActive);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should return 404 when role is not existing', (done) => {
+            var hexId = new ObjectID();
+            var seed = {
+                isActive: false
+            }
+            request(app)
+                .patch(`/roles/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(seed)
+                .expect(404)
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            var hexId = roles[0]._id.toHexString();
+            var seed = {
+                isActive: false
+            }
+            request(app)
+                .patch(`/roles/${hexId}`)
+                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
+                .send(seed)
+                .expect(401)
+                .end(done);
+        });
     });
 });
