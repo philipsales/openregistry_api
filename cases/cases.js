@@ -14,8 +14,13 @@ router.use(bodyParser.json());
 router.post('/', authenticate, (req, res) => {
     var seed = _.pick(req.body, ['case_number', 'answers']);
     var instance = new Case(seed);
-    instance.save().then((saved_case) => {
-        return res.status(201).send(saved_case);
+
+    Case.findOneAndRemove({case_number : seed.case_number}).then(() => {
+        instance.save().then((saved_case) => {
+            return res.status(201).send(saved_case);
+        }, (error) => {
+            return Promise.reject(error);
+        })
     }).catch((error) => {
         if (error instanceof CaseError) {
             return res.status(400).send(JSON.parse(error.message));
@@ -28,11 +33,58 @@ router.post('/', authenticate, (req, res) => {
 
 
 router.get('/', authenticate, (req, res) => {
-    Case.find().then((cases) => {
+    Case.find({isDeleted: false}).then((cases) => {
         var data = cases.map((value) => value.toJSON());
         res.send({data});
     }, (e) => {
         res.status(400).send(e);
+    });
+});
+
+router.get('/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+    Case.findOne({
+        _id: id,
+        isDeleted: false
+    }).then((data) => {
+        if (data){
+            res.send(data);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((e) => {
+        res.status(400).send();
+    });
+});
+
+router.delete('/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    if(!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+
+    Case.findOneAndUpdate({
+        _id: id,
+        isDeleted: false
+    }, {
+        $set: {
+            isDeleted: true       
+        }
+    }, {
+        new: true
+    }).then((data) => {
+        if (data) {
+            res.send(data);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((error) => {
+        res.status(400).send();
     });
 });
 

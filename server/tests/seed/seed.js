@@ -123,6 +123,21 @@ const cases = [{
         question_key: 'LNAME',
         question_answer: 'Divinagracia',
     }]
+},
+{
+    _id: new ObjectID(),
+    case_number: 3,
+    answers: [{
+        question_key: 'FNAME',
+        question_answer: 'sadsad',
+    },{
+        question_key: 'MNAME',
+        question_answer: 'asd asdasd',
+    }, {
+        question_key: 'LNAME',
+        question_answer: 'asdasd',
+    }],
+    isDeleted: true
 }];
 
 const populateUsers = (done) => {
@@ -165,7 +180,8 @@ const populateCases = (done) => {
     Case.remove({}).then(() => {
         var caseOne = new Case(cases[0]).save();
         var caseTwo = new Case(cases[1]).save();
-        return Promise.all([caseOne, caseTwo])
+        var caseThree = new Case(cases[2]).save();
+        return Promise.all([caseOne, caseTwo, caseThree])
     }).then(() => done());
 };
 

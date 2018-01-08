@@ -15,7 +15,8 @@ class CaseError extends Error {
 var CaseSchema = new mongoose.Schema({
     case_number: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     answers: [{
         question_key: {
@@ -26,7 +27,11 @@ var CaseSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    isDeleted:{
+        type: Boolean,
+        default: false
+    }
 });
 
 
