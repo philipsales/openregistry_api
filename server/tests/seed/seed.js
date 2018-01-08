@@ -5,7 +5,7 @@ const {User} = require('./../../models/user');
 const {Permission} = require('./../../models/permission');
 const {Role} = require('./../../models/role');
 const {Question} = require('./../../models/question');
-
+const {Case} = require('./../../models/case');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
@@ -97,6 +97,34 @@ const questions = [{
     "order": 3
 }];
 
+const cases = [{
+    _id: new ObjectID(),
+    case_number: 1,
+    answers: [{
+        question_key: 'FNAME',
+        question_answer: 'Kristhian',
+    },{
+        question_key: 'MNAME',
+        question_answer: 'Briones',
+    }, {
+        question_key: 'LNAME',
+        question_answer: 'Tiu',
+    }]
+}, {
+    _id: new ObjectID(),
+    case_number: 2,
+    answers: [{
+        question_key: 'FNAME',
+        question_answer: 'Analee',
+    },{
+        question_key: 'MNAME',
+        question_answer: 'de leon',
+    }, {
+        question_key: 'LNAME',
+        question_answer: 'Divinagracia',
+    }]
+}];
+
 const populateUsers = (done) => {
     User.remove({}).then(() => {
         var userOne = new User(users[0]).save();
@@ -132,6 +160,15 @@ const populateQuestions = (done) => {
     }).then(() => done());
 };
 
+
+const populateCases = (done) => {
+    Case.remove({}).then(() => {
+        var caseOne = new Case(cases[0]).save();
+        var caseTwo = new Case(cases[1]).save();
+        return Promise.all([caseOne, caseTwo])
+    }).then(() => done());
+};
+
 module.exports = {
     users,
     populateUsers,
@@ -140,5 +177,7 @@ module.exports = {
     roles,
     populateRoles,
     questions,
-    populateQuestions
+    populateQuestions,
+    cases,
+    populateCases
 } 

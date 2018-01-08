@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/**/questions.test.js",
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha **/**/cases.test.js",
     "test-watch": "nodemon --exec 'npm test'"
   },
   "repository": {

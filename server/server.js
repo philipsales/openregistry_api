@@ -9,6 +9,7 @@ var users = require('../users/users');
 var permissions = require('../permissions/permissions');
 var roles = require('../roles/roles');
 var questions = require('../questions/questions');
+var cases = require('../cases/cases');
 
 var app = express();
 const port = process.env.PORT;
@@ -21,6 +22,7 @@ app.use('/users', users);
 app.use('/permissions', permissions);
 app.use('/roles', roles);
 app.use('/questions', questions);
+app.use('/cases', cases);
 
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
