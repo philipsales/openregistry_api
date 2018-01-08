@@ -4,14 +4,34 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('../../server/server');
 const {Question} = require('../../server/models/question');
-const {users, populateUsers} = require('../../server/tests/seed/seed');
+const {users, populateUsers, questions, populateQuestions} = require('../../server/tests/seed/seed');
 
 beforeEach(populateUsers);
+beforeEach(populateQuestions);
 
 describe('/questions', () => {
     describe('#GET /questions', () => {
-        it('should get all questions');
-        it('should return 401 when user is not authenticated');
+        it('should get all questions', (done) => {
+            request(app)
+                .get('/questions')
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.data.length).toBe(3);
+                    expect(res.body.data[0]._id).toBeTruthy();
+                    expect(res.body.data[0].key).toBeTruthy();
+                    expect(res.body.data[0].label).toBeTruthy();
+                })
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            request(app)
+                .get('/questions')
+                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
+                .expect(401)
+                .end(done);
+        });
     });
     
     describe('#POST /questions', () => {
@@ -88,19 +108,5 @@ describe('/questions', () => {
         });
 
         it('should return 400 validation error with the field details when fields are incorrect');
-    });
-
-    describe('#GET /questions/:question_id', () => {
-        it('should get a specific question');
-        it('should return 401 when user is not authenticated');
-        it('should return 404 when question can not be found');
-        it('should return 404 when question is soft deleted');
-    });
-
-    describe('#DELETE /questions/:question_id', () => {
-        it('should delete a specific question');
-        it('should return 401 when user is not authenticated');
-        it('should return 404 when question can not be found');
-        it('should return 404 when question is already soft deleted');
     });
 });

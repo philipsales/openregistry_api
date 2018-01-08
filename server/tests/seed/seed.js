@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const {User} = require('./../../models/user');
 const {Permission} = require('./../../models/permission');
 const {Role} = require('./../../models/role');
+const {Question} = require('./../../models/question');
 
 
 const userOneId = new ObjectID();
@@ -68,6 +69,34 @@ const roles = [{
     isActive: false
 }];
 
+const questions = [{
+    "key": "FNAME",
+    "label": "What is your first name?",
+    "type": "text",
+    "value": "",
+    "options": "",
+    "required": true,
+    "order": 1
+},
+{
+    "key": "MNAME",
+    "label": "What is your middle name?",
+    "type": "text",
+    "value": "",
+    "options": "",
+    "required": true,
+    "order": 2
+},
+{
+    "key": "LNAME",
+    "label": "What is your last name?",
+    "type": "text",
+    "value": "",
+    "options": "",
+    "required": true,
+    "order": 3
+}];
+
 const populateUsers = (done) => {
     User.remove({}).then(() => {
         var userOne = new User(users[0]).save();
@@ -93,11 +122,23 @@ const populateRoles = (done) => {
     }).then(() => done());
 };
 
+const populateQuestions = (done) => {
+    Question.remove({}).then(() => {
+        var requests = [];
+        questions.forEach((element) => {
+            requests.push(new Question(element).save());
+        });
+        return Promise.all(requests)
+    }).then(() => done());
+};
+
 module.exports = {
     users,
     populateUsers,
     permissions,
     populatePermissions,
     roles,
-    populateRoles
+    populateRoles,
+    questions,
+    populateQuestions
 } 

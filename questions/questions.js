@@ -37,4 +37,13 @@ router.post('/', authenticate, (req, res) => {
 });
 
 
+router.get('/', authenticate, (req, res) => {
+    Question.find().then((questions) => {
+        var data = questions.map((question) => question.toJSON());
+        res.send({data});
+    }, (e) => {
+        res.status(400).send(e);
+    });
+});
+
 module.exports = router

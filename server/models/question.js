@@ -46,6 +46,13 @@ var QuestionSchema = new mongoose.Schema({
     }
 });
 
+
+QuestionSchema.methods.toJSON = function() {
+    var user = this;
+    var userObject = user.toObject();
+    return _.pick(userObject, ['_id', 'key', 'label', 'value', 'options', 'order', 'required']);
+};
+
 var Question = mongoose.model('Question', QuestionSchema);
 
 module.exports = {
