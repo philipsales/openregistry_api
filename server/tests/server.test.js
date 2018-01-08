@@ -15,33 +15,6 @@ describe('/api-docs', () => {
     });
 });
 
-describe('/questions', () => {
-    describe('#GET /questions', () => {
-        it('should get all questions');
-        it('should return 401 when user is not authenticated');
-    });
-    
-    describe('#POST /questions', () => {
-        it('should get a specific question');
-        it('should return 401 when user is not authenticated');
-        it('should return 400 validation error with the field details when fields are incorrect');
-    });
-
-    describe('#GET /questions/:question_id', () => {
-        it('should get a specific question');
-        it('should return 401 when user is not authenticated');
-        it('should return 404 when question can not be found');
-        it('should return 404 when question is soft deleted');
-    });
-
-    describe('#DELETE /questions/:question_id', () => {
-        it('should delete a specific question');
-        it('should return 401 when user is not authenticated');
-        it('should return 404 when question can not be found');
-        it('should return 404 when question is already soft deleted');
-    });
-});
-
 describe('/cases', () => {
     describe('#GET /cases', () => {
         it('should get all cases');
