@@ -69,6 +69,7 @@ describe('/roles', () => {
         it('should create a role', (done) => {
             const seed = {
                 rolename: 'Test',
+                description: 'Test role only',
                 permissions: ['add_user', 'delete_user'],
                 isActive: true
             };
@@ -81,6 +82,7 @@ describe('/roles', () => {
                 .expect((res) => {
                     expect(res.body._id).toBeTruthy();
                     expect(res.body.rolename).toBe(seed.rolename);
+                    expect(res.body.description).toBe(seed.description);
                     expect(res.body.isActive).toBe(seed.isActive);
                     expect(res.body.permissions).toBeTruthy();
                 })
@@ -208,6 +210,35 @@ describe('/roles', () => {
                     Role.findOne({_id: roles[0]._id}).then((updated_role) => { 
                         expect(updated_role._id).toBeTruthy();
                         expect(updated_role.rolename).toBe(seed.rolename);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should update description of a role', (done) => {
+            var hexId = roles[0]._id.toHexString();
+            var seed = {
+                description: 'Administrator role'
+            }
+            request(app)
+                .patch(`/roles/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(seed)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.description).toEqual(seed.description);
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    Role.findOne({_id: roles[0]._id}).then((updated_role) => { 
+                        expect(updated_role._id).toBeTruthy();
+                        expect(updated_role.description).toBe(seed.description);
                         done();
                     }).catch((e) => {
                         done(e);

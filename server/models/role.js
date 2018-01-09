@@ -17,6 +17,9 @@ var RoleSchema = new mongoose.Schema({
         trim: true,
         unique: true
     },
+    description: {
+        type: String
+    },
     permissions: [String],
     isActive: {
         type: Boolean,
@@ -27,12 +30,12 @@ var RoleSchema = new mongoose.Schema({
 RoleSchema.methods.toJSON = function() {
     var role = this;
     var roleObject = role.toObject();
-    return _.pick(roleObject, ['_id', 'rolename', 'permissions', 'isActive']);
+    return _.pick(roleObject, ['_id', 'rolename', 'description', 'permissions', 'isActive']);
 };
 
 RoleSchema.pre('save', function(next) {
     var user = this;
-    var permissions = user.permissions;
+    var permissions = user.permissions; 
     var permcopy = permissions.slice();
     var total_permissions = permissions.length;
     if(total_permissions > 0){

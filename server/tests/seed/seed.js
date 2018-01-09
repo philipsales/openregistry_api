@@ -66,11 +66,13 @@ const permissions = [{
 const roles = [{
     _id: new ObjectID(),
     rolename: 'Admin',
+    description: 'Administrator role',
     permissions: ['add_user', 'delete_user'],
     isActive: true
 }, {
     _id: new ObjectID(),
     rolename: 'Guest',
+    description: 'Guest role',
     permissions: [],
     isActive: false
 }];

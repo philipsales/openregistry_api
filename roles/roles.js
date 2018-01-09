@@ -12,7 +12,7 @@ var {Role, RoleError} = require('../server/models/role');
 router.use(bodyParser.json());
 
 router.post('/', authenticate, (req, res) => {
-    var body = _.pick(req.body, ['rolename', 'permissions', 'isActive']);
+    var body = _.pick(req.body, ['rolename', 'description', 'permissions', 'isActive']);
     var role = new Role(body);
 
     role.save().then((saved_role) => {
@@ -63,7 +63,7 @@ router.get('/:id', authenticate, (req, res) => {
 
 router.patch('/:id', authenticate, (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['rolename', 'permissions', 'isActive']);
+    var body = _.pick(req.body, ['rolename', 'description', 'permissions', 'isActive']);
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
