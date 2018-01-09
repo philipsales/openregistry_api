@@ -14,7 +14,9 @@ const userThreeId = new ObjectID();
 const users = [{
     _id: userOneId,
     username: 'b.kristhian.tiu@gmail.com',
-    fullname: 'Kristhian Tiu',
+    first_name: 'Kristhian',
+    last_name: 'Tiu',
+    middle_name: 'Briones',
     password: 'userOnePass',
     isDeleted: false,
     roles: ['Admin'],
@@ -25,7 +27,9 @@ const users = [{
 }, {
     _id: userTwoId,
     username: 'b.kristhian.tiu2@gmail.com',
-    fullname: 'Chan Tiu',
+    first_name: 'Chan',
+    last_name: 'Tiu',
+    middle_name: 'Briones',
     password: 'userTwoPass',
     isDeleted: false,
     roles: [],
@@ -36,7 +40,9 @@ const users = [{
 },{
     _id: userThreeId,
     username: 'angelobriones@gmail.com',
-    fullname: 'AngeloBriones',
+    first_name: 'Angelo',
+    last_name: 'Briones',
+    middle_name: 'Penalosa',
     password: 'userThreePass',
     isDeleted: true,
     tokens: [{

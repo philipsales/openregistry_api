@@ -24,15 +24,33 @@ var UserSchema = new mongoose.Schema({
             message: '{VALUE} is not a valid email'
         }
     },
-    fullname: {
+    first_name: {
         type: String,
         require: true,
         minLength: 1
+    },
+    middle_name: {
+        type: String
+    },
+    last_name: {
+        type: String
     },
     password: {
         type: String,
         require: true,
         minLength: 6
+    },
+    gender: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    mobile_number: {
+        type: String
+    },
+    verification_status: {
+        type: String
     },
     isDeleted: {
         type: Boolean,
@@ -56,7 +74,7 @@ var UserSchema = new mongoose.Schema({
 UserSchema.methods.toJSON = function() {
     var user = this;
     var userObject = user.toObject();
-    return _.pick(userObject, ['_id', 'username', 'fullname', 'roles']);
+    return _.pick(userObject, ['_id', 'username', 'first_name', 'middle_name', 'last_name', 'gender', 'email', 'mobile_number', 'roles']);
 };
 
 UserSchema.pre('save', function(next){

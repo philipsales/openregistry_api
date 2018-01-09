@@ -21,7 +21,7 @@ describe('/users', () => {
                 .expect((res) => {
                     expect(res.body.data.length).toBe(2);
                     expect(res.body.data[0].username).toBeTruthy();
-                    expect(res.body.data[0].fullname).toBeTruthy();
+                    expect(res.body.data[0].first_name).toBeTruthy();
                     expect(res.body.data[0].password).toBeFalsy();
                     expect(res.body.data[0].roles).toBeFalsy();
                 })
@@ -35,19 +35,31 @@ describe('/users', () => {
     
     describe('#POST /users', () => {
         it('should create user', (done) => {
-            var username = 'b.kristhian.tiu3@gmail.com';
-            var fullname = 'Kristhian Tiu3';
-            var password = '123!';
+            var seed = {
+                username : 'b.kristhian.tiu3@gmail.com',
+                first_name : 'Kristhian',
+                middle_name : 'Briones',
+                last_name : 'Tiu',
+                password : '123!',
+                gender: 'M',
+                email: 'ewan@email.com',
+                mobile_number: 'some number'
+            };
     
             request(app)
                 .post('/users')
-                .send({username, fullname, password})
+                .send(seed)
                 .expect(201)
                 .expect((res) => {
                     expect(res.body.token).toBeTruthy();
                     expect(res.body.user._id).toBeTruthy();
-                    expect(res.body.user.username).toBe(username);
-                    expect(res.body.user.fullname).toBe(fullname);
+                    expect(res.body.user.username).toBe(seed.username);
+                    expect(res.body.user.first_name).toBe(seed.first_name);
+                    expect(res.body.user.middle_name).toBe(seed.middle_name);
+                    expect(res.body.user.last_name).toBe(seed.last_name);
+                    expect(res.body.user.gender).toBe(seed.gender);
+                    expect(res.body.user.email).toBe(seed.email);
+                    expect(res.body.user.mobile_number).toBe(seed.mobile_number);
                     expect(res.body.user.password).toBeFalsy();
                 })
                 .end((err) => {
@@ -55,9 +67,9 @@ describe('/users', () => {
                         return done(err);
                     }
 
-                    User.findOne({username}).then((user) => { 
+                    User.findOne({username: seed.username}).then((user) => { 
                         expect(user).toBeTruthy();
-                        expect(user.password).not.toBe(password);
+                        expect(user.password).not.toBe(seed.password);
                         done();
                     }).catch((e) => {
                         done(e);
@@ -67,12 +79,12 @@ describe('/users', () => {
 
         it('should return 400 validation error when the username is already existing', (done) => {
             var username = users[0].username;
-            var fullname = 'Kristhian Tiu3';
+            var first_name = 'Kristhian Tiu3';
             var password = '123!';
     
             request(app)
                 .post('/users')
-                .send({username, fullname, password})
+                .send({username, first_name, password})
                 .expect(400)
                 .expect((res) => {
                     expect(res.body.code).toBe(400);
@@ -99,12 +111,12 @@ describe('/users', () => {
 
         it('should return 400 validation error on invalid email address', (done) => {
             var username = 'not-a-valid-email';
-            var fullname = 'Kristhian Tiu3';
+            var first_name = 'Kristhian Tiu3';
             var password = '123!';
     
             request(app)
                 .post('/users')
-                .send({username, fullname, password})
+                .send({username, first_name, password})
                 .expect(400)
                 .expect((res) => {
                     expect(res.body.code).toBe(400);
@@ -138,7 +150,7 @@ describe('/users', () => {
                 .expect(200)
                 .expect((res) => {
                     expect(res.body.username).toBeTruthy();
-                    expect(res.body.fullname).toBeTruthy();
+                    expect(res.body.first_name).toBeTruthy();
                     expect(res.body.password).toBeFalsy();
                     expect(res.body.roles).toBeTruthy();
                 })
@@ -171,10 +183,10 @@ describe('/users', () => {
     });
 
     describe('#PATCH /users/:id', () => {
-        it('should update fullname of a user', (done) => {
+        it('should update first_name of a user', (done) => {
             var hexId = users[0]._id.toHexString();
             var user = {
-                fullname: 'Kristhian Tiu Edited'
+                first_name: 'Kristhian Tiu Edited'
             }
             request(app)
                 .patch(`/users/${hexId}`)
@@ -183,7 +195,7 @@ describe('/users', () => {
                 .expect(200)
                 .expect((res) => {
                     expect(res.body._id).toEqual(hexId);
-                    expect(res.body.fullname).toEqual(user.fullname)
+                    expect(res.body.first_name).toEqual(user.first_name)
                 })  
                 .end((err) => {
                     if (err) {
@@ -192,7 +204,7 @@ describe('/users', () => {
 
                     User.findOne({_id: users[0]._id}).then((updated_user) => { 
                         expect(updated_user._id).toBeTruthy();
-                        expect(updated_user.fullname).toBe(user.fullname);
+                        expect(updated_user.first_name).toBe(user.first_name);
                         done();
                     }).catch((e) => {
                         done(e);
@@ -200,11 +212,52 @@ describe('/users', () => {
                 });
         });
 
-        it('should not update other details of user aside from fullname', (done) => {
+        it('should update middlename, lastname, gender, email, mobile number of a user', (done) => {
+            var hexId = users[0]._id.toHexString();
+            var user = {
+                last_name: 'Lastname',
+                middle_name: 'MiddleName',
+                gender: 'M',
+                email: 'email@email.com',
+                mobile_number: 'mobilenumber'
+            }
+            request(app)
+                .patch(`/users/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(user)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.last_name).toEqual(user.last_name);
+                    expect(res.body.middle_name).toEqual(user.middle_name);
+                    expect(res.body.gender).toEqual(user.gender);
+                    expect(res.body.email).toEqual(user.email);
+                    expect(res.body.mobile_number).toEqual(user.mobile_number);
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    User.findOne({_id: users[0]._id}).then((updated_user) => { 
+                        expect(updated_user._id).toBeTruthy();
+                        expect(updated_user.last_name).toBe(user.last_name);
+                        expect(updated_user.middle_name).toEqual(user.middle_name);
+                        expect(updated_user.gender).toEqual(user.gender);
+                        expect(updated_user.email).toEqual(user.email);
+                        expect(updated_user.mobile_number).toEqual(user.mobile_number);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should not update other details of user aside from first_name', (done) => {
             var hexId = users[0]._id.toHexString();
             var user = {
                 username: 'anewemailto@gmail.com',
-                fullname: 'Kristhian Tiu Edited'
+                first_name: 'Kristhian Tiu Edited'
             }
             request(app)
                 .patch(`/users/${hexId}`)
@@ -289,7 +342,7 @@ describe('/users', () => {
             var hexId = users[2]._id.toHexString();
             var user = {
                 username: 'anewemailto@gmail.com',
-                fullname: 'Kristhian Tiu Edited'
+                first_name: 'Kristhian Tiu Edited'
             }
             request(app)
                 .patch(`/users/${hexId}`)
@@ -303,7 +356,7 @@ describe('/users', () => {
             var hexId = users[0]._id.toHexString();
             var user = {
                 username: 'anewemailto@gmail.com',
-                fullname: 'Kristhian Tiu Edited'
+                first_name: 'Kristhian Tiu Edited'
             }
             request(app)
                 .patch(`/users/${hexId}`)
@@ -396,7 +449,7 @@ describe('/users', () => {
                 .expect(200)
                 .expect((res) => {
                     expect(res.body.username).toBeTruthy();
-                    expect(res.body.fullname).toBeTruthy();
+                    expect(res.body.first_name).toBeTruthy();
                     expect(res.body.password).toBeFalsy();
                 })
                 .end(done);
@@ -426,10 +479,10 @@ describe('/users', () => {
     });
 
     describe('#PATCH /users/me/:id', () => {
-        it('should update fullname of user account', (done) => {
+        it('should update first_name of user account', (done) => {
             var hexId = users[0]._id.toHexString();
             var user = {
-                fullname: 'Kristhian Tiu Edited'
+                first_name: 'Kristhian Tiu Edited'
             }
             request(app)
                 .patch(`/users/me/${hexId}`)
@@ -438,7 +491,7 @@ describe('/users', () => {
                 .expect(200)
                 .expect((res) => {
                     expect(res.body._id).toEqual(hexId);
-                    expect(res.body.fullname).toEqual(user.fullname)
+                    expect(res.body.first_name).toEqual(user.first_name)
                 })  
                 .end((err) => {
                     if (err) {
@@ -447,7 +500,48 @@ describe('/users', () => {
 
                     User.findOne({_id: users[0]._id}).then((updated_user) => { 
                         expect(updated_user._id).toBeTruthy();
-                        expect(updated_user.fullname).toBe(user.fullname);
+                        expect(updated_user.first_name).toBe(user.first_name);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+
+        it('should update middlename, lastname, gender, email, mobile number of my account', (done) => {
+            var hexId = users[0]._id.toHexString();
+            var user = {
+                last_name: 'Lastname',
+                middle_name: 'MiddleName',
+                gender: 'M',
+                email: 'email@email.com',
+                mobile_number: 'mobilenumber'
+            }
+            request(app)
+                .patch(`/users/me/${hexId}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .send(user)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body._id).toEqual(hexId);
+                    expect(res.body.last_name).toEqual(user.last_name);
+                    expect(res.body.middle_name).toEqual(user.middle_name);
+                    expect(res.body.gender).toEqual(user.gender);
+                    expect(res.body.email).toEqual(user.email);
+                    expect(res.body.mobile_number).toEqual(user.mobile_number);
+                })  
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    User.findOne({_id: users[0]._id}).then((updated_user) => { 
+                        expect(updated_user._id).toBeTruthy();
+                        expect(updated_user.last_name).toBe(user.last_name);
+                        expect(updated_user.middle_name).toEqual(user.middle_name);
+                        expect(updated_user.gender).toEqual(user.gender);
+                        expect(updated_user.email).toEqual(user.email);
+                        expect(updated_user.mobile_number).toEqual(user.mobile_number);
                         done();
                     }).catch((e) => {
                         done(e);
@@ -492,7 +586,7 @@ describe('/users', () => {
             var hexId = users[2]._id.toHexString();
             var user = {
                 username: 'anewemailto@gmail.com',
-                fullname: 'Kristhian Tiu Edited'
+                first_name: 'Kristhian Tiu Edited'
             }
             request(app)
                 .patch(`/users/me/${hexId}`)
@@ -506,7 +600,7 @@ describe('/users', () => {
             var hexId = users[0]._id.toHexString();
             var user = {
                 username: 'anewemailto@gmail.com',
-                fullname: 'Kristhian Tiu Edited'
+                first_name: 'Kristhian Tiu Edited'
             }
             request(app)
                 .patch(`/users/me/${hexId}`)
@@ -529,7 +623,7 @@ describe('/users', () => {
                     expect(res.body.token).toBeTruthy();
                     expect(res.body.user._id).toBeTruthy();
                     expect(res.body.user.username).toBe(username);
-                    expect(res.body.user.fullname).toBeTruthy();
+                    expect(res.body.user.first_name).toBeTruthy();
                     expect(res.body.user.password).toBeFalsy();
                 })
                 .end((err, res) => {
