@@ -1,6 +1,7 @@
 require('./config/config');
 
 const express = require('express');
+var cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 
 const swaggerDocument = require('../swagger.json');
@@ -11,8 +12,10 @@ var roles = require('../roles/roles');
 var questions = require('../questions/questions');
 var cases = require('../cases/cases');
 
-var app = express();
 const port = process.env.PORT;
+
+var app = express();
+app.use(cors())
 
 app.use('/api-docs', 
         swaggerUi.serve, 
