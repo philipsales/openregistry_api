@@ -14,12 +14,14 @@ router.use(bodyParser.json());
 router.post('/', authenticate, (req, res) => {
     var seed = _.pick(req.body, ['name', 'organization', 'department', 'type', 'approval', 'status', 'created_by', 'date_created', 'is_deleted', 'sections']);
     var instance = new Form(seed);
+    console.log(req.body);
 
     Form.findOneAndRemove({name : seed.name}).then(() => {
         instance.save().then((saved_form) => {
             return res.status(201).send(saved_form);
         }, (error) => {
             console.log('error on save!');
+            console.log(error);
             return Promise.reject(error);
         })
     }).catch((error) => {
