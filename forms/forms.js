@@ -30,7 +30,19 @@ router.post('/', authenticate, (req, res) => {
             console.log(error);
             return res.status(500).send(error);
         }
+    });});
+
+
+router.get('/', authenticate, (req, res) => {
+    Form.find({is_deleted: false}).then((forms) => {
+        var data = forms.map((form) => {
+            var out = form.toJSON();
+            delete out.sections;
+            return out;
+        });
+        res.send({data});
+    }, (e) => {
+        res.status(400).send(e);
     });
 });
-
 module.exports = router

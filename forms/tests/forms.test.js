@@ -4,11 +4,13 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('../../server/server');
 const {Form} = require('../../server/models/form');
-const {users, populateUsers} = require('../../server/tests/seed/seed');
+const {users, populateUsers, forms, populateForms} = require('../../server/tests/seed/seed');
 
 beforeEach(populateUsers);
+beforeEach(populateForms);
 
 describe('/forms', () => {
+
     describe('#POST /questions', () => {
         it('should create new forms', (done) => {
             const seed = {
@@ -16,7 +18,7 @@ describe('/forms', () => {
                 organization: "My Organization",
                 department: "My Department",
                 type: "The Type",
-                sections: {
+                sections: [{
                     key: "section-key",
                     name: "section-name",
                     order: 1,
@@ -38,7 +40,7 @@ describe('/forms', () => {
                         "required": true,
                         "order": 4
                     }]
-                }
+                }]
             };
 
             request(app)
@@ -54,6 +56,7 @@ describe('/forms', () => {
                     expect(res.body.department).toBe(seed.department);
                     expect(res.body.type).toBe(seed.type);
                     expect(res.body.sections).toBeTruthy();
+                    expect(res.body.sections.length).toBeTruthy();
                 })
                 .end(done);
         });
@@ -64,7 +67,7 @@ describe('/forms', () => {
                 organization: "My Organization",
                 department: "My Department",
                 type: "The Type",
-                sections: {
+                sections: [{
                     key: "section-key",
                     name: "section-name",
                     order: 1,
@@ -86,13 +89,37 @@ describe('/forms', () => {
                         "required": true,
                         "order": 4
                     }]
-                }
+                }]
             };
 
             request(app)
                 .post('/forms')
                 .set('Authorization', `JWT ${users[2].tokens[0].token}`)
                 .send(seed)
+                .expect(401)
+                .end(done);
+        });
+    });
+
+    describe('#GET /forms', () => {
+        it('should get all forms', (done) => {
+            request(app)
+                .get('/forms')
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.data.length).toBe(2);
+                    expect(res.body.data[0]._id).toBeTruthy();
+                    expect(res.body.data[0].name).toBeTruthy();
+                    expect(res.body.data[0].sections).toBeFalsy();
+                })
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            request(app)
+                .get('/forms')
+                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
                 .expect(401)
                 .end(done);
         });

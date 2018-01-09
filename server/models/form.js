@@ -66,8 +66,7 @@ var FormSchema = new mongoose.Schema({
                 type: String,
                 required: true,
                 minLength: 6,
-                trim: true,
-                unique: true
+                trim: true
             },
             label: {
                 type: String,

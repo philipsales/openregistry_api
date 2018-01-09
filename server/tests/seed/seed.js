@@ -6,6 +6,7 @@ const {Permission} = require('./../../models/permission');
 const {Role} = require('./../../models/role');
 const {Question} = require('./../../models/question');
 const {Case} = require('./../../models/case');
+const {Form} = require('./../../models/form');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
@@ -105,6 +106,86 @@ const questions = [{
     "order": 3
 }];
 
+const forms = [{
+    name: "My Form",
+    organization: "My Organization",
+    department: "My Department",
+    type: "The Type",
+    sections: [{
+        key: "section-key",
+        name: "section-name",
+        order: 1,
+        questions: [{
+            "key": "GENDER",
+            "label": "What is your gender?",
+            "type": "dropdown",
+            "value": "",
+            "options": "Male|Female",
+            "required": true,
+            "order": 3
+        },
+        {
+            "key": "AGE",
+            "label": "What is your age?",
+            "type": "text",
+            "value": "",
+            "options": "",
+            "required": true,
+            "order": 4
+        }]
+    }]
+},{
+    name: "My Form2",
+    organization: "My Organization2",
+    department: "My Department2",
+    type: "The Type2",
+    sections: [{
+        key: "section-key",
+        name: "section-name",
+        order: 1,
+        questions: [{
+            "key": "GENDER",
+            "label": "What is your gender?",
+            "type": "dropdown",
+            "value": "",
+            "options": "Male|Female",
+            "required": true,
+            "order": 3
+        },
+        {
+            "key": "AGE",
+            "label": "What is your age?",
+            "type": "text",
+            "value": "",
+            "options": "",
+            "required": true,
+            "order": 4
+        }]
+    },{
+        key: "section-key2",
+        name: "section-name2",
+        order: 2,
+        questions: [{
+            "key": "GENDER2",
+            "label": "What is your gender?",
+            "type": "dropdown",
+            "value": "",
+            "options": "Male|Female",
+            "required": true,
+            "order": 3
+        },
+        {
+            "key": "AGE2",
+            "label": "What is your age?",
+            "type": "text",
+            "value": "",
+            "options": "",
+            "required": true,
+            "order": 4
+        }]
+    }]
+}];
+
 const cases = [{
     _id: new ObjectID(),
     case_number: 1,
@@ -193,6 +274,14 @@ const populateCases = (done) => {
     }).then(() => done());
 };
 
+const populateForms = (done) => {
+    Form.remove({}).then(() => {
+        var formOne = new Form(forms[0]).save();
+        var formTwo = new Form(forms[1]).save();
+        return Promise.all([formOne, formTwo]);
+    }).then(() => done());
+};
+
 module.exports = {
     users,
     populateUsers,
@@ -203,5 +292,7 @@ module.exports = {
     questions,
     populateQuestions,
     cases,
-    populateCases
+    populateCases,
+    forms,
+    populateForms
 } 
