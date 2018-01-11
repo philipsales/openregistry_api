@@ -49,7 +49,6 @@ describe('/forms', () => {
                 .send(seed)
                 .expect(201)
                 .expect((res) => {
-                    console.log(res.body);
                     expect(res.body._id).toBeTruthy();
                     expect(res.body.name).toBe(seed.name);
                     expect(res.body.organization).toBe(seed.organization);
@@ -121,6 +120,40 @@ describe('/forms', () => {
                 .get('/forms')
                 .set('Authorization', `JWT ${users[2].tokens[0].token}`)
                 .expect(401)
+                .end(done);
+        });
+    });
+
+    describe('#GET /forms/:id', () => {
+        it('should get a specific form', (done) => {
+            request(app)
+                .get(`/forms/${forms[0]._id.toHexString()}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.name).toBeTruthy();
+                    expect(res.body.organization).toBeTruthy();
+                    expect(res.body.department).toBeTruthy();
+                    expect(res.body.type).toBeTruthy();
+                    expect(res.body.sections).toBeTruthy();
+                    expect(res.body.sections.length).toBeTruthy();
+                })
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            request(app)
+                .get(`/forms/${forms[0]._id.toHexString()}`)
+                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
+                .expect(401)
+                .end(done);
+        });
+
+        it('should return 404 when case can not be found', (done) => {
+            request(app)
+                .get(`/form/${(new ObjectID()).toHexString()}`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .expect(404)
                 .end(done);
         });
     });

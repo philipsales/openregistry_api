@@ -14,18 +14,15 @@ router.use(bodyParser.json());
 router.post('/', authenticate, (req, res) => {
     var seed = _.pick(req.body, ['name', 'organization', 'department', 'type', 'approval', 'status', 'created_by', 'date_created', 'is_deleted', 'sections']);
     var instance = new Form(seed);
-    console.log(req.body);
 
     Form.findOneAndRemove({name : seed.name}).then(() => {
         instance.save().then((saved_form) => {
             return res.status(201).send(saved_form);
         }, (error) => {
-            console.log('error on save!');
             console.log(error);
             return Promise.reject(error);
         })
     }).catch((error) => {
-        console.log('error on upper!');
         if (error instanceof FormError) {
             return res.status(400).send(JSON.parse(error.message));
         } else {
@@ -47,4 +44,25 @@ router.get('/', authenticate, (req, res) => {
         res.status(400).send(e);
     });
 });
+
+
+router.get('/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+    Form.findOne({
+        _id: id
+    }).then((data) => {
+        if (data){
+            res.send(data);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((e) => {
+        res.status(400).send();
+    });
+});
+
 module.exports = router
