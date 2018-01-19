@@ -10,19 +10,19 @@ const permissions = [{
     perm_code: 'user_create',
     module: 'User Registration',
     application: 'Administration',
-    describe: 'can create a user'
+    description: 'can create a user'
 }, {
     _id: new ObjectID(),
     perm_code: 'user_approve',
     module: 'User Registration',
     application: 'Administration',
-    describe: 'can approve a user'
+    description: 'can approve a user'
 }, {
     _id: new ObjectID(),
     perm_code: 'user_view',
     module: 'User Registration',
     application: 'Administration',
-    describe: 'can view a user'
+    description: 'can view a user'
 }];
 
 const roles = [{
