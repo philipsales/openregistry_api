@@ -12,7 +12,7 @@ var {User, UserError} = require('../server/models/user');
 router.use(bodyParser.json());
 
 router.post('/', (req, res) => {
-    var body = _.pick(req.body, ['username', 'first_name', 'middle_name', 'last_name', 'gender', 'email', 'mobile_number', 'password']);
+    var body = _.pick(req.body, ['username', 'first_name', 'middle_name', 'last_name', 'gender', 'email', 'mobile_number', 'password', 'roles']);
     var user = new User(body);
     user.save().then((saved_user) => {
         return saved_user.generateAuthToken();
