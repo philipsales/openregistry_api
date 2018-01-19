@@ -19,6 +19,7 @@ describe('GET /permissions', () => {
                 expect(res.body.data.length).toBe(2);
                 expect(res.body.data[0].perm_code).toBeTruthy();
                 expect(res.body.data[0].application).toBeTruthy();
+                expect(res.body.data[0].module).toBeTruthy();
                 expect(res.body.data[0].description).toBeFalsy();
             })
             .end(done);

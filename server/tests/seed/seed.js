@@ -56,11 +56,13 @@ const users = [{
 const permissions = [{
     _id: new ObjectID(),
     perm_code: 'add_user',
+    module: 'Administration',
     application: 'Admin',
     describe: 'can add a new user'
 }, {
     _id: new ObjectID(),
     perm_code: 'delete_user',
+    module: 'Administration',
     application: 'Admin',
     describe: 'can delete a new user'
 }];
