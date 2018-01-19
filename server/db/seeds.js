@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const {Permission} = require('./../models/permission');
 const {Role} = require('./../models/role');
+const {Organization} = require('./../models/organization');
 const {User} = require('./../models/user');
 
 const permissions = [{
@@ -51,6 +52,17 @@ const roles = [{
     isActive: false
 }];
 
+const organizations = [{
+    _id: new ObjectID(),
+    "name": "University of the Philippines - Philippine General Hospital",
+    "isDeleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "University of the Philippines Diliman",
+    "isDeleted": false
+}];
+
 const userOneId = new ObjectID();
 const users = [{
     _id: userOneId,
@@ -88,6 +100,16 @@ const populateRoles = () => {
     });
 };
 
+const populateOrgs = () => {
+    let requests = [];    
+    return Organization.remove({}).then(() => {
+        for(var i = 0; i < organizations.length; ++i){
+            requests.push(new Organization(organizations[i]).save())
+        }
+        return Promise.all(requests)
+    });
+};
+
 const populateUsers = (done) => {
     let requests = [];  
     return User.remove({}).then(() => {
@@ -104,9 +126,12 @@ const populateTables = () => {
             console.log('--Permissions-- Loaded');
             populateRoles().then(() => {
                 console.log('--Roles-- Loaded');
-                populateUsers().then(() => {
-                    console.log('--Users-- Loaded');
-                    resolve();
+                populateOrgs().then(() => {
+                    console.log('--Organizations-- Loaded');
+                    populateUsers().then(() => {
+                        console.log('--Users-- Loaded');
+                        resolve();
+                    })
                 })
             })
         }).catch((error) => {
