@@ -8,35 +8,77 @@ const {User} = require('./../models/user');
 
 const permissions = [{
     _id: new ObjectID(),
-    perm_code: 'user_create',
+    perm_code: 'admin_user_create',
     module: 'User Registration',
     application: 'Administration',
     description: 'can create a user'
 }, {
     _id: new ObjectID(),
-    perm_code: 'user_approve',
+    perm_code: 'admin_user_approve',
     module: 'User Registration',
     application: 'Administration',
     description: 'can approve a user'
 }, {
     _id: new ObjectID(),
-    perm_code: 'user_view',
+    perm_code: 'admin_user_view',
     module: 'User Registration',
     application: 'Administration',
     description: 'can view a user'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'biobank_questions_create',
+    module: 'Data Configuration',
+    application: 'Biobank',
+    description: 'can create questions'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'biobank_questions_update',
+    module: 'Data Configuration',
+    application: 'Biobank',
+    description: 'can update questions'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'biobank_questions_publish',
+    module: 'Data Configuration',
+    application: 'Biobank',
+    description: 'can publish questions'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_questions_create',
+    module: 'Data Configuration',
+    application: 'Medical',
+    description: 'can create questions'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_questions_update',
+    module: 'Data Configuration',
+    application: 'Medical',
+    description: 'can update questions'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_questions_publish',
+    module: 'Data Configuration',
+    application: 'Medical',
+    description: 'can publish questions'
 }];
 
 const roles = [{
     _id: new ObjectID(),
     rolename: 'Admin',
     description: 'role for Administrators',
-    permissions: ['user_create', 'user_approve', 'user_view'],
+    permissions: ['admin_user_create', 'admin_user_approve', 'admin_user_view'],
     isActive: true
 }, {
     _id: new ObjectID(),
-    rolename: 'Researcher',
-    description: 'role for Researchers',
-    permissions: [],
+    rolename: 'Biobank Researcher',
+    description: 'role for Researchers from UPD',
+    permissions: ['biobank_questions_create', 'biobank_questions_update', 'biobank_questions_publish'],
+    isActive: false
+}, {
+    _id: new ObjectID(),
+    rolename: 'Medical Researcher',
+    description: 'role for Researchers from PGH',
+    permissions: ['medical_questions_create', 'medical_questions_update', 'medical_questions_publish'],
     isActive: false
 }, {
     _id: new ObjectID(),

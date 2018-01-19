@@ -12,7 +12,6 @@ var {Role, RoleError} = require('../server/models/role');
 router.use(bodyParser.json());
 
 router.post('/', authenticate, (req, res) => {
-    console.log(req.body);
     var body = _.pick(req.body, ['rolename', 'description', 'permissions', 'isActive']);
     var role = new Role(body);
 

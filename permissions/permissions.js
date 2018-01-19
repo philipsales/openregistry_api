@@ -10,7 +10,7 @@ var {Permission} = require('../server/models/permission');
 router.use(bodyParser.json());
 
 router.get('/', authenticate, (req, res) => {
-    Permission.find().then((permissions) => {
+    Permission.find().sort('application').then((permissions) => {
         var data = permissions.map((permission) => permission.toJSON());
         res.send({data});
     }, (e) => {
