@@ -1,0 +1,24 @@
+version: "2"
+services:
+  authapi:
+    container_name: authapi_me
+    restart: always
+    build: .
+    environment: 
+      NODE_ENV: production-alpha
+      PORT: 3000
+      MONGODB_URI: mongodb://authdb:27017/BiobankAPI
+      JWT_SECRET: topSECRET!
+    ports:
+      - "3000:3000"
+    links:
+      - authmongo:authdb
+    depends_on:
+      - authmongo 
+  authmongo:
+    container_name: authmongo_me
+    image: mongo:3.4.10
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
