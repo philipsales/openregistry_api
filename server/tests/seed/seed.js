@@ -7,6 +7,7 @@ const {Role} = require('./../../models/role');
 const {Question} = require('./../../models/question');
 const {Case} = require('./../../models/case');
 const {Form} = require('./../../models/form');
+const {Organization} = require('./../../models/organization');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
@@ -231,6 +232,17 @@ const cases = [{
     isDeleted: true
 }];
 
+const organizations = [{
+    _id: new ObjectID(),
+    "name": "SEAOIL",
+    "isDeleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "BEARBRAND",
+    "isDeleted": true
+}];
+
 const populateUsers = (done) => {
     User.remove({}).then(() => {
         var userOne = new User(users[0]).save();
@@ -284,6 +296,16 @@ const populateForms = (done) => {
     }).then(() => done());
 };
 
+
+const populateOrganizations = (done) => {
+    Organization.remove({}).then(() => {
+        var org1 = new Organization(organizations[0]).save();
+        var org2 = new Organization(organizations[1]).save();
+        //var org3 = new Organization(organizations[2]).save();
+        return Promise.all([org1, org2]);
+    }).then(() => done());
+};
+
 module.exports = {
     users,
     populateUsers,
@@ -296,5 +318,7 @@ module.exports = {
     cases,
     populateCases,
     forms,
-    populateForms
+    populateForms,
+    organizations,
+    populateOrganizations
 } 

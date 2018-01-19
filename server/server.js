@@ -12,6 +12,7 @@ var roles = require('../roles/roles');
 var questions = require('../questions/questions');
 var cases = require('../cases/cases');
 var forms = require('../forms/forms');
+var organizations = require('../organizations/organizations');
 
 const port = process.env.PORT;
 
@@ -28,6 +29,7 @@ app.use('/roles', roles);
 app.use('/questions', questions);
 app.use('/cases', cases);
 app.use('/forms', forms);
+app.use('/organizations', organizations);
 
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
