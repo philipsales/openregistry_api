@@ -6,6 +6,7 @@ const {Role} = require('./../models/role');
 const {Organization} = require('./../models/organization');
 const {User} = require('./../models/user');
 const {Form} = require('./../models/form');
+const {Case} = require('./../models/case');
 
 const permissions = [{
     _id: new ObjectID(),
@@ -161,6 +162,44 @@ const forms = [{
     }]
 }];
 
+const cases = [{
+    _id: new ObjectID(),
+    case_number: '999999',
+    diagnosis: 'Some diagnosis here',
+    forms: [{
+        form_id: forms[0]._id.toHexString(),
+        form_name: forms[0].name,
+        answers: [{
+            question_key: 'NAME',
+            question_answer: 'Kristhian Tiu',
+        }, {
+            question_key: 'GENDER',
+            question_answer: 'Male',
+        },{
+            question_key: 'AGE',
+            question_answer: '21',
+        }]
+    }]
+},{
+    _id: new ObjectID(),
+    case_number: '999998',
+    diagnosis: 'Some diagnosis here',
+    forms: [{
+        form_id: forms[0]._id.toHexString(),
+        form_name: forms[0].name,
+        answers: [{
+            question_key: 'NAME',
+            question_answer: 'Philip Sales',
+        }, {
+            question_key: 'GENDER',
+            question_answer: 'Male',
+        },{
+            question_key: 'AGE',
+            question_answer: '30',
+        }]
+    }]
+}];
+
 const populatePermissions = () => {
     let requests = [];
     return Permission.remove({}).then(() => {
@@ -208,10 +247,23 @@ const populateForms = (done) => {
     });
 };
 
+const populateCases = (done) => {
+    let requests = [];  
+    return Case.remove({}).then(() => {
+        for(var i = 0; i < cases.length; ++i){
+            requests.push(new Case(cases[i]).save())
+        }
+        return Promise.all(requests)
+    });
+};
 const populateTables = () => {
     var forms_request = populateForms().then(() => {
         console.log('--Forms-- Loaded');
+        populateCases().then(() => {
+            console.log('--Cases-- Loaded');
+        });
     });
+    
     var users_etc_request = new Promise((resolve, reject) => {
         populatePermissions().then(() => {
             console.log('--Permissions-- Loaded');

@@ -14,7 +14,7 @@ class CaseError extends Error {
 
 var CaseSchema = new mongoose.Schema({
     case_number: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },

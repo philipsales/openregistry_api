@@ -43,7 +43,7 @@ describe('/cases', () => {
         it('should create new case', (done) => {
             const seed = {
                 _id: new ObjectID(),
-                case_number: 4,
+                case_number: '4',
                 diagnosis: '',
                 forms: [{
                     form_id: forms[0]._id.toHexString(),
@@ -98,7 +98,7 @@ describe('/cases', () => {
         it('should update existing case', (done) => {
             const seed = {
                 _id: new ObjectID(),
-                case_number: 1,
+                case_number: '1',
                 diagnosis: '',
                 forms: [{
                     form_id: forms[0]._id.toHexString(),

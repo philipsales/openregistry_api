@@ -193,7 +193,7 @@ const forms = [{
 
 const cases = [{
     _id: new ObjectID(),
-    case_number: 1,
+    case_number: '1',
     diagnosis: 'Some diagnosis here',
     forms: [{
         form_id: forms[0]._id.toHexString(),
@@ -218,7 +218,7 @@ const cases = [{
     }]
 }, {
     _id: new ObjectID(),
-    case_number: 2,
+    case_number: '2',
     diagnosis: 'Another diagnosis',
     forms: [{
         form_id: forms[0]._id.toHexString(),
@@ -244,7 +244,7 @@ const cases = [{
 },
 {
     _id: new ObjectID(),
-    case_number: 3,
+    case_number: '3',
     diagnosis: 'Another diagnosis again',
     forms: [{
         form_id: forms[0]._id.toHexString(),
