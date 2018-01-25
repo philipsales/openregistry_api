@@ -149,17 +149,17 @@ const forms = [{
         name: "section-name",
         order: 1,
         questions: [{
-            "key": "GENDER",
-            "label": "What is your gender?",
-            "type": "dropdown",
+            "key": "NAME",
+            "label": "What is your name?",
+            "type": "text",
             "value": "",
-            "options": "Male|Female",
+            "options": "",
             "required": true,
             "order": 3
         },
         {
-            "key": "AGE",
-            "label": "What is your age?",
+            "key": "HOBBY",
+            "label": "What is your hobby?",
             "type": "text",
             "value": "",
             "options": "",
@@ -194,42 +194,78 @@ const forms = [{
 const cases = [{
     _id: new ObjectID(),
     case_number: 1,
-    answers: [{
-        question_key: 'FNAME',
-        question_answer: 'Kristhian',
+    diagnosis: 'Some diagnosis here',
+    forms: [{
+        form_id: forms[0]._id.toHexString(),
+        form_name: forms[0].name,
+        answers: [{
+            question_key: 'GENDER',
+            question_answer: 'Male',
+        },{
+            question_key: 'AGE',
+            question_answer: '21',
+        }]
     },{
-        question_key: 'MNAME',
-        question_answer: 'Briones',
-    }, {
-        question_key: 'LNAME',
-        question_answer: 'Tiu',
+        form_id: forms[1]._id.toHexString(),
+        form_name: forms[1].name,
+        answers: [{
+            question_key: 'NAME',
+            question_answer: 'Marc',
+        },{
+            question_key: 'HOBBY',
+            question_answer: 'Penalosa',
+        }]
     }]
 }, {
     _id: new ObjectID(),
     case_number: 2,
-    answers: [{
-        question_key: 'FNAME',
-        question_answer: 'Analee',
+    diagnosis: 'Another diagnosis',
+    forms: [{
+        form_id: forms[0]._id.toHexString(),
+        form_name: forms[0].name,
+        answers: [{
+            question_key: 'GENDER',
+            question_answer: 'Male',
+        },{
+            question_key: 'AGE',
+            question_answer: '21',
+        }]
     },{
-        question_key: 'MNAME',
-        question_answer: 'de leon',
-    }, {
-        question_key: 'LNAME',
-        question_answer: 'Divinagracia',
+        form_id: forms[1]._id.toHexString(),
+        form_name: forms[1].name,
+        answers: [{
+            question_key: 'NAME',
+            question_answer: 'Ewan',
+        },{
+            question_key: 'HOBBY',
+            question_answer: 'Ewan too',
+        }]
     }]
 },
 {
     _id: new ObjectID(),
     case_number: 3,
-    answers: [{
-        question_key: 'FNAME',
-        question_answer: 'sadsad',
+    diagnosis: 'Another diagnosis again',
+    forms: [{
+        form_id: forms[0]._id.toHexString(),
+        form_name: forms[0].name,
+        answers: [{
+            question_key: 'GENDER',
+            question_answer: 'Female',
+        },{
+            question_key: 'AGE',
+            question_answer: '30',
+        }]
     },{
-        question_key: 'MNAME',
-        question_answer: 'asd asdasd',
-    }, {
-        question_key: 'LNAME',
-        question_answer: 'asdasd',
+        form_id: forms[1]._id.toHexString(),
+        form_name: forms[1].name,
+        answers: [{
+            question_key: 'NAME',
+            question_answer: 'Rose',
+        },{
+            question_key: 'HOBBY',
+            question_answer: 'Tennis',
+        }]
     }],
     isDeleted: true
 }];

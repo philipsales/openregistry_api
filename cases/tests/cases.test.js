@@ -4,9 +4,10 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('../../server/server');
 const {Case} = require('../../server/models/case');
-const {users, populateUsers, cases, populateCases} = require('../../server/tests/seed/seed');
+const {users, populateUsers, forms, populateForms, cases, populateCases} = require('../../server/tests/seed/seed');
 
 beforeEach(populateUsers);
+beforeEach(populateForms);
 beforeEach(populateCases);
 
 
@@ -20,7 +21,11 @@ describe('/cases', () => {
                 .expect((res) => {
                     expect(res.body.data.length).toBe(2);
                     expect(res.body.data[0].case_number).toBeTruthy();
-                    expect(res.body.data[0].answers).toBeTruthy();
+                    expect(res.body.data[0].diagnosis).toBeTruthy();
+                    expect(res.body.data[0].forms).toBeTruthy();
+                    expect(res.body.data[0].forms[0].form_id).toBeTruthy();
+                    expect(res.body.data[0].forms[0].form_name).toBeTruthy();
+                    expect(res.body.data[0].forms[0].answers).toBeFalsy();
                 })
                 .end(done);
         });
@@ -39,15 +44,27 @@ describe('/cases', () => {
             const seed = {
                 _id: new ObjectID(),
                 case_number: 4,
-                answers: [{
-                    question_key: 'FNAME',
-                    question_answer: 'Marc',
+                diagnosis: '',
+                forms: [{
+                    form_id: forms[0]._id.toHexString(),
+                    form_name: forms[0].name,
+                    answers: [{
+                        question_key: 'GENDER',
+                        question_answer: 'Male',
+                    },{
+                        question_key: 'AGE',
+                        question_answer: '21',
+                    }]
                 },{
-                    question_key: 'MNAME',
-                    question_answer: 'Penalosa',
-                }, {
-                    question_key: 'LNAME',
-                    question_answer: 'Briones',
+                    form_id: forms[1]._id.toHexString(),
+                    form_name: forms[1].name,
+                    answers: [{
+                        question_key: 'NAME',
+                        question_answer: 'Marc',
+                    },{
+                        question_key: 'HOBBY',
+                        question_answer: 'Penalosa',
+                    }]
                 }]
             };
 
@@ -59,7 +76,10 @@ describe('/cases', () => {
                 .expect((res) => {
                     expect(res.body._id).toBeTruthy();
                     expect(res.body.case_number).toBe(seed.case_number);
-                    expect(res.body.answers.length).toBe(3);
+                    expect(res.body.forms.length).toBe(2);
+                    expect(res.body.forms[0].form_id).toBeTruthy();
+                    expect(res.body.forms[0].form_name).toBeTruthy();
+                    expect(res.body.forms[0].answers).toBe(2);
                 })
                 .end((err) => {
                     if (err) {
@@ -79,15 +99,14 @@ describe('/cases', () => {
             const seed = {
                 _id: new ObjectID(),
                 case_number: 1,
-                answers: [{
-                    question_key: 'FNAME',
-                    question_answer: 'Marc',
-                },{
-                    question_key: 'MNAME',
-                    question_answer: 'Penalosa',
-                }, {
-                    question_key: 'LNAME',
-                    question_answer: 'Briones',
+                diagnosis: '',
+                forms: [{
+                    form_id: forms[0]._id.toHexString(),
+                    form_name: forms[0].name,
+                    answers: [{
+                        question_key: 'GENDER',
+                        question_answer: 'Male',
+                    }]
                 }]
             };
 
@@ -99,7 +118,8 @@ describe('/cases', () => {
                 .expect((res) => {
                     expect(res.body._id).toBeTruthy();
                     expect(res.body.case_number).toBe(seed.case_number);
-                    expect(res.body.answers.length).toBe(3);
+                    expect(res.body.forms.length).toBe(1);
+                    expect(res.body.forms[0].answers.length).toBe(1);
                 })
                 .end((err) => {
                     if (err) {
@@ -133,7 +153,7 @@ describe('/cases', () => {
                 .expect((res) => {
                     expect(res.body._id).toBeTruthy();
                     expect(res.body.case_number).toBeTruthy();
-                    expect(res.body.answers).toBeTruthy();
+                    expect(res.body.forms).toBeTruthy();
                 })
                 .end(done);
         });

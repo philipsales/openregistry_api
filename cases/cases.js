@@ -34,7 +34,13 @@ router.post('/', authenticate, (req, res) => {
 
 router.get('/', authenticate, (req, res) => {
     Case.find({isDeleted: false}).then((cases) => {
-        var data = cases.map((value) => value.toJSON());
+        var data = cases.map((value) => {
+            var out = value.toJSON();
+            for(let form of out.forms){
+                delete form['answers'];
+            }
+            return out;
+        });
         res.send({data});
     }, (e) => {
         res.status(400).send(e);

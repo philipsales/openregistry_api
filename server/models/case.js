@@ -18,15 +18,28 @@ var CaseSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    answers: [{
-        question_key: {
+    diagnosis: {
+        type: String
+    },
+    forms: [{
+        form_id : {
             type: String,
             required: true
         },
-        question_answer: {
+        form_name : {
             type: String,
             required: true
-        }
+        },
+        answers: [{
+            question_key: {
+                type: String,
+                required: true
+            },
+            question_answer: {
+                type: String,
+                required: true
+            }
+        }]
     }],
     isDeleted:{
         type: Boolean,
@@ -37,7 +50,7 @@ var CaseSchema = new mongoose.Schema({
 
 CaseSchema.methods.toJSON = function() {
     var caseObject = this.toObject();
-    return _.pick(caseObject, ['_id', 'case_number', 'answers']);
+    return _.pick(caseObject, ['_id', 'case_number', 'diagnosis', 'forms']);
 };
 
 var Case = mongoose.model('Case', CaseSchema);
