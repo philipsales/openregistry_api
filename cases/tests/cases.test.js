@@ -79,7 +79,7 @@ describe('/cases', () => {
                     expect(res.body.forms.length).toBe(2);
                     expect(res.body.forms[0].form_id).toBeTruthy();
                     expect(res.body.forms[0].form_name).toBeTruthy();
-                    expect(res.body.forms[0].answers).toBe(2);
+                    expect(res.body.forms[0].answers.length).toBe(2);
                 })
                 .end((err) => {
                     if (err) {
@@ -154,6 +154,10 @@ describe('/cases', () => {
                     expect(res.body._id).toBeTruthy();
                     expect(res.body.case_number).toBeTruthy();
                     expect(res.body.forms).toBeTruthy();
+                    expect(res.body.forms.length).toBe(2);
+                    expect(res.body.forms[0].form_id).toBeTruthy();
+                    expect(res.body.forms[0].form_name).toBeTruthy();
+                    expect(res.body.forms[0].answers).toBeTruthy();
                 })
                 .end(done);
         });

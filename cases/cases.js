@@ -12,7 +12,7 @@ var {Case, CaseError} = require('../server/models/case');
 router.use(bodyParser.json());
 
 router.post('/', authenticate, (req, res) => {
-    var seed = _.pick(req.body, ['case_number', 'answers']);
+    var seed = _.pick(req.body, ['case_number', 'diagnosis', 'forms']);
     var instance = new Case(seed);
 
     Case.findOneAndRemove({case_number : seed.case_number}).then(() => {
