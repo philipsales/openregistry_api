@@ -5,6 +5,7 @@ const {Permission} = require('./../models/permission');
 const {Role} = require('./../models/role');
 const {Organization} = require('./../models/organization');
 const {User} = require('./../models/user');
+const {Form} = require('./../models/form');
 
 const permissions = [{
     _id: new ObjectID(),
@@ -121,6 +122,45 @@ const users = [{
     }]
 }];
 
+const forms = [{
+    _id: new ObjectID(),
+    name: "General Info Sample Form",
+    organization: "University of the Philippines - Philippine General Hospital",
+    department: "My Department",
+    type: "The Type",
+    sections: [{
+        key: new ObjectID,
+        name: "General Details",
+        order: 1,
+        questions: [{
+            "key": "NAME",
+            "label": "What is your name?",
+            "type": "text",
+            "value": "",
+            "options": "",
+            "required": true,
+            "order": 3
+        },{
+            "key": "GENDER",
+            "label": "What is your gender?",
+            "type": "dropdown",
+            "value": "",
+            "options": "Male|Female",
+            "required": true,
+            "order": 3
+        },
+        {
+            "key": "AGE",
+            "label": "What is your age?",
+            "type": "text",
+            "value": "",
+            "options": "",
+            "required": true,
+            "order": 4
+        }]
+    }]
+}];
+
 const populatePermissions = () => {
     let requests = [];
     return Permission.remove({}).then(() => {
@@ -162,8 +202,17 @@ const populateUsers = (done) => {
     });
 };
 
+const populateForms = (done) => {
+    return Form.remove({}).then(() => {
+        return new Form(forms[0]).save();
+    });
+};
+
 const populateTables = () => {
-    return new Promise((resolve, reject) => {
+    var forms_request = populateForms().then(() => {
+        console.log('--Forms-- Loaded');
+    });
+    var users_etc_request = new Promise((resolve, reject) => {
         populatePermissions().then(() => {
             console.log('--Permissions-- Loaded');
             populateRoles().then(() => {
@@ -182,6 +231,7 @@ const populateTables = () => {
             reject();
         });
     });
+    return Promise.all([forms_request, users_etc_request])
 };
 
 module.exports = {
