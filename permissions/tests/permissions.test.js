@@ -20,7 +20,7 @@ describe('GET /permissions', () => {
                 expect(res.body.data[0].perm_code).toBeTruthy();
                 expect(res.body.data[0].application).toBeTruthy();
                 expect(res.body.data[0].module).toBeTruthy();
-                expect(res.body.data[0].description).toBeFalsy();
+                expect(res.body.data[0].description).toBeUndefined();
             })
             .end(done);
     });

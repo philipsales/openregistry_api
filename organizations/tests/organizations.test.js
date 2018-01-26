@@ -21,7 +21,7 @@ describe('/organizations', () => {
                     expect(res.body.data.length).toBe(1);
                     expect(res.body.data[0]._id).toBeTruthy();
                     expect(res.body.data[0].name).toBeTruthy();
-                    expect(res.body.data[0].isDeleted).toBeFalsy();
+                    expect(res.body.data[0].isDeleted).toBeUndefined();
                 })
                 .end(done);
         });
@@ -36,7 +36,7 @@ describe('/organizations', () => {
                 .expect((res) => {
                     expect(res.body._id).toBeTruthy();
                     expect(res.body.name).toBeTruthy();
-                    expect(res.body.isDeleted).toBeFalsy();
+                    expect(res.body.isDeleted).toBeUndefined();
                 })
                 .end(done);
         });

@@ -27,7 +27,7 @@ describe('/cases', () => {
                     expect(res.body.data[0].forms[0].form_id).toBeDefined();
                     expect(res.body.data[0].forms[0].form_name).toBeDefined();
                     expect(res.body.data[0].forms[0].date_created).toBeDefined();
-                    expect(res.body.data[0].forms[0].answers).toBeFalsy();
+                    expect(res.body.data[0].forms[0].answers).toBeUndefined();
                 })
                 .end(done);
         });
@@ -209,7 +209,7 @@ describe('/cases', () => {
                         return done(err);
                     }
 
-                    Case.find({isDeleted: false}).then((cases) => { 
+                    Case.find({is_deleted: false}).then((cases) => { 
                         expect(cases.length).toBe(1);
                         done();
                     }).catch((e) => {

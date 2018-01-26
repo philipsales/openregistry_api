@@ -110,7 +110,7 @@ describe('/forms', () => {
                     expect(res.body.data.length).toBe(2);
                     expect(res.body.data[0]._id).toBeTruthy();
                     expect(res.body.data[0].name).toBeTruthy();
-                    expect(res.body.data[0].sections).toBeFalsy();
+                    expect(res.body.data[0].sections).toBeUndefined();
                 })
                 .end(done);
         });

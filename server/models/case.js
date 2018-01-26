@@ -15,8 +15,7 @@ class CaseError extends Error {
 var CaseSchema = new mongoose.Schema({
     case_number: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     diagnosis: {
         type: String
@@ -47,7 +46,7 @@ var CaseSchema = new mongoose.Schema({
             }
         }]
     }],
-    isDeleted:{
+    is_deleted:{
         type: Boolean,
         default: false
     }

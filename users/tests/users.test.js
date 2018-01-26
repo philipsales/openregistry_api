@@ -22,8 +22,8 @@ describe('/users', () => {
                     expect(res.body.data.length).toBe(2);
                     expect(res.body.data[0].username).toBeTruthy();
                     expect(res.body.data[0].first_name).toBeTruthy();
-                    expect(res.body.data[0].password).toBeFalsy();
-                    expect(res.body.data[0].roles).toBeFalsy();
+                    expect(res.body.data[0].password).toBeUndefined();
+                    expect(res.body.data[0].roles).toBeUndefined();
                 })
                 .end(done);
         });
@@ -60,7 +60,7 @@ describe('/users', () => {
                     expect(res.body.user.gender).toBe(seed.gender);
                     expect(res.body.user.email).toBe(seed.email);
                     expect(res.body.user.mobile_number).toBe(seed.mobile_number);
-                    expect(res.body.user.password).toBeFalsy();
+                    expect(res.body.user.password).toBeUndefined();
                 })
                 .end((err) => {
                     if (err) {
@@ -151,7 +151,7 @@ describe('/users', () => {
                 .expect((res) => {
                     expect(res.body.username).toBeTruthy();
                     expect(res.body.first_name).toBeTruthy();
-                    expect(res.body.password).toBeFalsy();
+                    expect(res.body.password).toBeUndefined();
                     expect(res.body.roles).toBeTruthy();
                 })
                 .end(done);
@@ -450,7 +450,7 @@ describe('/users', () => {
                 .expect((res) => {
                     expect(res.body.username).toBeTruthy();
                     expect(res.body.first_name).toBeTruthy();
-                    expect(res.body.password).toBeFalsy();
+                    expect(res.body.password).toBeUndefined();
                 })
                 .end(done);
         });
@@ -624,7 +624,7 @@ describe('/users', () => {
                     expect(res.body.user._id).toBeTruthy();
                     expect(res.body.user.username).toBe(username);
                     expect(res.body.user.first_name).toBeTruthy();
-                    expect(res.body.user.password).toBeFalsy();
+                    expect(res.body.user.password).toBeUndefined();
                 })
                 .end((err, res) => {
                     if(err) {
@@ -652,7 +652,7 @@ describe('/users', () => {
             })
             .expect(400)
             .expect((res) => {
-                expect(res.body.token).toBeFalsy();
+                expect(res.body.token).toBeUndefined();
             })
             .end((err, res) => {
                 if(err) {
@@ -677,7 +677,7 @@ describe('/users', () => {
             })
             .expect(400)
             .expect((res) => {
-                expect(res.body.token).toBeFalsy();
+                expect(res.body.token).toBeUndefined();
             })
             .end((err, res) => {
                 if(err) {
@@ -708,7 +708,7 @@ describe('/users', () => {
                     }
         
                     User.findById(users[0]._id).then((user) =>{
-                        expect(user.tokens[0]).toBeFalsy();
+                        expect(user.tokens[0]).toBeUndefined();
                         done();
                     }).catch((e) => {
                         done(e);

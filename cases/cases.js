@@ -33,7 +33,7 @@ router.post('/', authenticate, (req, res) => {
 
 
 router.get('/', authenticate, (req, res) => {
-    Case.find({isDeleted: false}).then((cases) => {
+    Case.find({is_deleted: false}).then((cases) => {
         var data = cases.map((value) => {
             var out = value.toJSON();
             for(let form of out.forms){
@@ -55,7 +55,7 @@ router.get('/:id', authenticate, (req, res) => {
     }
     Case.findOne({
         _id: id,
-        isDeleted: false
+        is_deleted: false
     }).then((data) => {
         if (data){
             res.send(data);
@@ -76,10 +76,10 @@ router.delete('/:id', authenticate, (req, res) => {
 
     Case.findOneAndUpdate({
         _id: id,
-        isDeleted: false
+        is_deleted: false
     }, {
         $set: {
-            isDeleted: true       
+            is_deleted: true       
         }
     }, {
         new: true

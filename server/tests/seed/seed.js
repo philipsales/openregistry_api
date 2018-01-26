@@ -267,7 +267,7 @@ const cases = [{
             question_answer: 'Tennis',
         }]
     }],
-    isDeleted: true
+    is_deleted: true
 }];
 
 const organizations = [{

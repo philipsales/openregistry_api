@@ -21,7 +21,7 @@ describe('/roles', () => {
                     expect(res.body.data.length).toBe(2);
                     expect(res.body.data[0]._id).toBeTruthy();
                     expect(res.body.data[0].rolename).toBeTruthy();
-                    expect(res.body.data[0].permissions).toBeFalsy();
+                    expect(res.body.data[0].permissions).toBeUndefined();
                 })
                 .end(done);
         });
