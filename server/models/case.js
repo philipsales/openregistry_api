@@ -72,6 +72,22 @@ CaseSchema.pre('save', function(next){
     next();
 });
 
+CaseSchema.pre('findOneAndUpdate', function(next){
+    const forms = this.getUpdate().$set.forms;
+    if(forms){
+        const total_forms = forms.length;
+        for(var i=0; i < total_forms; ++i){
+            if(!forms[i].date_created){
+                forms[i].date_created = (new Date()).getTime();
+            }
+        }
+        this.findOneAndUpdate({}, {
+            forms: forms
+        });
+    } 
+    next();
+});
+
 var Case = mongoose.model('Case', CaseSchema);
 
 module.exports = {

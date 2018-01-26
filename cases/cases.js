@@ -94,4 +94,31 @@ router.delete('/:id', authenticate, (req, res) => {
     });
 });
 
+router.patch('/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['case_number', 'diagnosis', 'date_created', 'forms']);
+
+    Case.findOneAndUpdate({
+        _id: id,
+        is_deleted: false
+    }, {
+        $set: body
+    }, {
+        new: true
+    }).then((updated_case) => {
+        if (updated_case) {
+            res.send(updated_case);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((error) => {
+        if (error instanceof CaseError) {
+            return res.status(400).send(JSON.parse(error.message));
+        } else {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+    });
+});
+
 module.exports = router

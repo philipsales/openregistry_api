@@ -100,10 +100,23 @@ describe('/cases', () => {
                 });
         });
 
+        
+
+        it('should return 401 when user is not authenticated', (done) => {
+            request(app)
+                .get('/cases')
+                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
+                .expect(401)
+                .end(done);
+        });
+    });
+
+    describe('#PATCH /cases/:id', () => {
         it('should update existing case', (done) => {
             const seed = {
                 _id: new ObjectID(),
                 case_number: '1',
+                date_created: (new Date()).getTime(),
                 diagnosis: '',
                 forms: [{
                     form_id: forms[0]._id.toHexString(),
@@ -114,17 +127,18 @@ describe('/cases', () => {
                     }]
                 }]
             };
-
+            
+            var hexId = cases[0]._id.toHexString();
             request(app)
-                .post('/cases')
+                .patch(`/cases/${hexId}`)
                 .set('Authorization', `JWT ${users[1].tokens[0].token}`)
                 .send(seed)
-                .expect(201)
+                .expect(200)
                 .expect((res) => {
                     expect(res.body._id).toBeDefined();
                     expect(res.body.case_number).toBe(seed.case_number);
                     expect(res.body.diagnosis).toBe(seed.diagnosis);
-                    expect(res.body.date_created).toBeDefined();
+                    expect(res.body.date_created).toBe(seed.date_created);
                     expect(res.body.forms.length).toBe(1);
                     expect(res.body.forms[0].date_created).toBeDefined();
                     expect(res.body.forms[0].answers.length).toBe(1);
@@ -141,14 +155,6 @@ describe('/cases', () => {
                         done(e);
                     });
                 });
-        });
-
-        it('should return 401 when user is not authenticated', (done) => {
-            request(app)
-                .get('/cases')
-                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
-                .expect(401)
-                .end(done);
         });
     });
 
