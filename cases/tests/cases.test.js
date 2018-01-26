@@ -20,11 +20,13 @@ describe('/cases', () => {
                 .expect(200)
                 .expect((res) => {
                     expect(res.body.data.length).toBe(2);
-                    expect(res.body.data[0].case_number).toBeTruthy();
-                    expect(res.body.data[0].diagnosis).toBeTruthy();
-                    expect(res.body.data[0].forms).toBeTruthy();
-                    expect(res.body.data[0].forms[0].form_id).toBeTruthy();
-                    expect(res.body.data[0].forms[0].form_name).toBeTruthy();
+                    expect(res.body.data[0].case_number).toBeDefined();
+                    expect(res.body.data[0].date_created).toBeDefined();
+                    expect(res.body.data[0].diagnosis).toBeDefined();
+                    expect(res.body.data[0].forms).toBeDefined();
+                    expect(res.body.data[0].forms[0].form_id).toBeDefined();
+                    expect(res.body.data[0].forms[0].form_name).toBeDefined();
+                    expect(res.body.data[0].forms[0].date_created).toBeDefined();
                     expect(res.body.data[0].forms[0].answers).toBeFalsy();
                 })
                 .end(done);
@@ -74,11 +76,14 @@ describe('/cases', () => {
                 .send(seed)
                 .expect(201)
                 .expect((res) => {
-                    expect(res.body._id).toBeTruthy();
+                    expect(res.body._id).toBeDefined();
                     expect(res.body.case_number).toBe(seed.case_number);
+                    expect(res.body.diagnosis).toBeDefined();
+                    expect(res.body.date_created).toBeDefined();
                     expect(res.body.forms.length).toBe(2);
-                    expect(res.body.forms[0].form_id).toBeTruthy();
-                    expect(res.body.forms[0].form_name).toBeTruthy();
+                    expect(res.body.forms[0].form_id).toBeDefined();
+                    expect(res.body.forms[0].form_name).toBeDefined();
+                    expect(res.body.forms[0].date_created).toBeDefined();
                     expect(res.body.forms[0].answers.length).toBe(2);
                 })
                 .end((err) => {
@@ -116,9 +121,12 @@ describe('/cases', () => {
                 .send(seed)
                 .expect(201)
                 .expect((res) => {
-                    expect(res.body._id).toBeTruthy();
+                    expect(res.body._id).toBeDefined();
                     expect(res.body.case_number).toBe(seed.case_number);
+                    expect(res.body.diagnosis).toBe(seed.diagnosis);
+                    expect(res.body.date_created).toBeDefined();
                     expect(res.body.forms.length).toBe(1);
+                    expect(res.body.forms[0].date_created).toBeDefined();
                     expect(res.body.forms[0].answers.length).toBe(1);
                 })
                 .end((err) => {
@@ -151,13 +159,16 @@ describe('/cases', () => {
                 .set('Authorization', `JWT ${users[0].tokens[0].token}`)
                 .expect(200)
                 .expect((res) => {
-                    expect(res.body._id).toBeTruthy();
-                    expect(res.body.case_number).toBeTruthy();
-                    expect(res.body.forms).toBeTruthy();
+                    expect(res.body._id).toBeDefined();
+                    expect(res.body.case_number).toBeDefined();
+                    expect(res.body.diagnosis).toBeDefined();
+                    expect(res.body.date_created).toBeDefined();
+                    expect(res.body.forms).toBeDefined();
                     expect(res.body.forms.length).toBe(2);
-                    expect(res.body.forms[0].form_id).toBeTruthy();
-                    expect(res.body.forms[0].form_name).toBeTruthy();
-                    expect(res.body.forms[0].answers).toBeTruthy();
+                    expect(res.body.forms[0].form_id).toBeDefined();
+                    expect(res.body.forms[0].form_name).toBeDefined();
+                    expect(res.body.forms[0].date_created).toBeDefined();
+                    expect(res.body.forms[0].answers).toBeDefined();
                 })
                 .end(done);
         });

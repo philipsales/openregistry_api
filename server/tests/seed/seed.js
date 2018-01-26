@@ -245,7 +245,7 @@ const cases = [{
 {
     _id: new ObjectID(),
     case_number: '3',
-    diagnosis: 'Another diagnosis again',
+    diagnosis: '',
     forms: [{
         form_id: forms[0]._id.toHexString(),
         form_name: forms[0].name,

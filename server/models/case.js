@@ -21,6 +21,9 @@ var CaseSchema = new mongoose.Schema({
     diagnosis: {
         type: String
     },
+    date_created: {
+        type: Number
+    },
     forms: [{
         form_id : {
             type: String,
@@ -29,6 +32,9 @@ var CaseSchema = new mongoose.Schema({
         form_name : {
             type: String,
             required: true
+        },
+        date_created : {
+            type: Number
         },
         answers: [{
             question_key: {
@@ -50,8 +56,22 @@ var CaseSchema = new mongoose.Schema({
 
 CaseSchema.methods.toJSON = function() {
     var caseObject = this.toObject();
-    return _.pick(caseObject, ['_id', 'case_number', 'diagnosis', 'forms']);
+    return _.pick(caseObject, ['_id', 'case_number', 'date_created', 'diagnosis', 'forms']);
 };
+
+CaseSchema.pre('save', function(next){
+    if(!this.date_created) {
+        this.date_created = (new Date()).getTime();
+    }
+    var total_forms = this.forms.length;
+
+    for(var i = 0; i < total_forms; ++i){
+        if(!this.forms[i].date_created){
+            this.forms[i].date_created = (new Date()).getTime();
+        }
+    }
+    next();
+});
 
 var Case = mongoose.model('Case', CaseSchema);
 
