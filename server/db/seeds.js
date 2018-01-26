@@ -116,7 +116,7 @@ const users = [{
     middle_name: 'J',
     password: 'kryptonite',
     isDeleted: false,
-    roles: ['Admin'],
+    roles: ['Admin', 'Biobank Researcher', 'Medical Researcher'],
     tokens: [{
         access: 'auth',
         token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET).toString()
