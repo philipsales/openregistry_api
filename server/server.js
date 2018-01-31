@@ -14,6 +14,8 @@ var questions = require('../questions/questions');
 var cases = require('../cases/cases');
 var forms = require('../forms/forms');
 var organizations = require('../organizations/organizations');
+var databases = require('../databases/databases');
+var consents = require('../consents/consents');
 
 const {populateTables} = require('./db/seeds');
 
@@ -33,6 +35,8 @@ app.use('/questions', questions);
 app.use('/cases', cases);
 app.use('/forms', forms);
 app.use('/organizations', organizations);
+app.use('/databases', databases);
+app.use('/consents', consents);
 
 const argv = yargs.argv;
 const command = process.argv[2];
