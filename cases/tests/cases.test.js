@@ -295,7 +295,7 @@ describe('/cases', () => {
         });
     });
 
-    describe('#GET /cases/:caseid/forms/:id', () => {
+    describe('#GET /cases/:id/forms/:formid', () => {
         it('should get specific form inside a case', (done) => {
             const caseid = cases[0]._id.toHexString();
             const formid = cases[0].forms[0]._id.toHexString();
@@ -330,6 +330,51 @@ describe('/cases', () => {
                 .set('Authorization', `JWT ${users[1].tokens[0].token}`)
                 .expect(404)
                 .end(done);
+        });
+    });
+
+
+    describe('#PATCH /cases/:id/forms/:formid', () => {
+        it('should update existing form in a case', (done) => {
+            const seed = {
+                answers: [{
+                    question_key: 'GENDER',
+                    question_answer: 'Male',
+                },{
+                    question_key: 'AGE',
+                    question_answer: '99',
+                }]
+            };
+            
+            const caseid = cases[0]._id.toHexString();
+            const formid = cases[0].forms[0]._id.toHexString();
+            request(app)
+                .patch(`/cases/${caseid}/forms/${formid}`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .send(seed)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.form_id).toBeDefined();
+                    expect(res.body.form_name).toBeDefined();
+                    expect(res.body.date_created).toBeDefined();
+                    expect(res.body.answers).toBeDefined();
+                    expect(res.body.answers[1]['question_answer']).toBe(seed.answers[1].question_answer);
+                })
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    Case.findOne({
+                        '_id': caseid,
+                        'is_deleted': false
+                    }).then((cases) => { 
+                        expect(cases.forms[0].answers[1]['question_answer']).toBe(seed.answers[1].question_answer);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
         });
     });
 });

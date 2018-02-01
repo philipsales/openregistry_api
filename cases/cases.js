@@ -186,4 +186,42 @@ router.get('/:id/forms/:formid', authenticate, (req, res) => {
     });
 });
 
+router.patch('/:id/forms/:formid', authenticate, (req, res) => {
+    var seed = _.pick(req.body, ['answers']);
+    var formid = req.params.formid;
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        console.log('invalid object');
+        res.status(400).send();
+        return;
+    }
+    Case.findOne({
+        '_id': id,
+        'is_deleted': false
+    }).then((instance) => {
+        if (instance){
+            let forms = instance.forms.id(formid);
+            if (forms) {
+                forms.answers = seed.answers;
+                instance.save().then((saved_case) => {
+                    return res.status(200).send(saved_case.forms.id(formid));
+                    //return res.status(201).send(saved_case);
+                }, (error) => {
+                    return Promise.reject(error);
+                });
+            } else {
+                console.log('form not found');
+                return res.status(404).send();    
+            }
+        } else {
+            console.log('instance null');
+            return res.status(404).send();
+        }
+    }).catch((e) => {
+        console.log(e);
+        console.log('can not find case : ' + id);
+        res.status(404).send();
+    });
+});
+
 module.exports = router
