@@ -121,6 +121,45 @@ router.patch('/:id', authenticate, (req, res) => {
     });
 });
 
+router.post('/:id/forms', authenticate, (req, res) => {
+    var seed = _.pick(req.body, ['form_name', 'form_id', 'answers']);
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        console.log('invalid object');
+        res.status(400).send();
+        return;
+    }
+    Case.findOne({
+        '_id': id,
+        'is_deleted': false
+    }).then((instance) => {
+        if (instance){
+            const new_form = {
+                form_name: seed.form_name,
+                form_id: seed.form_id
+            };
+            if ('answers' in seed) {
+                new_form.answers = seed.answers;
+            }
+
+            let total = instance.forms.push(new_form);
+            instance.save().then((saved_case) => {
+                return res.status(201).send(saved_case.forms[total - 1]);
+                //return res.status(201).send(saved_case);
+            }, (error) => {
+                return Promise.reject(error);
+            })
+        } else {
+            console.log('instance null');
+            return res.status(400).send();
+        }
+    }).catch((e) => {
+        console.log(e);
+        console.log('can not find case : ' + id);
+        res.status(400).send();
+    });
+});
+
 router.get('/:id/forms/:formid', authenticate, (req, res) => {
     var formid = req.params.formid;
     var id = req.params.id;

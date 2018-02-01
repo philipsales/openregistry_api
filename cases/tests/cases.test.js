@@ -249,6 +249,52 @@ describe('/cases', () => {
         });
     });
 
+    describe('#POST /cases/:id/forms', () => {
+        it('should add new form within a case', (done) => {
+            const seed = {
+                form_id: forms[0]._id.toHexString(),
+                form_name: forms[0].name,
+                answers: [{
+                    question_key: 'GENDER',
+                    question_answer: 'Male',
+                },{
+                    question_key: 'AGE',
+                    question_answer: '30',
+                }]
+            };
+
+            const caseid = cases[0]._id.toHexString();
+            request(app)
+                .post(`/cases/${caseid}/forms`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .send(seed)
+                .expect(201)
+                .expect((res) => {
+                    expect(res.body._id).toBeDefined();
+                    expect(res.body.form_id).toBeDefined();
+                    expect(res.body.form_name).toBeDefined();
+                    expect(res.body.date_created).toBeDefined();
+                    expect(res.body.answers).toBeDefined();
+                })
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    Case.findOne({
+                        '_id': caseid,
+                        'is_deleted': false
+                    }).then((cases) => { 
+                        expect(cases.forms.length).toBe(3);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+
+        });
+    });
+
     describe('#GET /cases/:caseid/forms/:id', () => {
         it('should get specific form inside a case', (done) => {
             const caseid = cases[0]._id.toHexString();
