@@ -121,4 +121,30 @@ router.patch('/:id', authenticate, (req, res) => {
     });
 });
 
+router.get('/:id/forms/:formid', authenticate, (req, res) => {
+    var formid = req.params.formid;
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+    Case.findOne({
+        '_id': id,
+        'is_deleted': false
+    }).then((data) => {
+        if (data){
+            let forms = data.forms.id(formid);
+            if(forms) {
+                res.send(forms);
+            } else {
+                res.status(404).send();
+            }
+        } else {
+            res.status(404).send();
+        }
+    }).catch((e) => {
+        res.status(400).send();
+    });
+});
+
 module.exports = router

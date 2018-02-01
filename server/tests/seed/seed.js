@@ -196,6 +196,7 @@ const cases = [{
     case_number: '1',
     diagnosis: 'Some diagnosis here',
     forms: [{
+        _id: new ObjectID(),
         form_id: forms[0]._id.toHexString(),
         form_name: forms[0].name,
         answers: [{
@@ -206,6 +207,7 @@ const cases = [{
             question_answer: '21',
         }]
     },{
+        _id: new ObjectID(),
         form_id: forms[1]._id.toHexString(),
         form_name: forms[1].name,
         answers: [{
@@ -221,6 +223,7 @@ const cases = [{
     case_number: '2',
     diagnosis: 'Another diagnosis',
     forms: [{
+        _id: new ObjectID(),
         form_id: forms[0]._id.toHexString(),
         form_name: forms[0].name,
         answers: [{
@@ -231,6 +234,7 @@ const cases = [{
             question_answer: '21',
         }]
     },{
+        _id: new ObjectID(),
         form_id: forms[1]._id.toHexString(),
         form_name: forms[1].name,
         answers: [{
@@ -247,6 +251,7 @@ const cases = [{
     case_number: '3',
     diagnosis: '',
     forms: [{
+        _id: new ObjectID(),
         form_id: forms[0]._id.toHexString(),
         form_name: forms[0].name,
         answers: [{
@@ -257,6 +262,7 @@ const cases = [{
             question_answer: '30',
         }]
     },{
+        _id: new ObjectID(),
         form_id: forms[1]._id.toHexString(),
         form_name: forms[1].name,
         answers: [{

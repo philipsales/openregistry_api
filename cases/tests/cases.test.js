@@ -248,4 +248,42 @@ describe('/cases', () => {
                 .end(done);
         });
     });
+
+    describe('#GET /cases/:caseid/forms/:id', () => {
+        it('should get specific form inside a case', (done) => {
+            const caseid = cases[0]._id.toHexString();
+            const formid = cases[0].forms[0]._id.toHexString();
+            request(app)
+                .get(`/cases/${caseid}/forms/${formid}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.form_id).toBeDefined();
+                    expect(res.body.form_name).toBeDefined();
+                    expect(res.body.date_created).toBeDefined();
+                    expect(res.body.answers).toBeDefined();
+                })
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            const caseid = cases[0]._id.toHexString();
+            const formid = cases[0].forms[0]._id.toHexString();
+            request(app)
+                .get(`/cases/${caseid}/forms/${formid}`)
+                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
+                .expect(401)
+                .end(done);
+        });
+
+        it('should return 404 when form inside case can not be found', (done) => {
+            const caseid = cases[0]._id.toHexString();
+            const formid = cases[1].forms[0]._id.toHexString();
+            request(app)
+                .get(`/cases/${caseid}/forms/${formid}`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .expect(404)
+                .end(done);
+        });
+    });
 });
