@@ -248,4 +248,133 @@ describe('/cases', () => {
                 .end(done);
         });
     });
+
+    describe('#POST /cases/:id/forms', () => {
+        it('should add new form within a case', (done) => {
+            const seed = {
+                form_id: forms[0]._id.toHexString(),
+                form_name: forms[0].name,
+                answers: [{
+                    question_key: 'GENDER',
+                    question_answer: 'Male',
+                },{
+                    question_key: 'AGE',
+                    question_answer: '30',
+                }]
+            };
+
+            const caseid = cases[0]._id.toHexString();
+            request(app)
+                .post(`/cases/${caseid}/forms`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .send(seed)
+                .expect(201)
+                .expect((res) => {
+                    expect(res.body._id).toBeDefined();
+                    expect(res.body.form_id).toBeDefined();
+                    expect(res.body.form_name).toBeDefined();
+                    expect(res.body.date_created).toBeDefined();
+                    expect(res.body.answers).toBeDefined();
+                })
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    Case.findOne({
+                        '_id': caseid,
+                        'is_deleted': false
+                    }).then((cases) => { 
+                        expect(cases.forms.length).toBe(3);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+
+        });
+    });
+
+    describe('#GET /cases/:id/forms/:formid', () => {
+        it('should get specific form inside a case', (done) => {
+            const caseid = cases[0]._id.toHexString();
+            const formid = cases[0].forms[0]._id.toHexString();
+            request(app)
+                .get(`/cases/${caseid}/forms/${formid}`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.form_id).toBeDefined();
+                    expect(res.body.form_name).toBeDefined();
+                    expect(res.body.date_created).toBeDefined();
+                    expect(res.body.answers).toBeDefined();
+                })
+                .end(done);
+        });
+
+        it('should return 401 when user is not authenticated', (done) => {
+            const caseid = cases[0]._id.toHexString();
+            const formid = cases[0].forms[0]._id.toHexString();
+            request(app)
+                .get(`/cases/${caseid}/forms/${formid}`)
+                .set('Authorization', `JWT ${users[2].tokens[0].token}`)
+                .expect(401)
+                .end(done);
+        });
+
+        it('should return 404 when form inside case can not be found', (done) => {
+            const caseid = cases[0]._id.toHexString();
+            const formid = cases[1].forms[0]._id.toHexString();
+            request(app)
+                .get(`/cases/${caseid}/forms/${formid}`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .expect(404)
+                .end(done);
+        });
+    });
+
+
+    describe('#PATCH /cases/:id/forms/:formid', () => {
+        it('should update existing form in a case', (done) => {
+            const seed = {
+                answers: [{
+                    question_key: 'GENDER',
+                    question_answer: 'Male',
+                },{
+                    question_key: 'AGE',
+                    question_answer: '99',
+                }]
+            };
+            
+            const caseid = cases[0]._id.toHexString();
+            const formid = cases[0].forms[0]._id.toHexString();
+            request(app)
+                .patch(`/cases/${caseid}/forms/${formid}`)
+                .set('Authorization', `JWT ${users[1].tokens[0].token}`)
+                .send(seed)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.form_id).toBeDefined();
+                    expect(res.body.form_name).toBeDefined();
+                    expect(res.body.date_created).toBeDefined();
+                    expect(res.body.answers).toBeDefined();
+                    expect(res.body.answers[1]['question_answer']).toBe(seed.answers[1].question_answer);
+                })
+                .end((err) => {
+                    if (err) {
+                        return done(err);
+                    }
+
+                    Case.findOne({
+                        '_id': caseid,
+                        'is_deleted': false
+                    }).then((cases) => { 
+                        expect(cases.forms[0].answers[1]['question_answer']).toBe(seed.answers[1].question_answer);
+                        done();
+                    }).catch((e) => {
+                        done(e);
+                    });
+                });
+        });
+    });
 });
