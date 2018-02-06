@@ -102,6 +102,13 @@ FormSchema.methods.toJSON = function() {
     return _.pick(formObject, ['_id', 'name', 'organization', 'department', 'type', 'approval', 'status', 'created_by', 'date_created', 'is_deleted', 'sections']);
 };
 
+FormSchema.pre('save', function(next){
+    this.date_created = Date.now();
+    this.is_deleted = false;
+    this.status = 'Pending';
+    next();
+});
+
 var Form = mongoose.model('Form', FormSchema);
 
 module.exports = {
