@@ -4,9 +4,10 @@ const {ObjectID} = require('mongodb');
 
 const {app} = require('../../server/server');
 const {Case} = require('../../server/models/case');
-const {users, populateUsers, forms, populateForms, cases, populateCases} = require('../../server/tests/seed/seed');
+const {users, populateUsers, forms, populateForms, organizations, populateOrganizations, cases, populateCases} = require('../../server/tests/seed/seed');
 
 beforeEach(populateUsers);
+beforeEach(populateOrganizations);
 beforeEach(populateForms);
 beforeEach(populateCases);
 
@@ -20,6 +21,26 @@ describe('/cases', () => {
                 .expect(200)
                 .expect((res) => {
                     expect(res.body.data.length).toBe(2);
+                    expect(res.body.data[0].case_number).toBeDefined();
+                    expect(res.body.data[0].date_created).toBeDefined();
+                    expect(res.body.data[0].diagnosis).toBeDefined();
+                    expect(res.body.data[0].forms).toBeDefined();
+                    expect(res.body.data[0].forms[0].form_id).toBeDefined();
+                    expect(res.body.data[0].forms[0].form_name).toBeDefined();
+                    expect(res.body.data[0].forms[0].date_created).toBeDefined();
+                    expect(res.body.data[0].forms[0].answers).toBeUndefined();
+                })
+                .end(done);
+        });
+
+        it('should get cases for an organization', (done) => {
+            var hexId = organizations[0]._id.toHexString();
+            request(app)
+                .get(`/organizations/${hexId}/cases`)
+                .set('Authorization', `JWT ${users[0].tokens[0].token}`)
+                .expect(200)
+                .expect((res) => {
+                    expect(res.body.data.length).toBe(1);
                     expect(res.body.data[0].case_number).toBeDefined();
                     expect(res.body.data[0].date_created).toBeDefined();
                     expect(res.body.data[0].diagnosis).toBeDefined();

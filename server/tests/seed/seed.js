@@ -191,9 +191,21 @@ const forms = [{
     }]
 }];
 
+const organizations = [{
+    _id: new ObjectID(),
+    "name": "SEAOIL",
+    "isDeleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "BEARBRAND",
+    "isDeleted": true
+}];
+
 const cases = [{
     _id: new ObjectID(),
     case_number: '1',
+    organization: organizations[0]._id.toHexString(),
     diagnosis: 'Some diagnosis here',
     forms: [{
         _id: new ObjectID(),
@@ -221,6 +233,7 @@ const cases = [{
 }, {
     _id: new ObjectID(),
     case_number: '2',
+    organization: organizations[1]._id.toHexString(),
     diagnosis: 'Another diagnosis',
     forms: [{
         _id: new ObjectID(),
@@ -249,6 +262,7 @@ const cases = [{
 {
     _id: new ObjectID(),
     case_number: '3',
+    organization: organizations[1]._id.toHexString(),
     diagnosis: '',
     forms: [{
         _id: new ObjectID(),
@@ -276,16 +290,6 @@ const cases = [{
     is_deleted: true
 }];
 
-const organizations = [{
-    _id: new ObjectID(),
-    "name": "SEAOIL",
-    "isDeleted": false
-},
-{
-    _id: new ObjectID(),
-    "name": "BEARBRAND",
-    "isDeleted": true
-}];
 
 const populateUsers = (done) => {
     User.remove({}).then(() => {

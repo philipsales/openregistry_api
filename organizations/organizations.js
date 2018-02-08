@@ -8,6 +8,7 @@ const {ObjectID} = require('mongodb');
 
 var {authenticate} = require('../server/middleware/authenticate');
 var {Organization, OrganizationError} = require('../server/models/organization');
+const {Case} = require('../server/models/case');
 
 router.use(bodyParser.json());
 
@@ -56,6 +57,31 @@ router.get('/:id', (req, res) => {
         res.status(400).send();
     });
 });
+
+router.get('/:id/cases/', authenticate, (req, res) => {
+    var id = req.params.id;
+    if (!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
+    Case.find({
+        is_deleted: false,
+        organization: id
+    }).then((cases) => {
+        var data = cases.map((value) => {
+            var out = value.toJSON();
+            for(let form of out.forms){
+                delete form['answers'];
+            }
+            return out;
+        });
+        res.send({data});
+    }, (e) => {
+        console.log('xxxy');
+        res.status(400).send(e);
+    });
+});
+
 
 router.patch('/:id', authenticate, (req, res) => {
     var id = req.params.id;

@@ -17,6 +17,9 @@ var CaseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    organization: {
+        type: String
+    },
     diagnosis: {
         type: String
     },
