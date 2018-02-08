@@ -129,8 +129,6 @@ router.patch('/:id', authenticate, (req, res) => {
     'mobile_number', 
     'roles']);
 
-    console.log('SHIT', body);
-
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
