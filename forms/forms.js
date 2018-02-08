@@ -12,7 +12,18 @@ var {Form, FormError} = require('../server/models/form');
 router.use(bodyParser.json());
 
 router.post('/', authenticate, (req, res) => {
-    var seed = _.pick(req.body, ['name', 'organization', 'department', 'type', 'approval', 'status', 'created_by', 'date_created', 'is_deleted', 'sections']);
+    var seed = _.pick(req.body, [
+        'name', 
+        'organization', 
+        'department', 
+        'type', 
+        'approval', 
+        'status', 
+        'created_by', 
+        'date_created', 
+        'isActive', 
+        'is_deleted', 
+        'sections']);
     var instance = new Form(seed);
 
     Form.findOneAndRemove({name : seed.name}).then(() => {

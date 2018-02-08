@@ -147,12 +147,6 @@ const permissions = [{
     description: 'can view a form'
 }, {
     _id: new ObjectID(),
-    perm_code: 'admin_forms_approve',
-    module: 'Forms',
-    application: 'Administration',
-    description: 'can approve a form'
-}, {
-    _id: new ObjectID(),
     perm_code: 'admin_forms_update',
     module: 'Forms',
     application: 'Administration',
@@ -230,13 +224,13 @@ const roles = [{
     _id: new ObjectID(),
     rolename: 'Biobank Researcher',
     description: 'role for Researchers from UPD',
-    permissions: ['biobank_questions_create', 'biobank_questions_update', 'biobank_questions_publish'],
+    permissions: [],
     isActive: false
 }, {
     _id: new ObjectID(),
     rolename: 'Medical Researcher',
     description: 'role for Researchers from PGH',
-    permissions: ['medical_questions_create', 'medical_questions_update', 'medical_questions_publish'],
+    permissions: [],
     isActive: false
 }, {
     _id: new ObjectID(),
@@ -489,7 +483,7 @@ const populateTables = () => {
         });
     });
     return Promise.all([
-        medical_standards_request, 
+        medical_standards_request,
         forms_request, 
         users_etc_request])
 };

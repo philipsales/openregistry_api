@@ -45,6 +45,10 @@ var FormSchema = new mongoose.Schema({
     date_created: {
         type: Number
     }, 
+    isActive: {
+        type: Boolean,
+        default: false
+    },
     is_deleted: {
         type: Boolean,
         default: false
