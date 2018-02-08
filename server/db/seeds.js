@@ -33,41 +33,192 @@ const permissions = [{
     description: 'can view a user'
 }, {
     _id: new ObjectID(),
-    perm_code: 'biobank_questions_create',
-    module: 'Data Configuration',
+    perm_code: 'admin_user_update',
+    module: 'User Registration',
+    application: 'Administration',
+    description: 'can update a user'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_user_password_create',
+    module: 'User Registration',
+    application: 'Administration',
+    description: 'can create other user password'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_user_password_update',
+    module: 'User Registration',
+    application: 'Administration',
+    description: 'can update other user password'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_role_create',
+    module: 'Roles and Permissions',
+    application: 'Administration',
+    description: 'can create a role'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_role_view',
+    module: 'Roles and Permissions',
+    application: 'Administration',
+    description: 'can view a role'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_role_update',
+    module: 'Roles and Permissions',
+    application: 'Administration',
+    description: 'can update a role'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_user_role_assign',
+    module: 'Roles and Permissions',
+    application: 'Administration',
+    description: 'can assign a user to a role'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_role_permission_assign',
+    module: 'Roles and Permissions',
+    application: 'Administration',
+    description: 'can assign a permissions to role '
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_database_create',
+    module: 'Database',
+    application: 'Administration',
+    description: 'can create a database backup'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_database_update',
+    module: 'Database',
+    application: 'Administration',
+    description: 'can update a database backup'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_database_restore',
+    module: 'Database',
+    application: 'Administration',
+    description: 'can restore a database backup'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_database_download',
+    module: 'Database',
+    application: 'Administration',
+    description: 'can download a database backup'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_consent_create',
+    module: 'Consent',
+    application: 'Administration',
+    description: 'can create a consent'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_consent_update',
+    module: 'Consent',
+    application: 'Administration',
+    description: 'can update a consent'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_consent_view',
+    module: 'Consent',
+    application: 'Administration',
+    description: 'can view a consent'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_consent_approve',
+    module: 'Consent',
+    application: 'Administration',
+    description: 'can approve a consent'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_forms_approve',
+    module: 'Forms',
+    application: 'Administration',
+    description: 'can approve a form'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_forms_create',
+    module: 'Forms',
+    application: 'Administration',
+    description: 'can create a form'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_forms_view',
+    module: 'Forms',
+    application: 'Administration',
+    description: 'can view a form'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_forms_approve',
+    module: 'Forms',
+    application: 'Administration',
+    description: 'can approve a form'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'admin_forms_update',
+    module: 'Forms',
+    application: 'Administration',
+    description: 'can update a form'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'biobank_case_create',
+    module: 'Cases',
     application: 'Biobank',
-    description: 'can create questions'
+    description: 'can create a case'
 }, {
     _id: new ObjectID(),
-    perm_code: 'biobank_questions_update',
-    module: 'Data Configuration',
+    perm_code: 'biobank_case_update',
+    module: 'Cases',
     application: 'Biobank',
-    description: 'can update questions'
+    description: 'can update a case'
 }, {
     _id: new ObjectID(),
-    perm_code: 'biobank_questions_publish',
-    module: 'Data Configuration',
+    perm_code: 'biobank_case_view',
+    module: 'Cases',
     application: 'Biobank',
-    description: 'can publish questions'
+    description: 'can view a case'
 }, {
     _id: new ObjectID(),
-    perm_code: 'medical_questions_create',
-    module: 'Data Configuration',
-    application: 'Medical',
-    description: 'can create questions'
+    perm_code: 'biobank_case_approve',
+    module: 'Cases',
+    application: 'Biobank',
+    description: 'can approve a case'
 }, {
     _id: new ObjectID(),
-    perm_code: 'medical_questions_update',
-    module: 'Data Configuration',
+    perm_code: 'medical_case_create',
+    module: 'Cases',
     application: 'Medical',
-    description: 'can update questions'
+    description: 'can create a case'
 }, {
     _id: new ObjectID(),
-    perm_code: 'medical_questions_publish',
-    module: 'Data Configuration',
+    perm_code: 'medical_case_update',
+    module: 'Cases',
     application: 'Medical',
-    description: 'can publish questions'
-}];
+    description: 'can update a case'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_case_view',
+    module: 'Cases',
+    application: 'Medical',
+    description: 'can view a case'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_case_approve',
+    module: 'Cases',
+    application: 'Medical',
+    description: 'can approve a case'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'biobank_report_view',
+    module: 'Reports',
+    application: 'Biobank',
+    description: 'can view a report'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_report_view',
+    module: 'Reports',
+    application: 'Medical',
+    description: 'can view a report'
+}
+];
 
 const roles = [{
     _id: new ObjectID(),
