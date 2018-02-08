@@ -58,9 +58,8 @@ var UserSchema = new mongoose.Schema({
         minLength: 6,
         default: false
     },
-    is_approved: {
-        type: Boolean,
-        default: false
+    isActive: {
+        type: Boolean 
     },
     roles: [String],
     tokens: [{
@@ -87,12 +86,16 @@ UserSchema.methods.toJSON = function() {
     'email', 
     'mobile_number', 
     'isDeleted',
-    'is_approved',
+    'isActive',
     'roles']);
 };
 
 UserSchema.pre('save', function(next){
     var user = this;
+
+    if(!user.isActive)
+        user.isActive = false;
+
     if (user.isModified('password')) {
         bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(user.password, salt, (err, hash) => {

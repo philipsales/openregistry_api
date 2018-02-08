@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     'email', 
     'mobile_number', 
     'isDeleted', 
-    'is_approved', 
+    'isActive', 
     'password', 
     'roles']);
     var user = new User(body);
@@ -125,9 +125,11 @@ router.patch('/:id', authenticate, (req, res) => {
     'gender', 
     'email', 
     'isDeleted', 
-    'is_approved', 
+    'isActive', 
     'mobile_number', 
     'roles']);
+
+    console.log('SHIT', body);
 
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
