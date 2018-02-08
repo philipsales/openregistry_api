@@ -58,6 +58,10 @@ var UserSchema = new mongoose.Schema({
         minLength: 6,
         default: false
     },
+    is_approved: {
+        type: Boolean,
+        default: false
+    },
     roles: [String],
     tokens: [{
         access: {
@@ -74,7 +78,17 @@ var UserSchema = new mongoose.Schema({
 UserSchema.methods.toJSON = function() {
     var user = this;
     var userObject = user.toObject();
-    return _.pick(userObject, ['_id', 'username', 'first_name', 'middle_name', 'last_name', 'gender', 'email', 'mobile_number', 'roles']);
+    return _.pick(userObject, ['_id', 
+    'username', 
+    'first_name', 
+    'middle_name', 
+    'last_name', 
+    'gender', 
+    'email', 
+    'mobile_number', 
+    'isDeleted',
+    'is_approved',
+    'roles']);
 };
 
 UserSchema.pre('save', function(next){

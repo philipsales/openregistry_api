@@ -12,7 +12,17 @@ var {User, UserError} = require('../server/models/user');
 router.use(bodyParser.json());
 
 router.post('/', (req, res) => {
-    var body = _.pick(req.body, ['username', 'first_name', 'middle_name', 'last_name', 'gender', 'email', 'mobile_number', 'password', 'roles']);
+    var body = _.pick(req.body, ['username', 
+    'first_name', 
+    'middle_name', 
+    'last_name', 
+    'gender', 
+    'email', 
+    'mobile_number', 
+    'isDeleted', 
+    'is_approved', 
+    'password', 
+    'roles']);
     var user = new User(body);
     user.save().then((saved_user) => {
         return saved_user.generateAuthToken();
@@ -109,7 +119,16 @@ router.delete('/:id', authenticate, (req, res) => {
 
 router.patch('/:id', authenticate, (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['first_name', 'middle_name', 'last_name', 'gender', 'email', 'mobile_number', 'roles']);
+    var body = _.pick(req.body, ['first_name', 
+    'middle_name', 
+    'last_name', 
+    'gender', 
+    'email', 
+    'isDeleted', 
+    'is_approved', 
+    'mobile_number', 
+    'roles']);
+
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
@@ -155,7 +174,13 @@ router.patch('/me/:id', authenticate, (req, res) => {
         return res.status(404).send();
     }
     if(req.user.id === id){
-        var body = _.pick(req.body, ['first_name', 'middle_name', 'last_name', 'gender', 'email', 'mobile_number', 'password']);
+        var body = _.pick(req.body, ['first_name', 
+        'middle_name', 
+        'last_name', 
+        'gender', 
+        'email', 
+        'mobile_number', 
+        'password']);
         User.findOneAndUpdate({
             _id: id,
             isDeleted: false
