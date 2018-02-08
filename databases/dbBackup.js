@@ -3,6 +3,7 @@
 var fs = require('fs');
 var _ = require('lodash');
 var exec = require('child_process').exec;
+var icd_oncology = require('./../server/db/icd-oncology.v3.json');
 
 var dbOptions = {
     user: process.env.USER,
@@ -55,6 +56,9 @@ const dbRestore = (path) => {
               " --nsExclude=" + "'" + dbOptions.database+ ".databases" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".roles" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".users" + "'" +
+              " --nsExclude=" + "'" + dbOptions.database+ ".icdoncologies" + "'" +
+              " --nsExclude=" + "'" + dbOptions.database+ ".naaccr" + "'" +
+              " --nsExclude=" + "'" + dbOptions.database+ ".fhirresources" + "'" +
               ' --archive=' + path  +  
               ' --drop '  + path  +
               ' --gzip ';
@@ -72,7 +76,32 @@ const dbRestore = (path) => {
 
 };
 
+const dbImport = (path, collection) => {
+  
+    var cmd = 'mongoimport' +
+              ' --host ' + dbOptions.host +
+              ' --port ' + dbOptions.port +
+              " --db=" + "'" + dbOptions.database +  "'" +
+              " --collection=" + "'" + collection +  "'" +
+              ' --drop ' +
+              ' --file ' + path + 
+              ' --jsonArray';
+
+    return new Promise((resolve, reject) => {
+        exec(cmd, function(error, stdout, stderr){
+            //console.log(stderr);
+            if(error) console.log('--CMD Error-- Error encountered in Cmd: ',error);
+        });
+        resolve();
+    }).catch((error) => {
+        console.log('--MongoImport -- Error encountered in Promise', error);
+        reject();
+    });
+
+};
+
 module.exports = {
    dbDump,
-   dbRestore 
+   dbRestore, 
+   dbImport
 } 

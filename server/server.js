@@ -16,6 +16,8 @@ var forms = require('../forms/forms');
 var organizations = require('../organizations/organizations');
 var databases = require('../databases/databases');
 var consents = require('../consents/consents');
+var fhir_resources = require('../fhir/resources/resources');
+var icd_oncology = require('../icd/icdoncology/icdoncology');
 
 const {populateTables} = require('./db/seeds');
 
@@ -37,6 +39,8 @@ app.use('/forms', forms);
 app.use('/organizations', organizations);
 app.use('/databases', databases);
 app.use('/consents', consents);
+app.use('/hl7', fhir_resources);
+app.use('/icd', icd_oncology);
 
 const argv = yargs.argv;
 const command = process.argv[2];

@@ -7,6 +7,11 @@ const {Organization} = require('./../models/organization');
 const {User} = require('./../models/user');
 const {Form} = require('./../models/form');
 const {Case} = require('./../models/case');
+const {Resource} = require('./../models/fhir/resource');
+const {IcdOncology} = require('./../models/icd/icdoncology');
+
+var naaccr = require('./naaccr-codes.v16.json');
+const Mongo = require('./../../databases/dbBackup');
 
 const permissions = [{
     _id: new ObjectID(),
@@ -256,7 +261,56 @@ const populateCases = (done) => {
         return Promise.all(requests)
     });
 };
+
+const populateResources = (done) => {
+    let requests = [];  
+    let path = "server/db/fhir-resources.stu3.json";
+    let collection = "fhirresources";
+
+    return Mongo.dbImport(path, collection).then(() => { 
+        return Promise.all(requests)
+    });
+};
+
+const populateNaaccr = (done) => {
+    let requests = [];  
+    let path = "server/db/naaccr-codes.v16.json";
+    let collection = "naaccr";
+
+    return Mongo.dbImport(path, collection).then(() => { 
+        return Promise.all(requests)
+    });
+};
+
+const populateICDOncology = (done) => {
+    let requests = [];  
+    let path = "server/db/icd-oncology.v3.json";
+    let collection = "icdoncologies";
+
+    return Mongo.dbImport(path, collection).then(() => { 
+        return Promise.all(requests)
+    });
+};
+
 const populateTables = () => {
+
+    var medical_standards_request = new Promise((resolve, reject) => {
+        populateICDOncology().then(() => {
+            console.log('--ICD -- Loaded');
+            populateNaaccr().then(() => {
+                console.log('--NAACCRR -- Loaded');
+                populateResources().then(() => {
+                    console.log('--FHIR Resources-- Loaded');
+                    resolve();
+                    })
+                })
+            })
+        }).catch((error) => {
+            console.log(error);
+            console.log('--Medical Standards-- Error encountered');
+            reject();
+    });
+
     var forms_request = populateForms().then(() => {
         console.log('--Forms-- Loaded');
         populateCases().then(() => {
@@ -283,7 +337,10 @@ const populateTables = () => {
             reject();
         });
     });
-    return Promise.all([forms_request, users_etc_request])
+    return Promise.all([
+        medical_standards_request, 
+        forms_request, 
+        users_etc_request])
 };
 
 module.exports = {
