@@ -43,8 +43,8 @@ var CaseSchema = new mongoose.Schema({
             default: false,
         },
         status: {
-            type: String,
-            default: 'Pending' 
+            type: Boolean,
+            default: false,
         },
         answers: [{
             question_key: {
@@ -62,8 +62,8 @@ var CaseSchema = new mongoose.Schema({
         default: false
     },
     status:{
-        type: String,
-        default: 'Pending' 
+        type: Boolean,
+        default: false 
     },
     is_active:{
         type: Boolean,
