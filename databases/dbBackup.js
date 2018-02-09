@@ -6,7 +6,7 @@ var exec = require('child_process').exec;
 var icd_oncology = require('./../server/db/icd-oncology.v3.json');
 
 var dbOptions = {
-    user: process.env.USER,
+    username: process.env.USERNAME,
     password: process.env.PASSWORD,
     host: process.env.HOST,
     port: process.env.DB_PORT,
@@ -26,12 +26,15 @@ const dbDump = () => {
                      date.getDay() + '-' +
                      date.getMilliseconds() +  '.archive' ;
     
-    var cmd = 'mongodump ' +
-              ' --host ' + dbOptions.host +
-              ' --port ' + dbOptions.port +
-              ' --db ' + dbOptions.database + 
-              ' --archive=' + backupPath +  
-              ' --gzip' ;
+    var cmd = "mongodump " +
+              " --host " + dbOptions.host +
+              " --port " + dbOptions.port +
+              " --username " + dbOptions.username   +
+              " --password " + dbOptions.password +
+              " --authenticationDatabase admin " +
+              " --db " + dbOptions.database + 
+              " --archive=" + backupPath +  
+              " --gzip" ;
 
 
     return new Promise((resolve, reject) => {
@@ -48,9 +51,12 @@ const dbDump = () => {
 
 const dbRestore = (path) => {
   
-    var cmd = 'mongorestore' +
-              ' --host ' + dbOptions.host +
-              ' --port ' + dbOptions.port +
+    var cmd = "mongorestore" +
+              " --host " + dbOptions.host +
+              " --port " + dbOptions.port +
+              " --username " + dbOptions.username   +
+              " --password " + dbOptions.password +
+              " --authenticationDatabase admin " +
               " --db=" + "'" + dbOptions.database +  "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".permissions" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".databases" + "'" +
@@ -59,9 +65,9 @@ const dbRestore = (path) => {
               " --nsExclude=" + "'" + dbOptions.database+ ".icdoncologies" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".naaccr" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".fhirresources" + "'" +
-              ' --archive=' + path  +  
-              ' --drop '  + path  +
-              ' --gzip ';
+              " --archive=" + path  +  
+              " --drop "  + path  +
+              " --gzip ";
 
     return new Promise((resolve, reject) => {
         exec(cmd, function(error, stdout, stderr){
@@ -78,18 +84,22 @@ const dbRestore = (path) => {
 
 const dbImport = (path, collection) => {
   
-    var cmd = 'mongoimport' +
-              ' --host ' + dbOptions.host +
-              ' --port ' + dbOptions.port +
+    var cmd = "mongoimport" +
+              " --host " + dbOptions.host +
+              " --port " + dbOptions.port +
+              " --username " + dbOptions.username  +
+              " --password " + dbOptions.password +
+              " --authenticationDatabase admin " +
               " --db=" + "'" + dbOptions.database +  "'" +
               " --collection=" + "'" + collection +  "'" +
-              ' --drop ' +
-              ' --file ' + path + 
-              ' --jsonArray';
+              " --drop " +
+              " --file " + path + 
+              " --jsonArray";
 
+              
     return new Promise((resolve, reject) => {
         exec(cmd, function(error, stdout, stderr){
-            //console.log(stderr);
+            console.log(stderr);
             if(error) console.log('--CMD Error-- Error encountered in Cmd: ',error);
         });
         resolve();

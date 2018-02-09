@@ -439,6 +439,15 @@ const populateICDOncology = (done) => {
     });
 };
 
+const populatePGHForm = (done) => {
+    let requests = [];  
+    let path = "server/db/form-breast-cancer.pgh.json"  
+    let collection = "forms";
+    return Mongo.dbImport(path, collection).then(() => { 
+        return Promise.all(requests)
+    });
+};
+
 const populateTables = () => {
 
     var medical_standards_request = new Promise((resolve, reject) => {
@@ -448,7 +457,10 @@ const populateTables = () => {
                 console.log('--NAACCRR -- Loaded');
                 populateResources().then(() => {
                     console.log('--FHIR Resources-- Loaded');
-                    resolve();
+                    populatePGHForm().then(() => {
+                        console.log('--PGH Breast Form-- Loaded');
+                        resolve();
+                        })
                     })
                 })
             })
