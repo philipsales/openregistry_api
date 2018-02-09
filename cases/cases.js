@@ -96,7 +96,15 @@ router.delete('/:id', authenticate, (req, res) => {
 
 router.patch('/:id', authenticate, (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['case_number', 'diagnosis', 'date_created', 'forms']);
+    var body = _.pick(req.body, [
+        'case_number', 
+        'status', 
+        'is_deleted', 
+        'is_active', 
+        'date_created', 
+        'diagnosis', 
+        'forms']);
+    console.log('CASE PATCH', body);
 
     Case.findOneAndUpdate({
         _id: id,
