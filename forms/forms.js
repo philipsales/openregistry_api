@@ -25,6 +25,7 @@ router.post('/', authenticate, (req, res) => {
         'is_deleted', 
         'sections']);
     var instance = new Form(seed);
+    console.log('POST FORM');
 
     Form.findOneAndRemove({name : seed.name}).then(() => {
         instance.save().then((saved_form) => {
@@ -79,10 +80,17 @@ router.get('/:id', authenticate, (req, res) => {
 
 router.patch('/:id', authenticate, (req, res) => {
     var id = req.params.id;
-    var body = _.pick(req.body, ['sections']);
+    var body = _.pick(req.body, [
+    'name',
+    'type',
+    'organization',
+    'department',
+    'sections']);
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
+
+    console.log('PATCH FORM', body);
 
     Form.findOneAndUpdate({
         _id: id
