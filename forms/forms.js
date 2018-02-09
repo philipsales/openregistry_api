@@ -81,11 +81,13 @@ router.get('/:id', authenticate, (req, res) => {
 router.patch('/:id', authenticate, (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, [
-    'name',
-    'type',
-    'organization',
-    'department',
-    'sections']);
+        'name', 
+        'organization', 
+        'department', 
+        'type', 
+        'approval', 
+        'status', 
+        'sections']);
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
     }

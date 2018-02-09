@@ -38,6 +38,14 @@ var CaseSchema = new mongoose.Schema({
         date_created : {
             type: Number
         },
+        is_deleted: {
+            type: Boolean ,
+            default: false,
+        },
+        status: {
+            type: Boolean,
+            default: false,
+        },
         answers: [{
             question_key: {
                 type: String,
@@ -52,16 +60,33 @@ var CaseSchema = new mongoose.Schema({
     is_deleted:{
         type: Boolean,
         default: false
+    },
+    status:{
+        type: Boolean,
+        default: false 
+    },
+    is_active:{
+        type: Boolean,
+        default: true 
     }
 });
 
 
 CaseSchema.methods.toJSON = function() {
     var caseObject = this.toObject();
-    return _.pick(caseObject, ['_id', 'case_number', 'date_created', 'diagnosis', 'forms']);
+    return _.pick(caseObject, [
+        '_id', 
+        'case_number', 
+        'status', 
+        'is_deleted', 
+        'is_active', 
+        'date_created', 
+        'diagnosis', 
+        'forms']);
 };
 
 CaseSchema.pre('save', function(next){
+
     if(!this.date_created) {
         this.date_created = (new Date()).getTime();
     }
