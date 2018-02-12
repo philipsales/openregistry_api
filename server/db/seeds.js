@@ -315,7 +315,7 @@ const forms = [{
 const cases = [{
     _id: new ObjectID(),
     case_number: '999999',
-    organization: organizations[0]._id.toHexString(),
+    organization: organizations[0]._id.name,
     diagnosis: 'Some diagnosis here',
     forms: [{
         form_id: forms[0]._id.toHexString(),
@@ -334,7 +334,7 @@ const cases = [{
 },{
     _id: new ObjectID(),
     case_number: '999998',
-    organization: organizations[1]._id.toHexString(),
+    organization: organizations[0]._id.name,
     diagnosis: 'Some diagnosis here',
     forms: [{
         form_id: forms[0]._id.toHexString(),

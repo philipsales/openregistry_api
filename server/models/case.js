@@ -77,6 +77,7 @@ CaseSchema.methods.toJSON = function() {
     return _.pick(caseObject, [
         '_id', 
         'case_number', 
+        'organization',
         'status', 
         'is_deleted', 
         'is_active', 
