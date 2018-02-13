@@ -45,6 +45,9 @@ var FormSchema = new mongoose.Schema({
     date_created: {
         type: Number
     }, 
+    validity_date: {
+        type: Date 
+    }, 
     isActive: {
         type: Boolean,
         default: false
@@ -103,7 +106,19 @@ var FormSchema = new mongoose.Schema({
 FormSchema.methods.toJSON = function() {
     var form = this;
     var formObject = form.toObject();
-    return _.pick(formObject, ['_id', 'name', 'organization', 'department', 'type', 'approval', 'status', 'created_by', 'date_created', 'is_deleted', 'sections']);
+    return _.pick(formObject, [
+    '_id', 
+    'name', 
+    'organization', 
+    'department', 
+    'type', 
+    'approval', 
+    'validity_date', 
+    'status', 
+    'created_by', 
+    'date_created', 
+    'is_deleted', 
+    'sections']);
 };
 
 FormSchema.pre('save', function(next){

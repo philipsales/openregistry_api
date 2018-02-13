@@ -18,6 +18,7 @@ router.post('/', authenticate, (req, res) => {
         'department', 
         'type', 
         'approval', 
+        'validity_date', 
         'status', 
         'created_by', 
         'date_created', 
@@ -25,7 +26,7 @@ router.post('/', authenticate, (req, res) => {
         'is_deleted', 
         'sections']);
     var instance = new Form(seed);
-    console.log('POST FORM');
+    console.log('POST FORM',seed);
 
     Form.findOneAndRemove({name : seed.name}).then(() => {
         instance.save().then((saved_form) => {
@@ -51,6 +52,7 @@ router.get('/', authenticate, (req, res) => {
             delete out.sections;
             return out;
         });
+        console.log('LIST: ',data);
         res.send({data});
     }, (e) => {
         res.status(400).send(e);
@@ -84,6 +86,7 @@ router.patch('/:id', authenticate, (req, res) => {
         'name', 
         'organization', 
         'department', 
+        'validity_date', 
         'type', 
         'approval', 
         'status', 
