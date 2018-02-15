@@ -6,6 +6,8 @@ var router = express.Router();
 const bodyParser = require('body-parser');
 const {ObjectID} = require('mongodb');
 
+const fs = require('fs');
+
 var {authenticate} = require('../server/middleware/authenticate');
 var {Case, CaseError} = require('../server/models/case');
 
@@ -232,6 +234,50 @@ router.patch('/:id/forms/:formid', authenticate, (req, res) => {
         console.log('can not find case : ' + id);
         res.status(404).send();
     });
+});
+
+const formidable = require('formidable');
+const path = require('path');
+const http = require('http');
+
+var upload_file = "./../uploads/consent_templates/"  ;
+
+router.post('/upload', function(req, res) {
+    var form = new formidable.IncomingForm();
+
+    form.multiples = false;
+    form.uploadDir = path.resolve(__dirname, upload_file);
+
+    //parse the request to form data
+    form.parse(req, function(err, fields, files) {
+
+        var data = {
+            status: 'Success',
+            result: { 
+                'payload' : []
+            },
+            error: err
+        };
+        
+        if(err) {
+            res.status(400).json(data);
+            throw err;
+        }
+        else {
+            res.status(200).json(data);
+        }
+    });
+
+    //modify file path
+    form.on('fileBegin', function(name, file){
+        file.path = form.uploadDir + "/" + file.name;
+    });
+
+    //close end
+    form.on ('end', function(){
+        res.end();
+        console.log('END====');
+    }); 
 });
 
 module.exports = router
