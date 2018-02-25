@@ -11,6 +11,10 @@ const fs = require('fs');
 var {authenticate} = require('../server/middleware/authenticate');
 var {Case, CaseError} = require('../server/models/case');
 
+const formidable = require('formidable');
+const path = require('path');
+var upload_file = "./../uploads/consent_templates/"  ;
+
 router.use(bodyParser.json());
 
 router.post('/', authenticate, (req, res) => {
@@ -236,11 +240,6 @@ router.patch('/:id/forms/:formid', authenticate, (req, res) => {
     });
 });
 
-const formidable = require('formidable');
-const path = require('path');
-const http = require('http');
-
-var upload_file = "./../uploads/consent_templates/"  ;
 
 router.post('/upload', function(req, res) {
     var form = new formidable.IncomingForm();
