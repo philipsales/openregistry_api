@@ -48,12 +48,10 @@ var CaseSchema = new mongoose.Schema({
         },
         answers: [{
             question_key: {
-                type: String,
-                required: true
+                type: String
             },
             question_answer: {
-                type: String,
-                required: true
+                type: String
             }
         }]
     }],
