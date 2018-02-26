@@ -18,7 +18,12 @@ var upload_file = "./../uploads/consent_templates/"  ;
 router.use(bodyParser.json());
 
 router.post('/', authenticate, (req, res) => {
-    var seed = _.pick(req.body, ['case_number', 'organization', 'diagnosis', 'forms']);
+    var seed = _.pick(req.body, [
+        'case_number', 
+        'organization', 
+        'diagnosis', 
+        'created_by',
+        'forms']);
     var instance = new Case(seed);
     instance.save().then((saved_case) => {
         return res.status(201).send(saved_case);
@@ -126,7 +131,12 @@ router.patch('/:id', authenticate, (req, res) => {
 });
 
 router.post('/:id/forms', authenticate, (req, res) => {
-    var seed = _.pick(req.body, ['form_name', 'form_id', 'answers']);
+    var seed = _.pick(req.body, [
+        'form_name', 
+        'form_id', 
+        'created_by', 
+        'answers'
+    ]);
     var id = req.params.id;
     if (!ObjectID.isValid(id)) {
         console.log('invalid object');

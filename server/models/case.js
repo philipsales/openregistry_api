@@ -26,6 +26,9 @@ var CaseSchema = new mongoose.Schema({
     date_created: {
         type: Number
     },
+    created_by: {
+        type: String
+    }, 
     forms: [{
         form_id : {
             type: String,
@@ -37,6 +40,9 @@ var CaseSchema = new mongoose.Schema({
         },
         date_created : {
             type: Number
+        },
+        created_by: {
+            type: String 
         },
         is_deleted: {
             type: Boolean ,
@@ -78,6 +84,7 @@ CaseSchema.methods.toJSON = function() {
         'organization',
         'status', 
         'is_deleted', 
+        'created_by', 
         'is_active', 
         'date_created', 
         'diagnosis', 

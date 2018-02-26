@@ -135,6 +135,7 @@ router.post('/v0', authenticate, (req, res) => {
 
 
 router.get('/', authenticate, (req, res) => {
+    console.log('GET LIST OF FORMS');
     Form.find({is_deleted: false}).then((forms) => {
         var data = forms.map((form) => {
             var out = form.toJSON();
@@ -147,7 +148,6 @@ router.get('/', authenticate, (req, res) => {
         res.status(400).send(e);
     });
 });
-
 
 router.get('/:id', authenticate, (req, res) => {
     var id = req.params.id;
