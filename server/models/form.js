@@ -39,6 +39,9 @@ var FormSchema = new mongoose.Schema({
     status: {
         type: String
     }, 
+    dir_path: {
+        type: String
+    }, 
     created_by: {
         type: String
     }, 
@@ -112,6 +115,7 @@ FormSchema.methods.toJSON = function() {
     'organization', 
     'department', 
     'type', 
+    'dir_path', 
     'approval', 
     'validity_date', 
     'status', 
