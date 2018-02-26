@@ -258,6 +258,8 @@ const organizations = [{
 }];
 
 const userOneId = new ObjectID();
+const userTwoId = new ObjectID();
+const userThreeId = new ObjectID();
 const users = [{
     _id: userOneId,
     username: 'admin@admin.com',
@@ -266,10 +268,39 @@ const users = [{
     middle_name: 'J',
     password: 'kryptonite',
     isDeleted: false,
-    roles: ['Admin', 'Biobank Researcher', 'Medical Researcher'],
+    department: 'General Surgery Department',
+    roles: ['Admin'],
     tokens: [{
         access: 'auth',
         token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET).toString()
+    }]
+},{
+    _id: userTwoId,
+    username: 'biobank@admin.com',
+    first_name: 'John',
+    last_name: 'Travolta',
+    middle_name: 'J',
+    password: 'topsecret',
+    isDeleted: false,
+    department: 'Institute of Biology',
+    roles: ['Biobank Researcher'],
+    tokens: [{
+        access: 'auth',
+        token: jwt.sign({_id: userTwoId, access: 'auth'}, process.env.JWT_SECRET).toString()
+    }]
+},{
+    _id: userThreeId,
+    username: 'medical@admin.com',
+    first_name: 'Jason',
+    last_name: 'Myers',
+    middle_name: 'J',
+    password: 'topsecret',
+    isDeleted: false,
+    department: 'General Surgery Department',
+    roles: ['Medical Researcher'],
+    tokens: [{
+        access: 'auth',
+        token: jwt.sign({_id: userThreeId, access: 'auth'}, process.env.JWT_SECRET).toString()
     }]
 }];
 

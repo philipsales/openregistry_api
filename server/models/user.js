@@ -52,6 +52,9 @@ var UserSchema = new mongoose.Schema({
     verification_status: {
         type: String
     },
+    department: {
+        type: String
+    },
     isDeleted: {
         type: Boolean,
         require: true,
@@ -87,6 +90,7 @@ UserSchema.methods.toJSON = function() {
     'mobile_number', 
     'isDeleted',
     'isActive',
+    'department',
     'roles']);
 };
 

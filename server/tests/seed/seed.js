@@ -20,7 +20,9 @@ const users = [{
     last_name: 'Tiu',
     middle_name: 'Briones',
     password: 'userOnePass',
+    department: '',
     isDeleted: false,
+    department: 'General Surgery Department',
     roles: ['Admin'],
     tokens: [{
         access: 'auth',
@@ -34,6 +36,7 @@ const users = [{
     middle_name: 'Briones',
     password: 'userTwoPass',
     isDeleted: false,
+    department: 'Institute of Biology',
     roles: [],
     tokens: [{
         access: 'auth',

@@ -43,7 +43,8 @@ describe('/users', () => {
                 password : '123!',
                 gender: 'M',
                 email: 'ewan@email.com',
-                mobile_number: 'some number'
+                mobile_number: 'some number',
+                department: 'General Surgery Department'
             };
     
             request(app)
@@ -60,6 +61,7 @@ describe('/users', () => {
                     expect(res.body.user.gender).toBe(seed.gender);
                     expect(res.body.user.email).toBe(seed.email);
                     expect(res.body.user.mobile_number).toBe(seed.mobile_number);
+                    expect(res.body.user.department).toBe(seed.department);
                     expect(res.body.user.password).toBeUndefined();
                 })
                 .end((err) => {
