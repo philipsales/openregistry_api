@@ -136,11 +136,13 @@ router.post('/v0', authenticate, (req, res) => {
 
 router.get('/', authenticate, (req, res) => {
     console.log('GET LIST OF FORMS');
-    Form.find({is_deleted: false}).then((forms) => {
-        var data = forms.map((form) => {
-            var out = form.toJSON();
-            delete out.sections;
-            return out;
+    Form.find({is_deleted: false})
+        .sort({ date_created: 'desc' })
+        .then((forms) => {
+            var data = forms.map((form) => {
+                var out = form.toJSON();
+                delete out.sections;
+                return out;
         });
         console.log('LIST: ',data);
         res.send({data});

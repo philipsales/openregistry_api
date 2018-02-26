@@ -34,7 +34,10 @@ router.post('/', authenticate, (req, res) => {
 
 
 router.get('/', authenticate, (req, res) => {
-    Case.find({is_deleted: false}).then((cases) => {
+    console.log('GET CASES');
+    Case.find({is_deleted: false})
+    .sort({ date_created: 'desc' })
+    .then((cases) => {
         var data = cases.map((value) => {
             var out = value.toJSON();
             for(let form of out.forms){
@@ -49,6 +52,8 @@ router.get('/', authenticate, (req, res) => {
 });
 
 router.get('/:id', authenticate, (req, res) => {
+
+    console.log('GET CASES ID');
     var id = req.params.id;
     if (!ObjectID.isValid(id)) {
         res.status(404).send();
@@ -56,9 +61,11 @@ router.get('/:id', authenticate, (req, res) => {
     }
     Case.findOne({
         _id: id,
-        is_deleted: false
-    }).then((data) => {
+        is_deleted: false 
+    })
+    .then((data) => {
         if (data){
+            data.forms.sort((a, b) => a.date_created < b.date_created);
             res.send(data);
         } else {
             res.status(404).send();
@@ -276,6 +283,19 @@ router.post('/upload', function(req, res) {
     form.on ('end', function(){
         res.end();
         console.log('END====');
+    }); 
+});
+
+router.get('/download/:path', (req, res) => {
+    var dump_file = "./../uploads/consent_templates/" + req.params.path;
+
+    res.sendFile(path.resolve(__dirname, dump_file), function(err){
+        if (err) {
+          console.log(err);
+          res.status(400).end();
+        } else {
+          res.status(200).end();
+        }
     }); 
 });
 
