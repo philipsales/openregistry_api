@@ -14,21 +14,11 @@ router.use(bodyParser.json());
 router.post('/', authenticate, (req, res) => {
     var seed = _.pick(req.body, ['case_number', 'organization', 'diagnosis', 'forms']);
     var instance = new Case(seed);
-
-    Case.findOneAndRemove({case_number : seed.case_number}).then(() => {
-        instance.save().then((saved_case) => {
-            return res.status(201).send(saved_case);
-        }, (error) => {
-            return Promise.reject(error);
-        })
-    }).catch((error) => {
-        if (error instanceof CaseError) {
-            return res.status(400).send(JSON.parse(error.message));
-        } else {
-            console.log(error);
-            return res.status(500).send(error);
-        }
-    });
+    instance.save().then((saved_case) => {
+        return res.status(201).send(saved_case);
+    }, (error) => {
+        return res.status(400).send('Error on creating form');
+    })
 });
 
 
