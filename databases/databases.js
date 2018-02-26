@@ -3,13 +3,14 @@
 const _ = require('lodash');
 var express = require('express')
 var router = express.Router();
+const path = require('path');
 const bodyParser = require('body-parser');
+const Mongo = require('./dbCmd');
+
 const {ObjectID} = require('mongodb');
-
-const Mongo = require('./dbBackup');
 var {Database, DatabaseError} = require('../server/models/database');
-
 var {authenticate} = require('../server/middleware/authenticate');
+
 router.use(bodyParser.json());
 
 router.get('/', (req, res) => {
@@ -32,7 +33,6 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    console.log(req.params.id); 
 
     Database.findOne({
         _id: req.params.id
@@ -50,7 +50,6 @@ router.get('/:id', (req, res) => {
 
 
 router.post('/backup', (req, res) => {
-
     var body = _.pick(req.body, ['name', 'createdBy','description', 'dirPath']);
 
     Mongo.dbDump().then((result) => {
@@ -106,7 +105,6 @@ router.patch('/backup/:id',  (req, res) => {
 });
 
 router.post('/restore/:id', (req, res) => {
-    console.log(req.params.id);
 
     Database.findOne({
         _id: req.params.id
@@ -121,7 +119,19 @@ router.post('/restore/:id', (req, res) => {
             return res.status(500).send(error);
         }
     });
-    
-
 });
+
+router.get('/download/:path', (req, res) => {
+    var dump_file = "./../dump/" + req.params.path;
+
+    res.sendFile(path.resolve(__dirname, dump_file), function(err){
+        if (err) {
+          console.log(err);
+          res.status(400).end();
+        } else {
+          res.status(200).end();
+        }
+    }); 
+});
+
 module.exports = router

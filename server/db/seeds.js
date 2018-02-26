@@ -11,7 +11,7 @@ const {Resource} = require('./../models/fhir/resource');
 const {IcdOncology} = require('./../models/icd/icdoncology');
 
 var naaccr = require('./naaccr-codes.v16.json');
-const Mongo = require('./../../databases/dbBackup');
+const Mongo = require('./../../databases/dbCmd');
 
 const permissions = [{
     _id: new ObjectID(),
