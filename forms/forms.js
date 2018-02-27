@@ -21,20 +21,16 @@ var upload_file = "./../uploads/consent_templates/"  ;
 //create forms WITH upload file
 //router.post('/', authenticate, (req, res) => {
 router.post('/', (req, res) => {
-    console.log('PATH:',req.form);
+    var body;
     var form = new formidable.IncomingForm();
 
     form.multiples = false;
     form.uploadDir = path.resolve(__dirname, upload_file);
-    var seed;
 
     //parse the request to form data
     form.parse(req, function(err, fields, files) {
 
-        console.log('form.files', files);
-        console.log('form.fields', fields.data);
-
-        seed = _.pick(JSON.parse(fields.data), [
+        body = _.pick(JSON.parse(fields.data), [
             'name', 
             'organization', 
             'department', 
@@ -49,7 +45,7 @@ router.post('/', (req, res) => {
             'is_deleted', 
             'sections']);
 
-        console.log('SEED: ', seed);
+        console.log('SEED: ', body);
 
             var data = {
                 status: 'Success',
@@ -68,12 +64,12 @@ router.post('/', (req, res) => {
     //modify file path
     form.on('fileBegin', function(name, file){
         console.log('REQ.FILE', file);
-        file.path = form.uploadDir + "/" + file.name;
+        file.path = form.uploadDir + "/" + (file.name).split(' ').join('_');;
     });
     //after success parsing
     form.on ('end', function(){
 
-        var instance = new Form(seed);
+        var instance = new Form(body);
 
         Form.findOneAndRemove({name : seed.name}).then(() => {
             instance.save().then((saved_form) => {
@@ -135,7 +131,6 @@ router.post('/v0', authenticate, (req, res) => {
 
 
 router.get('/', authenticate, (req, res) => {
-    console.log('GET LIST OF FORMS');
     Form.find({is_deleted: false})
         .sort({ date_created: 'desc' })
         .then((forms) => {
@@ -144,7 +139,6 @@ router.get('/', authenticate, (req, res) => {
                 delete out.sections;
                 return out;
         });
-        console.log('LIST: ',data);
         res.send({data});
     }, (e) => {
         res.status(400).send(e);
@@ -171,7 +165,7 @@ router.get('/:id', authenticate, (req, res) => {
 });
 
 
-router.patch('/:id', authenticate, (req, res) => {
+router.patch('/v0/:id', authenticate, (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, [
         'name', 
@@ -208,6 +202,81 @@ router.patch('/:id', authenticate, (req, res) => {
             return res.status(500).send(error);
         }
     });
+});
+
+router.patch('/:id', authenticate, (req, res) => {
+    var body;
+    var id = req.params.id;
+
+    var form = new formidable.IncomingForm();
+    form.multiples = false;
+    form.uploadDir = path.resolve(__dirname, upload_file);
+
+    //parse the request to form data
+    form.parse(req, function(err, fields, files) {
+
+        body = _.pick(JSON.parse(fields.data), [
+            'name', 
+            'organization', 
+            'department', 
+            'dir_path', 
+            'validity_date', 
+            'type', 
+            'approval', 
+            'status', 
+            'sections']);
+
+        if(!ObjectID.isValid(id)) {
+            return res.status(404).send();
+        }
+
+        var data = {
+            status: 'Success',
+            result: { 
+                'payload' : []
+            },
+            error: err
+        };
+        
+        if(err) {
+            res.status(400).json(data);
+            throw err;
+        }
+    });
+
+    //modify file path
+    form.on('fileBegin', function(name, file){
+        file.path = form.uploadDir + "/" + (file.name).split(' ').join('_');;
+    });
+
+    //after success parsing
+    form.on ('end', function(){
+
+        Form.findOneAndUpdate({
+            _id: id
+        }, {
+            $set: body
+        }, {
+            new: true
+        }).then((org) => {
+            if (org) {
+                res.send(org);
+            } else {
+                res.status(404).send();
+            }
+        }).catch((error) => {
+            if (error instanceof OrganizationError) {
+                return res.status(400).send(JSON.parse(error.message));
+            } else {
+                console.log(error);
+                return res.status(500).send(error);
+            }
+        }); 
+
+        console.log('END====');
+    }); 
+    
+   
 });
 
 

@@ -34,7 +34,6 @@ router.post('/', authenticate, (req, res) => {
 
 
 router.get('/', authenticate, (req, res) => {
-    console.log('GET CASES');
     Case.find({is_deleted: false})
     .sort({ date_created: 'desc' })
     .then((cases) => {
@@ -53,7 +52,6 @@ router.get('/', authenticate, (req, res) => {
 
 router.get('/:id', authenticate, (req, res) => {
 
-    console.log('GET CASES ID');
     var id = req.params.id;
     if (!ObjectID.isValid(id)) {
         res.status(404).send();
