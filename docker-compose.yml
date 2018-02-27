@@ -11,6 +11,7 @@ services:
       JWT_SECRET: f31@qw3x213ef213124123123@!3123123xasdda
       HOST: authdb
       DATABASE: BiobankAPI
+      DB_PORT: 27017
       USERNAME: root
       PASSWORD: password
       UPLOAD_DIR: ./../uploads/
