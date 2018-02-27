@@ -1,0 +1,381 @@
+[
+    { 
+        "date_created" : 1519698286071.0, 
+        "validity_date" : ISODate("2020-02-26T16:00:00.000+0000"), 
+        "name" : "Gynecology Cancer Form", 
+        "organization" : "University of the Philippines - Philippine General Hospital", 
+        "department" : "Obstetric Gynecology Department", 
+        "type" : "Patient Repository", 
+        "status" : "Pending", 
+        "dir_path" : "", 
+        "sections" : [
+            {
+                "key" : "f9c787f0-e586-a8cb-167e-fea99c7ef6ef", 
+                "name" : "Risk Factors", 
+                "order" : NumberInt(0), 
+                "_id" : ObjectId("5a94c81361364cbc7e5a9f61"), 
+                "questions" : [
+                    {
+                        "key" : "a173408f-3414-ea3a-2a5b-7052e447096e", 
+                        "label" : "Age of menarche", 
+                        "type" : "textbox", 
+                        "value" : "", 
+                        "order" : NumberInt(0), 
+                        "options" : "Untitled option", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f6f"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "24a019e6-5f23-d8d4-efd1-56c2e703e15b", 
+                        "label" : "Age of menopause", 
+                        "type" : "textbox", 
+                        "value" : "", 
+                        "order" : NumberInt(1), 
+                        "options" : "Untitled option", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f6e"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "665e6f5d-dda6-9c7e-05e6-9aec00476d28", 
+                        "label" : "Weight", 
+                        "type" : "textbox", 
+                        "value" : "", 
+                        "order" : NumberInt(2), 
+                        "options" : "Untitled option", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f6d"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "975f63bd-ba33-1929-fca0-8530bd248573", 
+                        "label" : "Smoking History", 
+                        "type" : "textbox", 
+                        "value" : "", 
+                        "order" : NumberInt(3), 
+                        "options" : "Untitled option", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f6c"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "b6b4a410-5fbd-b36d-8ab2-b7f56ee4d87b", 
+                        "label" : "Diabetes Mellitus", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(4), 
+                        "options" : "Yes|No", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f6b"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "949736da-8f28-49bd-0522-db87998cff58", 
+                        "label" : "Hypertension", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(5), 
+                        "options" : "Yes|No", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f6a"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "6b9c7892-c7eb-5881-0221-3125942aba04", 
+                        "label" : "History of Endometriosis", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(6), 
+                        "options" : "Yes|No", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f69"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "a8a48a91-7803-505d-6c21-368420623129", 
+                        "label" : "History of Pelvic Inflammatory Disease (PID)", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(7), 
+                        "options" : "Yes|No", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f68"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "9ec75b9a-3831-26f5-eeda-9c7e1a7aad7a", 
+                        "label" : "History of Infertility", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(8), 
+                        "options" : "Yes|No", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f67"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "3bb654a8-6bc6-3b82-9cb5-935b45b47fdd", 
+                        "label" : "History of Polycystic Ovary Syndrome (POC)", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(9), 
+                        "options" : "Yes|No", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f66"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "b3f18b39-0dfa-aa51-ce8c-80f9e320f6ed", 
+                        "label" : "Use of fertility drugs for 12 months", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(10), 
+                        "options" : "Yes|No", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f65"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "3cd27e76-6b01-8227-bed4-7d64820bffa1", 
+                        "label" : "Use of oral contraceptive pill (OCP) for 12 months", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(11), 
+                        "options" : "Yes|No", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f64"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "7e3dc13a-88d5-f71a-865e-3e6aa5f37484", 
+                        "label" : "Use of Hormone Replacement Theraphy (HRT)", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(12), 
+                        "options" : "Yes|No", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f63"), 
+                        "required" : false
+                    }, 
+                    {
+                        "key" : "eda0f056-6ef6-b90f-3e7b-fda350b11c04", 
+                        "label" : "Use of Tamoxifen for 2 years", 
+                        "type" : "textbox", 
+                        "value" : "", 
+                        "order" : NumberInt(13), 
+                        "options" : "Untitled option", 
+                        "_id" : ObjectId("5a94c81361364cbc7e5a9f62"), 
+                        "required" : false
+                    }
+                ]
+            }, 
+            {
+                "_id" : ObjectId("5a94c93361364cbc7e5a9f71"), 
+                "key" : "0025ed69-a75e-cc94-17f6-8ff8626095f6", 
+                "name" : "Diagnosis", 
+                "order" : NumberInt(0), 
+                "questions" : [
+                    {
+                        "_id" : ObjectId("5a94c93361364cbc7e5a9f79"), 
+                        "key" : "80fb07e9-0970-80ff-011a-e1a77cc53cdf", 
+                        "label" : "Primary Organ Site", 
+                        "type" : "checkbox", 
+                        "value" : "", 
+                        "order" : NumberInt(0), 
+                        "options" : "Endometrium|Ovary", 
+                        "required" : false
+                    }, 
+                    {
+                        "_id" : ObjectId("5a94c93361364cbc7e5a9f78"), 
+                        "key" : "c1e47e14-0628-3ac4-a183-d2b7d12e4251", 
+                        "label" : "Histopathologic Report", 
+                        "type" : "textarea", 
+                        "value" : "", 
+                        "order" : NumberInt(1), 
+                        "options" : "Untitled option", 
+                        "required" : false
+                    }, 
+                    {
+                        "_id" : ObjectId("5a94c93361364cbc7e5a9f77"), 
+                        "key" : "df0a1798-2bd0-6254-5702-1ae9e33d29b2", 
+                        "label" : "Histologic Type (Endometrium)", 
+                        "type" : "checkbox", 
+                        "value" : "", 
+                        "order" : NumberInt(2), 
+                        "options" : "Endometrioid carcinoma|Serous papillary carcinoma|Clear cell carcinoma", 
+                        "required" : false
+                    }, 
+                    {
+                        "_id" : ObjectId("5a94c93361364cbc7e5a9f76"), 
+                        "key" : "ca1d7810-1091-d691-5914-e474ce212b67", 
+                        "label" : "Histologic Type (Ovary)", 
+                        "type" : "checkbox", 
+                        "value" : "", 
+                        "order" : NumberInt(3), 
+                        "options" : "Serous carcinoma|Mucinous carcinoma|Endometroid carcinoma|Clear cell carcinoma", 
+                        "required" : false
+                    }, 
+                    {
+                        "_id" : ObjectId("5a94c93361364cbc7e5a9f75"), 
+                        "key" : "13dedd00-5d90-38c6-0de6-52b28b1b744d", 
+                        "label" : "Stage", 
+                        "type" : "textbox", 
+                        "value" : "", 
+                        "order" : NumberInt(4), 
+                        "options" : "Untitled option", 
+                        "required" : false
+                    }, 
+                    {
+                        "_id" : ObjectId("5a94c93361364cbc7e5a9f74"), 
+                        "key" : "0159eb52-41c0-7f06-711e-02167744bc32", 
+                        "label" : "Grade", 
+                        "type" : "textbox", 
+                        "value" : "", 
+                        "order" : NumberInt(5), 
+                        "options" : "Untitled option", 
+                        "required" : false
+                    }, 
+                    {
+                        "_id" : ObjectId("5a94c93361364cbc7e5a9f73"), 
+                        "key" : "a25c3bb6-4f91-bb3e-b37e-2510b454e218", 
+                        "label" : "Laterality", 
+                        "type" : "radiobutton", 
+                        "value" : "", 
+                        "order" : NumberInt(6), 
+                        "options" : "Right|Left|Bilateral|Not Applicable", 
+                        "required" : false
+                    }, 
+                    {
+                        "_id" : ObjectId("5a94c93361364cbc7e5a9f72"), 
+                        "key" : "d239fe83-16e8-27b1-c05b-b54536347bc5", 
+                        "label" : "Tumor Size", 
+                        "type" : "textbox", 
+                        "value" : "", 
+                        "order" : NumberInt(7), 
+                        "options" : "Untitled option", 
+                        "required" : false
+                    }
+                ]
+            }, 
+            {
+                "order" : NumberInt(0), 
+                "name" : "Treatment", 
+                "key" : "baa9704a-a8cc-0ee4-e0a2-1f9b7cf05ea5", 
+                "_id" : ObjectId("5a94ca3461364cbc7e5a9f7a"), 
+                "questions" : [
+                    {
+                        "options" : "Untitled option", 
+                        "order" : NumberInt(0), 
+                        "value" : "", 
+                        "type" : "textbox", 
+                        "label" : "Surgery", 
+                        "key" : "c03eee59-19ae-b00c-9cd8-7830caede3c1", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f86"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Untitled option", 
+                        "order" : NumberInt(1), 
+                        "value" : "", 
+                        "type" : "datepicker", 
+                        "label" : "Date of Surgery", 
+                        "key" : "0b78a153-9d97-54b1-c6de-7c9277d30412", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f85"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Untitled option", 
+                        "order" : NumberInt(2), 
+                        "value" : "", 
+                        "type" : "textarea", 
+                        "label" : "Procedure Done", 
+                        "key" : "37561f9c-146c-bbc2-d070-0df9e1df2bb0", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f84"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Untitled option", 
+                        "order" : NumberInt(3), 
+                        "value" : "", 
+                        "type" : "textarea", 
+                        "label" : "Intra-operative Findings", 
+                        "key" : "70c17c13-2405-58ba-d487-48e5a8ec049d", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f83"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Peritoneal fluid|Abnormal tissue from tumor|Normal tissue (same laterality, for ovarian cancer)|Normal tissue form contralateral ovary (for ovarian cancer)", 
+                        "order" : NumberInt(4), 
+                        "value" : "", 
+                        "type" : "checkbox", 
+                        "label" : "Tissue/Specimen Collected", 
+                        "key" : "88bb96f5-f7c7-8cac-2118-a5bd2c2ce60a", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f82"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Improved|Not Improved|Dead", 
+                        "order" : NumberInt(5), 
+                        "value" : "", 
+                        "type" : "radiobutton", 
+                        "label" : "Post-Operative Outcome", 
+                        "key" : "5e4893a6-177e-d617-c149-c1f5565049fc", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f81"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Yes|No", 
+                        "order" : NumberInt(6), 
+                        "value" : "", 
+                        "type" : "radiobutton", 
+                        "label" : "Morbidity", 
+                        "key" : "e1b0fca8-d393-3b41-15a0-3e9e4f30999f", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f80"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Untitled option", 
+                        "order" : NumberInt(7), 
+                        "value" : "", 
+                        "type" : "textarea", 
+                        "label" : "Morbidity List", 
+                        "key" : "06ee5889-5373-6946-99b7-7011fd63bb69", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f7f"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Yes|No", 
+                        "order" : NumberInt(8), 
+                        "value" : "", 
+                        "type" : "radiobutton", 
+                        "label" : "Mortality", 
+                        "key" : "613b635d-00df-fc6c-d36f-739c37aa1c34", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f7e"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Untitled option", 
+                        "order" : NumberInt(9), 
+                        "value" : "", 
+                        "type" : "textbox", 
+                        "label" : "Cause of Death", 
+                        "key" : "4405745c-ad8a-d108-9910-2ab9c06d0761", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f7d"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Untitled option", 
+                        "order" : NumberInt(10), 
+                        "value" : "", 
+                        "type" : "textbox", 
+                        "label" : "Length of Hospital Stay", 
+                        "key" : "009b484d-e421-ce09-9972-91f615b94d6e", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f7c"), 
+                        "required" : false
+                    }, 
+                    {
+                        "options" : "Yes|No", 
+                        "order" : NumberInt(11), 
+                        "value" : "", 
+                        "type" : "radiobutton", 
+                        "label" : "Endocrine Disrupting Chemicals Exposure Survey Done", 
+                        "key" : "3fd9c19b-6118-0064-744a-35fe6ceb043a", 
+                        "_id" : ObjectId("5a94ca3461364cbc7e5a9f7b"), 
+                        "required" : false
+                    }
+                ]
+            }
+        ], 
+        "is_deleted" : false, 
+        "isActive" : false, 
+        "__v" : NumberInt(0)
+    }
+]
