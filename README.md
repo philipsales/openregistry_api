@@ -64,7 +64,43 @@ Please install the following sequentially:
             node server/server.js db:seed
             ```
 
+### How to stop service in production? ###
+Please do the following:
 
+    1. go to `biobankapi2`
+        ```
+        cd biobankapi2
+        docker-compose stop 
+        ```
+
+### How to clean up service with clean data? ###
+Please do the following:
+
+    1. stop running service
+        ```
+        cd biobankapi2
+        docker-compose stop 
+        ```
+
+    2. remove containers
+        ```
+        cd biobankapi2
+        docker-compose rm -v 
+        ```
+        
+    3. remove data (optional)
+        ```
+        cd biobankapi2
+        sudo rm -drf data
+        ```
+        
+    4. remove images
+        ```
+        cd biobankapi2
+        docker rmi biobankapi2_authapi
+        docker rmi mongo:3.4.10 
+        ```
+        
 ### Contribution guidelines ###
 
 * No direct push to major branches (master, develop) - all merge to master must pass through a pull request
