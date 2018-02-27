@@ -71,7 +71,7 @@ router.post('/', (req, res) => {
 
         var instance = new Form(body);
 
-        Form.findOneAndRemove({name : seed.name}).then(() => {
+        Form.findOneAndRemove({name : body.name}).then(() => {
             instance.save().then((saved_form) => {
                 return res.status(201).send(saved_form);
             }, (error) => {
