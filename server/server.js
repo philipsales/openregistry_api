@@ -26,6 +26,13 @@ const port = process.env.PORT;
 var app = express();
 app.use(cors())
 
+app.use((req, res, next) => {
+    var now = new Date().toString();
+    var log = `${now}: ${req.method} ${req.url}`;
+    console.log(log);
+    next();
+});
+
 app.use('/api-docs', 
         swaggerUi.serve, 
         swaggerUi.setup(swaggerDocument));
