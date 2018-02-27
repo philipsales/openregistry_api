@@ -111,7 +111,6 @@ router.patch('/:id', authenticate, (req, res) => {
         'date_created', 
         'diagnosis', 
         'forms']);
-    console.log('CASE PATCH', body);
 
     Case.findOneAndUpdate({
         _id: id,
@@ -211,7 +210,6 @@ router.patch('/:id/forms/:formid', authenticate, (req, res) => {
     var formid = req.params.formid;
     var id = req.params.id;
 
-    console.log('patchc case', seed);
     if (!ObjectID.isValid(id)) {
         console.log('invalid object');
         res.status(400).send();
