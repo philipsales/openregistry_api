@@ -13,7 +13,8 @@ var {Case, CaseError} = require('../server/models/case');
 
 const formidable = require('formidable');
 const path = require('path');
-var upload_file = "./../uploads/consent_templates/"  ;
+
+var upload_file = process.env.UPLOAD_DIR + "consent_templates/";
 
 router.use(bodyParser.json());
 

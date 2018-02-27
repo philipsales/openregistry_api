@@ -122,7 +122,7 @@ router.post('/restore/:id', (req, res) => {
 });
 
 router.get('/download/:path', (req, res) => {
-    var dump_file = "./../dump/" + req.params.path;
+    var dump_file = process.env.DUMP_DIR + req.params.path;
 
     res.sendFile(path.resolve(__dirname, dump_file), function(err){
         if (err) {
