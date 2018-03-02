@@ -28,14 +28,7 @@ router.post('/', authenticate, (req, res) => {
 
     //parse the request to form data
     form.parse(req, function(err, field, files) {
-
-<<<<<<< HEAD
-        console.log('xxxxxxxxxxxxxx');
-        console.log(fields.data);
-        body = _.pick(JSON.parse(fields.data), [
-=======
         body = _.pick(JSON.parse(field.data), [
->>>>>>> f8dea18da19b12955b25d22dfad99493a52fb2a1
             'name', 
             'organization', 
             'department', 
