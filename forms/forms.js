@@ -29,6 +29,8 @@ router.post('/', (req, res) => {
     //parse the request to form data
     form.parse(req, function(err, fields, files) {
 
+        console.log('xxxxxxxxxxxxxx');
+        console.log(fields.data);
         body = _.pick(JSON.parse(fields.data), [
             'name', 
             'organization', 
@@ -70,7 +72,7 @@ router.post('/', (req, res) => {
 
         var instance = new Form(body);
 
-        Form.findOneAndRemove({name : body.name}).then(() => {
+        Form.findOneAndRemove({name : body.name, is_deleted: false}).then(() => {
             instance.save().then((saved_form) => {
                 return res.status(201).send(saved_form);
             }, (error) => {
@@ -111,7 +113,7 @@ router.post('/v0', authenticate, (req, res) => {
     var instance = new Form(seed);
     console.log('POST FORM',seed);
 
-    Form.findOneAndRemove({name : seed.name}).then(() => {
+    Form.findOneAndRemove({name : seed.name, is_deleted: false}).then(() => {
         instance.save().then((saved_form) => {
             return res.status(201).send(saved_form);
         }, (error) => {
@@ -151,7 +153,8 @@ router.get('/:id', authenticate, (req, res) => {
         return;
     }
     Form.findOne({
-        _id: id
+        _id: id,
+        is_deleted: false
     }).then((data) => {
         if (data){
             res.send(data);
@@ -182,7 +185,8 @@ router.patch('/v0/:id', authenticate, (req, res) => {
     console.log('PATCH FORM', body);
 
     Form.findOneAndUpdate({
-        _id: id
+        _id: id,
+        is_deleted: false
     }, {
         $set: body
     }, {
@@ -252,7 +256,8 @@ router.patch('/:id', authenticate, (req, res) => {
     form.on ('end', function(){
 
         Form.findOneAndUpdate({
-            _id: id
+            _id: id,
+            is_deleted: false
         }, {
             $set: body
         }, {
@@ -280,6 +285,31 @@ router.patch('/:id', authenticate, (req, res) => {
 
 
 
+router.delete('/:id', authenticate, (req, res) => {
+    var id = req.params.id;
+    if(!ObjectID.isValid(id)) {
+        res.status(404).send();
+        return;
+    }
 
+    Form.findOneAndUpdate({
+        _id: id,
+        is_deleted: false
+    }, {
+        $set: {
+            is_deleted: true       
+        }
+    }, {
+        new: true
+    }).then((form) => {
+        if (form) {
+            res.send(form);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((error) => {
+        res.status(400).send();
+    });
+});
 
 module.exports = router
