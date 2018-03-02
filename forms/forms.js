@@ -19,7 +19,7 @@ router.use(bodyParser.json());
 
 //create forms WITH upload file
 //router.post('/', authenticate, (req, res) => {
-router.post('/', (req, res) => {
+router.post('/', authenticate, (req, res) => {
     var body;
     var form = new formidable.IncomingForm();
 
@@ -27,11 +27,15 @@ router.post('/', (req, res) => {
     form.uploadDir = path.resolve(__dirname, upload_file);
 
     //parse the request to form data
-    form.parse(req, function(err, fields, files) {
+    form.parse(req, function(err, field, files) {
 
+<<<<<<< HEAD
         console.log('xxxxxxxxxxxxxx');
         console.log(fields.data);
         body = _.pick(JSON.parse(fields.data), [
+=======
+        body = _.pick(JSON.parse(field.data), [
+>>>>>>> f8dea18da19b12955b25d22dfad99493a52fb2a1
             'name', 
             'organization', 
             'department', 
@@ -46,7 +50,6 @@ router.post('/', (req, res) => {
             'is_deleted', 
             'sections']);
 
-        console.log('SEED: ', body);
 
             var data = {
                 status: 'Success',
@@ -64,7 +67,6 @@ router.post('/', (req, res) => {
 
     //modify file path
     form.on('fileBegin', function(name, file){
-        console.log('REQ.FILE', file);
         file.path = form.uploadDir + "/" + (file.name).split(' ').join('_');;
     });
     //after success parsing
@@ -89,7 +91,6 @@ router.post('/', (req, res) => {
         });
 
         //res.end();
-        console.log('END====');
     }); 
 
 });
@@ -111,7 +112,6 @@ router.post('/v0', authenticate, (req, res) => {
         'is_deleted', 
         'sections']);
     var instance = new Form(seed);
-    console.log('POST FORM',seed);
 
     Form.findOneAndRemove({name : seed.name, is_deleted: false}).then(() => {
         instance.save().then((saved_form) => {
@@ -191,9 +191,9 @@ router.patch('/v0/:id', authenticate, (req, res) => {
         $set: body
     }, {
         new: true
-    }).then((org) => {
-        if (org) {
-            res.send(org);
+    }).then((data) => {
+        if (data) {
+            res.status(200).send(data);
         } else {
             res.status(404).send();
         }
@@ -216,9 +216,9 @@ router.patch('/:id', authenticate, (req, res) => {
     form.uploadDir = path.resolve(__dirname, upload_file);
 
     //parse the request to form data
-    form.parse(req, function(err, fields, files) {
+    form.parse(req, function(err, field, files) {
 
-        body = _.pick(JSON.parse(fields.data), [
+        body = _.pick(JSON.parse(field.data), [
             'name', 
             'organization', 
             'department', 
@@ -228,10 +228,6 @@ router.patch('/:id', authenticate, (req, res) => {
             'approval', 
             'status', 
             'sections']);
-
-        if(!ObjectID.isValid(id)) {
-            return res.status(404).send();
-        }
 
         var data = {
             status: 'Success',
@@ -255,6 +251,10 @@ router.patch('/:id', authenticate, (req, res) => {
     //after success parsing
     form.on ('end', function(){
 
+        if(!ObjectID.isValid(id)) {
+            return res.status(404).send();
+        }
+
         Form.findOneAndUpdate({
             _id: id,
             is_deleted: false
@@ -262,9 +262,9 @@ router.patch('/:id', authenticate, (req, res) => {
             $set: body
         }, {
             new: true
-        }).then((org) => {
-            if (org) {
-                res.send(org);
+        }).then((data) => {
+            if (data) {
+                res.status(200).send(data);
             } else {
                 res.status(404).send();
             }
@@ -276,8 +276,6 @@ router.patch('/:id', authenticate, (req, res) => {
                 return res.status(500).send(error);
             }
         }); 
-
-        console.log('END====');
     }); 
     
    
