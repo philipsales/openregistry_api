@@ -1,5 +1,5 @@
 {
-  "name": "biobankapi",
+  "name": "pcari-api",
   "version": "1.0.0",
   "description": "API for PCARI bionbank",
   "main": "app.js",
