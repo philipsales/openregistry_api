@@ -1,0 +1,1519 @@
+(node:4353) [DEP0022] DeprecationWarning: os.tmpDir() is deprecated. Use os.tmpdir() instead.
+[11:30:02] I/update - chromedriver: unzipping chromedriver_2.35.zip
+[11:30:05] I/update - chromedriver: setting permissions to 0755 for /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35
+[11:30:05] I/launcher - Running 1 instances of WebDriver
+[11:30:05] I/direct - Using ChromeDriver directly...
+Jasmine started
+
+  Biobank Page
+    [31m✗ should navigate to biobank home page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.get(http://localhost:4200/) - get url
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeScriptWithDescription (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:584:24)
+          at driver.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:898:25)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:947:14
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>
+      From: Task: <anonymous>
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at pollCondition (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2101:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2097:7
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2096:22
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+      From: Task: waiting for page to load for 10000ms
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at scheduleWait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2094:20)
+          at ControlFlow.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2408:12)
+          at Driver.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:943:29)
+          at driver.controlFlow.execute.then.then.then.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:897:30)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+      From: Task: Run it("should navigate to biobank home page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:13:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module    [32m✓ should navigate to biobank reports page[39m
+    [32m✓ should not navigate to admin page[39m
+    [32m✓ should not navigate to medical page[39m
+    [32m✓ should not navigate to medical page[39m
+
+Executed 14 of 14 specs[32m SUCCESS[39m in 43 secs.
+[11:30:14] I/launcher - 0 instance(s) of WebDriver still running
+[11:30:14] I/launcher - chrome #01 passed
+(node:4505) [DEP0022] DeprecationWarning: os.tmpDir() is deprecated. Use os.tmpdir() instead.
+[11:30:21] I/update - chromedriver: file exists /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35.zip
+[11:30:21] I/update - chromedriver: unzipping chromedriver_2.35.zip
+[11:30:23] I/update - chromedriver: setting permissions to 0755 for /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35
+[11:30:23] I/update - chromedriver: chromedriver_2.35 up to date
+[11:30:23] I/launcher - Running 1 instances of WebDriver
+[11:30:23] I/direct - Using ChromeDriver directly...
+Jasmine started
+
+  Biobank Page
+    [31m✗ should navigate to biobank home page[39m
+      [31m- [39m[31mFailed: no such window: target window already closed
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.get(http://localhost:4200/) - get url
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeScriptWithDescription (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:584:24)
+          at driver.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:898:25)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:947:14
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>
+      From: Task: <anonymous>
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at pollCondition (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2101:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2097:7
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2096:22
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+      From: Task: waiting for page to load for 10000ms
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at scheduleWait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2094:20)
+          at ControlFlow.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2408:12)
+          at Driver.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:943:29)
+          at driver.controlFlow.execute.then.then.then.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:897:30)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+      From: Task: Run it("should navigate to biobank home page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:13:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should navigate to biobank forms page[39m
+      [31m- [39m[31mFailed: no such window: target window already closed
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank-form)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankForms (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:32:39)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:21:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank forms page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:20:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should create new form[39m
+      [31m- [39m[31mFailed: no such window: target window already closed
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-create-form)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.createNewForm (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:40:42)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:25:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should create new form") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:24:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should navigate to biobank cases page[39m
+      [31m- [39m[31mFailed: no such window: target window already closed
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankCases (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:28:43)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:34:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank cases page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:33:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should create new case[39m
+      [31m- [39m[31mFailed: no such window: target window already closed
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-create-case)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.createNewCase (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:54:42)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:38:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should create new case") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:37:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should add created form to new case[39m
+      [31m- [39m[31mFailed: no such window: target window already closed
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-update-newest-case)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.addFormToNewCase (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:71:18)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:42:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should add created form to new case") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:41:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [32m✓ should add form to new case[39m
+    [32m✓ should fill up the added from of the new case[39m
+    [32m✓ should create Update Created Form[39m
+    [31m✗ should navigate to biobank cases page[39m
+      [31m- [39m[31mFailed: no such window: target window already closed
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankCases (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:28:43)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:57:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank cases page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:56:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should navigate to biobank reports page[39m
+      [31m- [39m[31mFailed: no such window: target window already closed
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+      from unknown error: web view not found
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank-report)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankReports (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:36:41)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:61:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank reports page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:60:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [32m✓ should not navigate to admin page[39m
+    [32m✓ should not navigate to medical page[39m
+    [32m✓ should not navigate to medical page[39m
+
+**************************************************
+*                    Failures                    *
+**************************************************
+
+1) Biobank Page should navigate to biobank home page
+  [31m- [39m[31mFailed: no such window: target window already closed
+  from unknown error: web view not found
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+2) Biobank Page should navigate to biobank forms page
+  [31m- [39m[31mFailed: no such window: target window already closed
+  from unknown error: web view not found
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+3) Biobank Page should create new form
+  [31m- [39m[31mFailed: no such window: target window already closed
+  from unknown error: web view not found
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+4) Biobank Page should navigate to biobank cases page
+  [31m- [39m[31mFailed: no such window: target window already closed
+  from unknown error: web view not found
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+5) Biobank Page should create new case
+  [31m- [39m[31mFailed: no such window: target window already closed
+  from unknown error: web view not found
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+6) Biobank Page should add created form to new case
+  [31m- [39m[31mFailed: no such window: target window already closed
+  from unknown error: web view not found
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+7) Biobank Page should navigate to biobank cases page
+  [31m- [39m[31mFailed: no such window: target window already closed
+  from unknown error: web view not found
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+8) Biobank Page should navigate to biobank reports page
+  [31m- [39m[31mFailed: no such window: target window already closed
+  from unknown error: web view not found
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+Executed 14 of 14 specs[31m (8 FAILED)[39m in 10 secs.
+[11:30:38] I/launcher - 0 instance(s) of WebDriver still running
+[11:30:38] I/launcher - chrome #01 failed 8 test(s)
+[11:30:38] I/launcher - overall: 8 failed spec(s)
+[11:30:38] E/launcher - Process exited with error code 1
+(node:4555) [DEP0022] DeprecationWarning: os.tmpDir() is deprecated. Use os.tmpdir() instead.
+[11:32:51] I/update - chromedriver: unzipping chromedriver_2.35.zip
+[11:32:52] I/update - chromedriver: setting permissions to 0755 for /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35
+[11:32:52] I/launcher - Running 1 instances of WebDriver
+[11:32:52] I/direct - Using ChromeDriver directly...
+Jasmine started
+[11:33:03] I/update - chromedriver: unzipping chromedriver_2.35.zip
+[11:33:04] I/update - chromedriver: setting permissions to 0755 for /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35
+
+  Biobank Page
+    [32m✓ should navigate to biobank home page[39m
+    [32m✓ should navigate to biobank forms page[39m
+    [32m✓ should create new form[39m
+    [32m✓ should navigate to biobank cases page[39m
+    [32m✓ should create new case[39m
+[11:33:22] W/element - more than one element found for locator By(css selector, .e2e-select-newest-case) - the first result will be used
+    [32m✓ should add created form to new case[39m
+    [32m✓ should add form to new case[39m
+    [32m✓ should fill up the added from of the new case[39m
+    [32m✓ should create Update Created Form[39m
+    [32m✓ should navigate to biobank cases page[39m
+    [32m✓ should navigate to biobank reports page[39m
+    [32m✓ should not navigate to admin page[39m
+    [32m✓ should not navigate to medical page[39m
+    [32m✓ should not navigate to medical page[39m
+
+Executed 14 of 14 specs[32m SUCCESS[39m in 34 secs.
+[11:33:29] I/launcher - 0 instance(s) of WebDriver still running
+[11:33:29] I/launcher - chrome #01 passed
+(node:4720) [DEP0022] DeprecationWarning: os.tmpDir() is deprecated. Use os.tmpdir() instead.
+[11:33:35] I/update - chromedriver: file exists /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35.zip
+[11:33:35] I/update - chromedriver: unzipping chromedriver_2.35.zip
+[11:33:36] I/update - chromedriver: setting permissions to 0755 for /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35
+[11:33:36] I/update - chromedriver: chromedriver_2.35 up to date
+[11:33:36] I/launcher - Running 1 instances of WebDriver
+[11:33:36] I/direct - Using ChromeDriver directly...
+Jasmine started
+
+  Biobank Page
+    [31m✗ should navigate to biobank home page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.get(http://localhost:4200/) - get url
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeScriptWithDescription (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:584:24)
+          at driver.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:898:25)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:947:14
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>
+      From: Task: <anonymous>
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at pollCondition (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2101:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2097:7
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2096:22
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+      From: Task: waiting for page to load for 10000ms
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at scheduleWait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2094:20)
+          at ControlFlow.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2408:12)
+          at Driver.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:943:29)
+          at driver.controlFlow.execute.then.then.then.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:897:30)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+      From: Task: Run it("should navigate to biobank home page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:13:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should navigate to biobank forms page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank-form)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankForms (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:32:39)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:21:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank forms page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:20:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should create new form[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-create-form)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.createNewForm (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:40:42)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:25:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should create new form") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:24:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should navigate to biobank cases page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankCases (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:28:43)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:34:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank cases page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:33:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should create new case[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-create-case)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.createNewCase (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:54:42)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:38:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should create new case") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:37:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should add created form to new case[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-update-newest-case)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.addFormToNewCase (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:71:18)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:42:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should add created form to new case") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:41:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [32m✓ should add form to new case[39m
+    [32m✓ should fill up the added from of the new case[39m
+    [32m✓ should create Update Created Form[39m
+    [31m✗ should navigate to biobank cases page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankCases (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:28:43)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:57:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank cases page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:56:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should navigate to biobank reports page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank-report)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankReports (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:36:41)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:61:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank reports page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:60:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [32m✓ should not navigate to admin page[39m
+    [32m✓ should not navigate to medical page[39m
+    [32m✓ should not navigate to medical page[39m
+
+**************************************************
+*                    Failures                    *
+**************************************************
+
+1) Biobank Page should navigate to biobank home page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+2) Biobank Page should navigate to biobank forms page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+3) Biobank Page should create new form
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+4) Biobank Page should navigate to biobank cases page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+5) Biobank Page should create new case
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+6) Biobank Page should add created form to new case
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+7) Biobank Page should navigate to biobank cases page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+8) Biobank Page should navigate to biobank reports page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+Executed 14 of 14 specs[31m (8 FAILED)[39m in 15 secs.
+[11:33:54] I/launcher - 0 instance(s) of WebDriver still running
+[11:33:54] I/launcher - chrome #01 failed 8 test(s)
+[11:33:54] I/launcher - overall: 8 failed spec(s)
+[11:33:54] E/launcher - Process exited with error code 1
+(node:4759) [DEP0022] DeprecationWarning: os.tmpDir() is deprecated. Use os.tmpdir() instead.
+[11:33:58] I/update - chromedriver: file exists /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35.zip
+[11:33:58] I/update - chromedriver: unzipping chromedriver_2.35.zip
+[11:33:59] I/update - chromedriver: setting permissions to 0755 for /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35
+[11:33:59] I/update - chromedriver: chromedriver_2.35 up to date
+[11:33:59] I/launcher - Running 1 instances of WebDriver
+[11:33:59] I/direct - Using ChromeDriver directly...
+Jasmine started
+
+  Biobank Page
+    [31m✗ should navigate to biobank home page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.get(http://localhost:4200/) - get url
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeScriptWithDescription (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:584:24)
+          at driver.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:898:25)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:947:14
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>
+      From: Task: <anonymous>
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at pollCondition (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2101:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2097:7
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2096:22
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+      From: Task: waiting for page to load for 10000ms
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at scheduleWait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2094:20)
+          at ControlFlow.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2408:12)
+          at Driver.wait (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:943:29)
+          at driver.controlFlow.execute.then.then.then.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:897:30)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+      From: Task: Run it("should navigate to biobank home page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:13:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should navigate to biobank forms page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank-form)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankForms (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:32:39)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:21:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank forms page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:20:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should create new form[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-create-form)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.createNewForm (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:40:42)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:25:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should create new form") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:24:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should navigate to biobank cases page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankCases (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:28:43)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:34:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank cases page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:33:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should create new case[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-create-case)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.createNewCase (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:54:42)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:38:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should create new case") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:37:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should add created form to new case[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-update-newest-case)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.addFormToNewCase (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:71:18)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:42:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should add created form to new case") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:41:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [32m✓ should add form to new case[39m
+    [32m✓ should fill up the added from of the new case[39m
+    [32m✓ should create Update Created Form[39m
+    [31m✗ should navigate to biobank cases page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankCases (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:28:43)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:57:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank cases page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:56:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [31m✗ should navigate to biobank reports page[39m
+      [31m- [39m[31mFailed: no such window: window was already closed
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+        (Session info: chrome=64.0.3282.186)
+        (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)
+          at Object.checkLegacyResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/error.js:505:15)
+          at parseHttpResponse (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:509:13)
+          at doSend.then.response (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/http.js:440:13)
+          at <anonymous>
+          at process._tickCallback (internal/process/next_tick.js:188:7)
+      From: Task: Protractor.waitForAngular() - Locator: By(css selector, .e2e-biobank-report)
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at Driver.schedule (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/webdriver.js:816:17)
+          at ProtractorBrowser.executeAsyncScript_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:609:24)
+          at angularAppRoot.then (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/browser.ts:643:23)
+          at ManagedPromise.invokeCallback_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1366:14)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+          at TaskQueue.executeNext_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2953:27)
+          at asyncRun (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2813:27)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:676:7
+          at <anonymous>Error
+          at ElementArrayFinder.applyAction_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:482:23)
+          at ElementArrayFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:96:21)
+          at ElementFinder.(anonymous function).args [as click] (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/lib/element.ts:873:14)
+          at Object.navigateToBiobankReports (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.po.js:36:41)
+          at UserContext.it (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:61:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:112:25
+          at new ManagedPromise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:1067:7)
+          at ControlFlow.promise (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2396:12)
+          at schedulerExecute (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:95:18)
+          at TaskQueue.execute_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2970:14)
+      From: Task: Run it("should navigate to biobank reports page") in control flow
+          at ControlFlow.browser.driver.controlFlow.execute (/Users/ghost/src/bitbucket/PCARI/administration/e2e/custom.config.js:13:17)
+          at UserContext.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:94:19)
+          at /Users/ghost/src/bitbucket/PCARI/administration/node_modules/jasminewd2/index.js:64:48
+          at ControlFlow.emit (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/events.js:62:21)
+          at ControlFlow.shutdown_ (/Users/ghost/src/bitbucket/PCARI/administration/node_modules/selenium-webdriver/lib/promise.js:2565:10)
+      From asynchronous test: 
+      Error
+          at Suite.describe (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:60:3)
+          at Object.<anonymous> (/Users/ghost/src/bitbucket/PCARI/administration/e2e/biobank/biobank.e2e-spec.js:6:1)
+          at Module._compile (module.js:624:30)
+          at Object.Module._extensions..js (module.js:635:10)
+          at Module.load (module.js:545:32)
+          at tryModuleLoad (module.js:508:12)
+    [32m✓ should not navigate to admin page[39m
+    [32m✓ should not navigate to medical page[39m
+    [32m✓ should not navigate to medical page[39m
+
+**************************************************
+*                    Failures                    *
+**************************************************
+
+1) Biobank Page should navigate to biobank home page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+2) Biobank Page should navigate to biobank forms page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+3) Biobank Page should create new form
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+4) Biobank Page should navigate to biobank cases page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+5) Biobank Page should create new case
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+6) Biobank Page should add created form to new case
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+7) Biobank Page should navigate to biobank cases page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+8) Biobank Page should navigate to biobank reports page
+  [31m- [39m[31mFailed: no such window: window was already closed
+    (Session info: chrome=64.0.3282.186)
+    (Driver info: chromedriver=2.35.528157 (4429ca2590d6988c0745c24c8858745aaaec01ef),platform=Mac OS X 10.12.6 x86_64)[39m
+
+Executed 14 of 14 specs[31m (8 FAILED)[39m in 6 secs.
+[11:34:07] I/launcher - 0 instance(s) of WebDriver still running
+[11:34:07] I/launcher - chrome #01 failed 8 test(s)
+[11:34:07] I/launcher - overall: 8 failed spec(s)
+[11:34:07] E/launcher - Process exited with error code 1
+(node:4798) [DEP0022] DeprecationWarning: os.tmpDir() is deprecated. Use os.tmpdir() instead.
+[11:36:52] I/update - chromedriver: unzipping chromedriver_2.35.zip
+[11:36:53] I/update - chromedriver: setting permissions to 0755 for /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35
+[11:36:53] I/launcher - Running 1 instances of WebDriver
+[11:36:53] I/direct - Using ChromeDriver directly...
+Jasmine started
+[11:36:56] I/update - chromedriver: unzipping chromedriver_2.35.zip
+[11:36:58] I/update - chromedriver: setting permissions to 0755 for /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35
+
+  Biobank Page
+    [32m✓ should navigate to biobank home page[39m
+    [32m✓ should navigate to biobank forms page[39m
+    [32m✓ should create new form[39m
+    [32m✓ should navigate to biobank cases page[39m
+    [32m✓ should create new case[39m
+[11:37:26] W/element - more than one element found for locator By(css selector, .e2e-select-newest-case) - the first result will be used
+    [32m✓ should add created form to new case[39m
+    [32m✓ should add form to new case[39m
+    [32m✓ should fill up the added from of the new case[39m
+    [32m✓ should create Update Created Form[39m
+    [32m✓ should navigate to biobank cases page[39m
+    [32m✓ should navigate to biobank reports page[39m
+    [32m✓ should not navigate to admin page[39m
+    [32m✓ should not navigate to medical page[39m
+    [32m✓ should not navigate to medical page[39m
+
+Executed 14 of 14 specs[32m SUCCESS[39m in 34 secs.
+[11:37:30] I/launcher - 0 instance(s) of WebDriver still running
+[11:37:30] I/launcher - chrome #01 passed
+(node:4943) [DEP0022] DeprecationWarning: os.tmpDir() is deprecated. Use os.tmpdir() instead.
+[11:37:34] I/update - chromedriver: file exists /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35.zip
+[11:37:34] I/update - chromedriver: unzipping chromedriver_2.35.zip
+[11:37:35] I/update - chromedriver: setting permissions to 0755 for /Users/ghost/src/bitbucket/PCARI/administration/node_modules/protractor/node_modules/webdriver-manager/selenium/chromedriver_2.35
+[11:37:35] I/update - chromedriver: chromedriver_2.35 up to date
+[11:37:35] I/launcher - Running 1 instances of WebDriver
+[11:37:35] I/direct - Using ChromeDriver directly...
+Jasmine started
+
+  Biobank Page
+    [32m✓ should navigate to biobank home page[39m
+    [32m✓ should navigate to biobank forms page[39m
+    [32m✓ should create new form[39m
+    [32m✓ should navigate to biobank cases page[39m
+    [32m✓ should create new case[39m
+[11:38:02] W/element - more than one element found for locator By(css selector, .e2e-select-newest-case) - the first result will be used
+    [32m✓ should add created form to new case[39m
+    [32m✓ should add form to new case[39m
+    [32m✓ should fill up the added from of the new case[39m
+    [32m✓ should create Update Created Form[39m
+    [32m✓ should navigate to biobank cases page[39m
+    [32m✓ should navigate to biobank reports page[39m
+    [32m✓ should not navigate to admin page[39m
+    [32m✓ should not navigate to medical page[39m
+    [32m✓ should not navigate to medical page[39m
+
+Executed 14 of 14 specs[32m SUCCESS[39m in 30 secs.
+[11:38:07] I/launcher - 0 instance(s) of WebDriver still running
+[11:38:07] I/launcher - chrome #01 passed
