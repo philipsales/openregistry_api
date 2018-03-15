@@ -341,6 +341,62 @@ const forms = [{
             "order": 4
         }]
     }]
+},
+{
+    _id: new ObjectID(),
+    name: "Specimen Collection Form",
+    organization: "University of the Philippines Diliman",
+    department: "Institute of Biology",
+    type: "Biobanking Repository",
+    status: "Approved",
+    sections: [{
+        key: new ObjectID,
+        name: "My Collection",
+        order: 1,
+        isTable: true,
+        questions: [{
+            "key": "QTY",
+            "label": "QTY",
+            "type": "textbox",
+            "value": "",
+            "options": "",
+            "required": false,
+            "order": 1
+        },{
+            "key": "SPECIMEN",
+            "label": "Specimen",
+            "type": "dropdown",
+            "value": "",
+            "options": "Urine|Stool",
+            "required": false,
+            "order": 2
+        },
+        {
+            "key": "COLTYPE",
+            "label": "Type",
+            "type": "dropdown",
+            "value": "",
+            "options": "Frozen|Solid",
+            "required": true,
+            "order": 3
+        },{
+            "key": "CHARACTERISTIC",
+            "label": "Characteristic",
+            "type": "textbox",
+            "value": "",
+            "options": "",
+            "required": false,
+            "order": 4
+        },{
+            "key": "QTYAVAIL",
+            "label": "Quantity Available",
+            "type": "textbox",
+            "value": "",
+            "options": "",
+            "required": false,
+            "order": 5
+        }]
+    }]
 }];
 
 const cases = [{
@@ -425,8 +481,12 @@ const populateUsers = (done) => {
 };
 
 const populateForms = (done) => {
+    let requests = [];  
     return Form.remove({}).then(() => {
-        return new Form(forms[0]).save();
+        for(var i = 0; i < forms.length; ++i){
+            requests.push(new Form(forms[i]).save());
+        }
+        return Promise.all(requests);
     });
 };
 

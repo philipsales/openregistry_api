@@ -68,6 +68,10 @@ var FormSchema = new mongoose.Schema({
             type: String,
             required: true
         },
+        isTable: {
+            type: Boolean,
+            default: false
+        },
         order: {
             type: Number
         },  
