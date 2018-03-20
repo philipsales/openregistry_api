@@ -105,52 +105,34 @@ const permissions = [{
     description: 'can download a database backup'
 }, {
     _id: new ObjectID(),
-    perm_code: 'admin_consent_create',
-    module: 'Consent',
-    application: 'Administration',
-    description: 'can create a consent'
+    perm_code: 'biobank_form_create',
+    module: 'Consent Forms',
+    application: 'Biobank',
+    description: 'can create a consent form'
 }, {
     _id: new ObjectID(),
-    perm_code: 'admin_consent_update',
-    module: 'Consent',
-    application: 'Administration',
-    description: 'can update a consent'
+    perm_code: 'biobank_form_update',
+    module: 'Consent Forms',
+    application: 'Biobank',
+    description: 'can update a consent form'
 }, {
     _id: new ObjectID(),
-    perm_code: 'admin_consent_view',
-    module: 'Consent',
-    application: 'Administration',
-    description: 'can view a consent'
+    perm_code: 'biobank_form_view',
+    module: 'Consent Forms',
+    application: 'Biobank',
+    description: 'can view a consent form'
 }, {
     _id: new ObjectID(),
-    perm_code: 'admin_consent_approve',
-    module: 'Consent',
-    application: 'Administration',
-    description: 'can approve a consent'
+    perm_code: 'biobank_form_approve',
+    module: 'Consent Forms',
+    application: 'Biobank',
+    description: 'can approve/reject a consent form'
 }, {
     _id: new ObjectID(),
-    perm_code: 'admin_forms_approve',
-    module: 'Forms',
-    application: 'Administration',
-    description: 'can approve a form'
-}, {
-    _id: new ObjectID(),
-    perm_code: 'admin_forms_create',
-    module: 'Forms',
-    application: 'Administration',
-    description: 'can create a form'
-}, {
-    _id: new ObjectID(),
-    perm_code: 'admin_forms_view',
-    module: 'Forms',
-    application: 'Administration',
-    description: 'can view a form'
-}, {
-    _id: new ObjectID(),
-    perm_code: 'admin_forms_update',
-    module: 'Forms',
-    application: 'Administration',
-    description: 'can update a form'
+    perm_code: 'biobank_form_delete',
+    module: 'Consent Forms',
+    application: 'Biobank',
+    description: 'can delete a consent form'
 }, {
     _id: new ObjectID(),
     perm_code: 'biobank_case_create',
@@ -175,6 +157,36 @@ const permissions = [{
     module: 'Cases',
     application: 'Biobank',
     description: 'can approve a case'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'medical_form_create',
+    module: 'Medical Forms',
+    application: 'Medical',
+    description: 'can create a medical form'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_form_update',
+    module: 'Medical Forms',
+    application: 'Medical',
+    description: 'can update a medical form'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_form_view',
+    module: 'Medical Forms',
+    application: 'Medical',
+    description: 'can view a medical form'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_form_approve',
+    module: 'Medical Forms',
+    application: 'Medical',
+    description: 'can approve/reject a medical form'
+}, {
+    _id: new ObjectID(),
+    perm_code: 'medical_form_delete',
+    module: 'Medical Forms',
+    application: 'Medical',
+    description: 'can delete a medical form'
 }, {
     _id: new ObjectID(),
     perm_code: 'medical_case_create',
@@ -218,19 +230,19 @@ const roles = [{
     _id: new ObjectID(),
     rolename: 'Admin',
     description: 'role for Administrators',
-    permissions: ['admin_user_create', 'admin_user_approve', 'admin_user_view'],
+    permissions: ['admin_user_create', 'admin_user_approve', 'admin_user_view', 'admin_role_create', 'admin_role_update', 'admin_role_view', 'admin_database_create'],
     isActive: true
 }, {
     _id: new ObjectID(),
     rolename: 'Biobank Researcher',
     description: 'role for Researchers from UPD',
-    permissions: [],
+    permissions: ['biobank_form_create', 'biobank_form_approve', 'biobank_form_view', 'biobank_form_update', 'biobank_form_delete', 'biobank_case_create', 'biobank_case_view', 'biobank_case_update', 'biobank_report_view'],
     isActive: false
 }, {
     _id: new ObjectID(),
     rolename: 'Medical Researcher',
     description: 'role for Researchers from PGH',
-    permissions: [],
+    permissions: ['medical_form_create', 'medical_form_approve', 'medical_form_view', 'medical_form_update', 'medical_form_delete', 'medical_case_create', 'medical_case_view', 'medical_case_update', 'medical_report_view'],
     isActive: false
 }, {
     _id: new ObjectID(),
