@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 
 var {authenticate} = require('../server/middleware/authenticate');
 var {User, UserError} = require('../server/models/user');
+var {Role} = require('../server/models/role');
 
 router.use(bodyParser.json());
 
@@ -45,9 +46,32 @@ router.post('/token', (req, res) => {
     var body = _.pick(req.body, ['username', 'password']);
     User.findByCredentials(body.username, body.password).then((user) => {
         return user.generateAuthToken().then((token) => {
-            res.status(200).send({user, token});
+            let all_permissions = new Set();
+            console.log()
+            let promises = [];
+            user.roles.map(role => {
+                console.log(role, 'ROLE');
+                promises.push(Role.findOne({rolename: role}));
+            });
+
+            Promise.all(promises).then(results => {
+                console.log(results, 'PROMISES');
+                results.map(this_role => {
+                    console.log(this_role, 'MY ROLE');
+                    this_role['permissions'].map(permission => {
+                        all_permissions.add(permission);
+                    });
+                });
+                console.log(all_permissions, 'PERMISSION LAHAT')
+                let permissions = Array.from(all_permissions);
+                user['permissions'] = Array.from(all_permissions);
+                console.log(user, 'OUT');
+                res.status(200).send({user, token, permissions});
+            });
+            
         });
     }).catch((err) => {
+        console.log(err);
         return res.status(400).send();
     })
 });
