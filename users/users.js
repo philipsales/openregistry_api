@@ -51,7 +51,7 @@ router.post('/token', (req, res) => {
             let promises = [];
             user.roles.map(role => {
                 console.log(role, 'ROLE');
-                promises.push(Role.findOne({rolename: role}));
+                promises.push(Role.findOne({rolename: role, isActive: true}));
             });
 
             Promise.all(promises).then(results => {
@@ -67,6 +67,8 @@ router.post('/token', (req, res) => {
                 user['permissions'] = Array.from(all_permissions);
                 console.log(user, 'OUT');
                 res.status(200).send({user, token, permissions});
+            }).catch((err) => {
+                console.log(err, 'ignore');
             });
             
         });
