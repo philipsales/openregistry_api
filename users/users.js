@@ -58,9 +58,11 @@ router.post('/token', (req, res) => {
                 console.log(results, 'PROMISES');
                 results.map(this_role => {
                     console.log(this_role, 'MY ROLE');
-                    this_role['permissions'].map(permission => {
-                        all_permissions.add(permission);
-                    });
+                    if(this_role) {
+                        this_role['permissions'].map(permission => {
+                            all_permissions.add(permission);
+                        });    
+                    }
                 });
                 console.log(all_permissions, 'PERMISSION LAHAT')
                 let permissions = Array.from(all_permissions);
