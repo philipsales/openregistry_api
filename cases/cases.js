@@ -24,6 +24,7 @@ router.post('/', authenticate, (req, res) => {
         'organization', 
         'diagnosis', 
         'created_by',
+        'specform',
         'forms']);
     var instance = new Case(seed);
     instance.save().then((saved_case) => {
@@ -43,6 +44,7 @@ router.get('/', authenticate, (req, res) => {
             for(let form of out.forms){
                 delete form['answers'];
             }
+            delete out['specform'];
             return out;
         });
         res.send({data});

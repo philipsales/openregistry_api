@@ -29,7 +29,6 @@ var CaseSchema = new mongoose.Schema({
     created_by: {
         type: String
     }, 
-
     specform: [{
         qty : {
             type: String
@@ -55,6 +54,20 @@ var CaseSchema = new mongoose.Schema({
         mta_file : {
             type: String
         },
+        history: [{
+            quantity : {
+                type: Number
+            }, 
+            type: {
+                type: String
+            },
+            recipient: {
+                type: String
+            },
+            reference: {
+                type: String
+            }
+        }],
     }],
     forms: [{
         form_id : {
