@@ -40,7 +40,9 @@ router.post('/', authenticate, (req, res) => {
             'created_by', 
             'date_created', 
             'isActive', 
-            'is_deleted', 
+            'is_deleted',
+            'is_table',
+            'table_section', 
             'sections']);
 
 
@@ -103,6 +105,8 @@ router.post('/v0', authenticate, (req, res) => {
         'date_created', 
         'isActive', 
         'is_deleted', 
+        'is_table',
+        'table_section',
         'sections']);
     var instance = new Form(seed);
 
@@ -170,6 +174,8 @@ router.patch('/v0/:id', authenticate, (req, res) => {
         'type', 
         'approval', 
         'status', 
+        'is_table',
+        'table_section',
         'sections']);
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();

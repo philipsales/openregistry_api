@@ -59,6 +59,20 @@ var FormSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    is_table: {
+        type: Boolean,
+        default: false
+    },
+    table_section: [{
+        specimen: {
+            type: String,
+            required: true
+        },  
+        type: {
+            type: String,
+            required: true
+        }
+    }],
     sections: [{
         key: {
             type: String,
