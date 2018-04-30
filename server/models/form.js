@@ -140,6 +140,7 @@ FormSchema.methods.toJSON = function() {
     'created_by', 
     'date_created', 
     'is_deleted', 
+    'table_section',
     'sections']);
 };
 

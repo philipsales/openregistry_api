@@ -29,6 +29,44 @@ var CaseSchema = new mongoose.Schema({
     created_by: {
         type: String
     }, 
+    specforms: [{
+        form_id : {
+            type: String,
+            required: true
+        },
+        form_name : {
+            type: String,
+            required: true
+        },
+        specimen: [{
+            qty : {
+                type: String
+            },
+            spec : {
+                type: String
+            },
+            spec_type : {
+                type: String
+            },
+            characteristic : {
+                type: String
+            },
+            history: [{
+                quantity : {
+                    type: Number
+                }, 
+                type: {
+                    type: String
+                },
+                recipient: {
+                    type: String
+                },
+                reference: {
+                    type: String
+                }
+            }],
+        }]
+    }],
     specform: [{
         qty : {
             type: String
@@ -128,7 +166,7 @@ CaseSchema.methods.toJSON = function() {
         'is_active', 
         'date_created', 
         'diagnosis', 
-        'specform',
+        'specforms',
         'forms']);
 };
 

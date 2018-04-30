@@ -24,7 +24,7 @@ router.post('/', authenticate, (req, res) => {
         'organization', 
         'diagnosis', 
         'created_by',
-        'specform',
+        'specforms',
         'forms']);
     var instance = new Case(seed);
     instance.save().then((saved_case) => {
@@ -44,7 +44,7 @@ router.get('/', authenticate, (req, res) => {
             for(let form of out.forms){
                 delete form['answers'];
             }
-            delete out['specform'];
+            delete out['specforms'];
             return out;
         });
         res.send({data});
@@ -112,6 +112,7 @@ router.patch('/:id', authenticate, (req, res) => {
         'is_active', 
         'date_created', 
         'diagnosis', 
+        'specforms',
         'forms']);
 
     Case.findOneAndUpdate({
@@ -247,8 +248,8 @@ router.patch('/:id/forms/:formid', authenticate, (req, res) => {
 });
 
 
-router.patch('/:id/specform', authenticate, (req, res) => {
-    var seed = _.pick(req.body, ['specform']);
+router.patch('/:id/specforms', authenticate, (req, res) => {
+    var seed = _.pick(req.body, ['specforms']);
     var id = req.params.id;
 
     if (!ObjectID.isValid(id)) {
