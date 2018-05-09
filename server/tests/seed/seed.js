@@ -9,6 +9,7 @@ const {Case} = require('./../../models/case');
 const {Form} = require('./../../models/form');
 const {Organization} = require('./../../models/organization');
 const {Spec} = require('./../../models/spec');
+const {SpecType} = require('./../../models/spectype');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
@@ -310,6 +311,23 @@ const specs = [{
     "is_deleted": false
 }];
 
+const spectypes = [{
+    _id: new ObjectID(),
+    "name": "HEAD",
+    "is_deleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "HEART",
+    "is_deleted": true
+},
+{
+    _id: new ObjectID(),
+    "name": "FEET",
+    "is_deleted": false
+}];
+
+
 const populateUsers = (done) => {
     User.remove({}).then(() => {
         var userOne = new User(users[0]).save();
@@ -382,6 +400,15 @@ const populateSpecs = (done) => {
     }).then(() => done());
 };
 
+
+const populateSpecTypes = (done) => {
+    SpecType.remove({}).then(() => {
+        var spectype1 = new SpecType(spectypes[0]).save();
+        var spectype2 = new SpecType(spectypes[1]).save();
+        var spectype3 = new SpecType(spectypes[2]).save();
+        return Promise.all([spectype1, spectype2, spectype3]);
+    }).then(() => done());
+};
 module.exports = {
     users,
     populateUsers,
@@ -398,5 +425,7 @@ module.exports = {
     organizations,
     populateOrganizations,
     specs,
-    populateSpecs
+    populateSpecs,
+    spectypes,
+    populateSpecTypes
 } 

@@ -29,7 +29,27 @@ SpecTypeSchema.methods.toJSON = function() {
     return _.pick(mtaObject, ['_id', 'name']);
 };
 
-var SpecType = mongoose.model('SpecType', MTASchema);
+
+var handleDuplicateSpecType = function(error, res, next) {
+    if (error.name === 'MongoError' && error.code === 11000) {
+        next(new SpecTypeError(JSON.stringify({
+            code: 400,
+            errors: [{
+                field: 'name',
+                error: 'duplicate'
+            }],
+            userMessage: 'Name already taken. Please choose another.',
+            internalMessage: 'duplicate name on SpecType table'
+        })));
+    } else {
+      next();
+    }
+};
+
+SpecTypeSchema.post('save', handleDuplicateSpecType);
+SpecTypeSchema.post('findOneAndUpdate', handleDuplicateSpecType);
+
+var SpecType = mongoose.model('SpecType', SpecTypeSchema);
 
 module.exports = {
     SpecType,

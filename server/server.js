@@ -19,7 +19,8 @@ var consents = require('../consents/consents');
 var fhir_resources = require('../fhir/resources/resources');
 var icd_oncology = require('../icd/icdoncology/icdoncology');
 var mtas = require('../mtas/mtas');
-var specs = require('../specs/specs')
+var specs = require('../specs/specs');
+var spectypes = require('../spectypes/spectypes');
 
 const {populateTables} = require('./db/seeds');
 
@@ -52,6 +53,7 @@ app.use('/hl7', fhir_resources);
 app.use('/icd', icd_oncology);
 app.use('/mtas', mtas);
 app.use('/specs', specs);
+app.use('/spectypes', spectypes);
 
 const argv = yargs.argv;
 const command = process.argv[2];
