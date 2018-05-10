@@ -669,22 +669,22 @@ const populateTables = () => {
 };
 
 
-const populateSpecs = (done) => {
-    Spec.remove({}).then(() => {
+const populateSpecs = () => {
+    return Spec.remove({}).then(() => {
         var spec1 = new Spec(specs[0]).save();
         var spec2 = new Spec(specs[1]).save();
         var spec3 = new Spec(specs[2]).save();
         return Promise.all([spec1, spec2, spec3]);
-    }).then(() => done());
+    });
 };
 
 
-const populateSpecTypes = (done) => {
-    SpecType.remove({}).then(() => {
+const populateSpecTypes = () => {
+    return SpecType.remove({}).then(() => {
         var spectype1 = new SpecType(spectypes[0]).save();
         var spectype2 = new SpecType(spectypes[1]).save();
         return Promise.all([spectype1, spectype2]);
-    }).then(() => done());
+    });
 };
 
 module.exports = {
