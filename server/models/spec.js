@@ -19,7 +19,8 @@ var SpecSchema = new mongoose.Schema({
     },
     is_deleted: {
         type: Boolean,
-        required: false 
+        required: false,
+        default: false
     },
 });
 
