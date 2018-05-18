@@ -52,7 +52,7 @@ var CaseSchema = new mongoose.Schema({
                 type: String
             },
             history: [{
-                quantity : {
+                qty : {
                     type: Number
                 },
                 date_done: {
