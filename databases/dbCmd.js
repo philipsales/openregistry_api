@@ -31,7 +31,7 @@ const dbDump = () => {
               " --port " + dbOptions.port +
               " --username " + dbOptions.username   +
               " --password " + dbOptions.password +
-              " --authenticationDatabase admin " +
+              " --authenticationDatabase BiobankAPI" +
               " --db " + dbOptions.database + 
               " --archive=" + backupPath +  
               " --gzip" ;
@@ -56,7 +56,7 @@ const dbRestore = (path) => {
               " --port " + dbOptions.port +
               " --username " + dbOptions.username   +
               " --password " + dbOptions.password +
-              " --authenticationDatabase admin " +
+              " --authenticationDatabase BiobankAPI" +
               " --db=" + "'" + dbOptions.database +  "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".permissions" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".databases" + "'" +
@@ -89,7 +89,7 @@ const dbImport = (path, collection) => {
               " --port " + dbOptions.port +
               " --username " + dbOptions.username  +
               " --password " + dbOptions.password +
-              " --authenticationDatabase admin " +
+              " --authenticationDatabase BiobankAPI" +
               " --db=" + "'" + dbOptions.database +  "'" +
               " --collection=" + "'" + collection +  "'" +
               " --drop " +
