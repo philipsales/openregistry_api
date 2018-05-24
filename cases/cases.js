@@ -52,7 +52,6 @@ router.get('/', authenticate, (req, res) => {
 });
 
 router.get('/:id', authenticate, (req, res) => {
-
     var id = req.params.id;
     if (!ObjectID.isValid(id)) {
         res.status(404).send();
@@ -205,9 +204,13 @@ router.get('/:id/forms/:formid', authenticate, (req, res) => {
     });
 });
 
-router.patch('/:id/forms/:formid', authenticate, (req, res) => {
+//router.patch('/:id/forms/:formid', authenticate, (req, res) => {
+router.patch('/:id/forms/:formid', (req, res) => {
+    console.log('CASES- PATCH---');
+    //console.log('CASES- PATCH- REQ BODY--',req.body);
     var seed = _.pick(req.body, ['answers']);
     var formid = req.params.formid;
+    //console.log('CASES- PATCH- REQ PARAMS--',req.params);
     var id = req.params.id;
 
     if (!ObjectID.isValid(id)) {
@@ -219,9 +222,12 @@ router.patch('/:id/forms/:formid', authenticate, (req, res) => {
         '_id': id,
         'is_deleted': false
     }).then((instance) => {
+        //console.log('CASES- PATCH- INSTANCE--',instance);
         if (instance){
             let forms = instance.forms.id(formid);
             if (forms) {
+                //console.log('CASES- PATCH- FORMSl--',forms);
+                //console.log('CASES- PATCH- SEED.ANSWERS--',seed.answers);
                 forms.answers = seed.answers;
                 instance.save().then((saved_case) => {
                     return res.status(200).send(saved_case.forms.id(formid));
