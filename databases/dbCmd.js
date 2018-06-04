@@ -68,6 +68,7 @@ const dbRestore = (path) => {
               " --archive=" + path  +  
               " --drop "  + path  +
               " --gzip ";
+    console.log('dbRESTORE: --',cmd);
 
     return new Promise((resolve, reject) => {
         exec(cmd, function(error, stdout, stderr){

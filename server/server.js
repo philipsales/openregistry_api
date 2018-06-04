@@ -18,6 +18,7 @@ var databases = require('../databases/databases');
 var consents = require('../consents/consents');
 var fhir_resources = require('../fhir/resources/resources');
 var icd_oncology = require('../icd/icdoncology/icdoncology');
+var reports_medical = require('../reports/medical/medicalreport');
 
 const {populateTables} = require('./db/seeds');
 
@@ -46,6 +47,7 @@ app.use('/forms', forms);
 app.use('/organizations', organizations);
 app.use('/databases', databases);
 app.use('/consents', consents);
+app.use('/report', reports_medical);
 app.use('/hl7', fhir_resources);
 app.use('/icd', icd_oncology);
 
