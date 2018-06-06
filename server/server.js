@@ -47,7 +47,7 @@ app.use('/forms', forms);
 app.use('/organizations', organizations);
 app.use('/databases', databases);
 app.use('/consents', consents);
-app.use('/report', reports_medical);
+app.use('/reports', reports_medical);
 app.use('/hl7', fhir_resources);
 app.use('/icd', icd_oncology);
 

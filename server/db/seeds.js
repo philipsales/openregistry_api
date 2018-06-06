@@ -218,6 +218,12 @@ const permissions = [{
     description: 'can view a report'
 }, {
     _id: new ObjectID(),
+    perm_code: 'medical_report_download',
+    module: 'Reports',
+    application: 'Medical',
+    description: 'can download a report'
+}, {
+    _id: new ObjectID(),
     perm_code: 'medical_report_view',
     module: 'Reports',
     application: 'Medical',

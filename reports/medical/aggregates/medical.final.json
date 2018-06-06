@@ -1,10 +1,5 @@
 [
     { 
-        "$match" : {
-            "forms.form_name" : "Breast Cancer Form"
-        }
-    }, 
-    { 
         "$project" : {
             "_id" : 1.0, 
             "case_number" : "$case_number", 
@@ -62,6 +57,7 @@
             "id" : true, 
             "case_number" : true, 
             "case_id" : true, 
+            "diagnosis": true,
             "form_id" : true, 
             "form_name" : true, 
             "form_date_created" : true, 
@@ -145,11 +141,12 @@
     { 
         "$addFields" : {
             "key_value._id" : "$id", 
-            "key_value._case_id" : "$case_id", 
             "key_value._case_number" : "$case_number", 
-            "key_value._form_id" : "$form_id", 
             "key_value._form_name" : "$form_name", 
-            "key_value._form_date_created" : "$form_date_created"
+            "key_value._form_date_created" : "$form_date_created",
+            "key_value._case_id" : "$case_id", 
+            "key_value._form_id" : "$form_id",
+            "key_value._diagnosis": "$diagnosis"
         }
     }, 
     { 
@@ -191,9 +188,7 @@
                                                     "$$value"
                                                 ]
                                             }, 
-                                            {
-                                                "$literal" : "1"
-                                            }
+                                            1
                                         ]
                                     }
                                 }
@@ -236,6 +231,11 @@
     { 
         "$replaceRoot" : {
             "newRoot" : "$results"
+        }
+    }, 
+    { 
+        "$match" : {
+            "_form_name" : "Breast Cancer Form"
         }
     }, 
     { 
