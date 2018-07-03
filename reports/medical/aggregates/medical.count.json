@@ -1,0 +1,224 @@
+[
+    { 
+        "$project" : {
+            "_id": {
+                "_id":"$AA_id",
+                "_form_name": "$AA_form_name"
+            },
+            "TEST" : {
+                "$objectToArray" : "$$ROOT"
+            }, 
+            "results" : {
+                "$map" : {
+                    "input" : {
+                        "$objectToArray" : "$$ROOT"
+                    }, 
+                    "as" : "fuck", 
+                    "in" : {
+                        "$cond" : {
+                            "if" : {
+                                "$eq" : [
+                                    {
+                                        "$type" : "$$fuck.v"
+                                    }, 
+                                    "string"
+                                ]
+                            }, 
+                            "then" : {
+                                "$cond" : {
+                                    "if" : {
+                                        "$ne" : [
+                                            "$$fuck.v", 
+                                            ""
+                                        ]
+                                    }, 
+                                    "then" : {
+                                        "$arrayToObject" : {
+                                            "$map" : {
+                                                "input" : {
+                                                    "$objectToArray" : "$$fuck"
+                                                }, 
+                                                "as" : "value", 
+                                                "in" : [
+                                                    {
+                                                        "$concat" : [
+                                                            "$$fuck.k", 
+                                                            " - ", 
+                                                            "$$fuck.v"
+                                                        ]
+                                                    }, 
+                                                    1
+                                                ]
+                                            }
+                                        }
+                                    }, 
+                                    "else" : {
+
+                                    }
+                                }
+                            }, 
+                            "else" : {
+                                "$arrayToObject" : {
+                                    "$map" : {
+                                        "input" : {
+                                            "$objectToArray" : "$$fuck"
+                                        }, 
+                                        "as" : "value", 
+                                        "in" : {
+                                            "k" : "$$fuck.k", 
+                                            "v" : "$$fuck.v"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }, 
+    { 
+        "$project" : {
+            "_id" : 1.0, 
+            "results" : {
+                "$filter" : {
+                    "input" : "$$ROOT.results", 
+                    "as" : "item", 
+                    "cond" : {
+                        "$ne" : [
+                            {
+                                "$size" : {
+                                    "$objectToArray" : "$$item"
+                                }
+                            }, 
+                            0.0
+                        ]
+                    }
+                }
+            }
+        }
+    }, 
+    { 
+        "$project" : {
+            "_form_name" : 1.0, 
+            "_id" : 1.0, 
+            "results" : 1.0, 
+            "map" : {
+                "$map" : {
+                    "input" : "$results", 
+                    "as" : "array", 
+                    "in" : [
+                        {
+                            "$mergeObjects" : {
+                                "$map" : {
+                                    "input" : {
+                                        "$objectToArray" : "$$array"
+                                    }, 
+                                    "as" : "value", 
+                                    "in" : {
+                                        "key" : "$$value.k", 
+                                        "value" : "$$value.v"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$map", 
+            "includeArrayIndex" : "arrayIndex", 
+            "preserveNullAndEmptyArrays" : false
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$map", 
+            "includeArrayIndex" : "arrayIndex", 
+            "preserveNullAndEmptyArrays" : false
+        }
+    }, 
+    { 
+        "$group" : {
+            "_id" : {
+                "_id" : "$_id._id", 
+                "_form_name" : "$_id._form_name"
+            }, 
+            "results" : {
+                "$push" : "$map"
+            }
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$results", 
+            "includeArrayIndex" : "arrayIndex", 
+            "preserveNullAndEmptyArrays" : false
+        }
+    }, 
+    { 
+        "$addFields" : {
+            "results._form_name" : "$_id._form_name", 
+            "results._case_number" : "$_id._case_number", 
+            "results._form_id" : "$_id._form_id", 
+            "results._case_id" : "$_id._case_id"
+        }
+    }, 
+    { 
+        "$replaceRoot" : {
+            "newRoot" : "$results"
+        }
+    }, 
+    { 
+        "$group" : {
+            "_id" : {
+                "label" : "$key"
+            }, 
+            "count" : {
+                "$sum" : 1
+            }
+        }
+    }, 
+    { 
+        "$sort" : {
+            "_id.label" : 1.0
+        }
+    }, 
+    { 
+        "$project" : {
+            "tally" : {
+                "$arrayToObject" : {
+                    "$map" : {
+                        "input" : {
+                            "$objectToArray" : "$_id"
+                        }, 
+                        "as" : "root", 
+                        "in" : [
+                            "$$root.v", 
+                            "$count"
+                        ]
+                    }
+                }
+            }
+        }
+    }, 
+    { 
+        "$group" : {
+            "_id" : "$_id.case_number", 
+            "results" : {
+                "$mergeObjects" : "$tally"
+            }
+        }
+    }, 
+    { 
+        "$replaceRoot" : {
+            "newRoot" : "$results"
+        }
+    }, 
+    { 
+        "$out" : "medicalreportcounts"
+    }
+] 

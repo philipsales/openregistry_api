@@ -49,7 +49,10 @@
             "form_name" : "$forms.form_name", 
             "questions" : "$questions_label.label", 
             "options" : "$questions_options.options", 
-            "answers" : "$forms.answers.question_answer"
+            "answers" : "$forms.answers.question_answer", 
+            "size" : {
+                "$size" : "$forms.answers.question_answer"
+            }
         }
     }, 
     { 
@@ -57,10 +60,20 @@
             "id" : true, 
             "case_number" : true, 
             "case_id" : true, 
-            "diagnosis": true,
+            "diagnosis" : true, 
             "form_id" : true, 
             "form_name" : true, 
             "form_date_created" : true, 
+            "answers" : 1.0, 
+            "arrayElement" : {
+                "$arrayElemAt" : [
+                    "$answers", 
+                    1.0
+                ]
+            }, 
+            "arrayElementz" : [
+                ""
+            ], 
             "key_value" : {
                 "$arrayToObject" : {
                     "$map" : {
@@ -74,14 +87,32 @@
                                             "$let" : {
                                                 "vars" : {
                                                     "varin" : {
-                                                        "$arrayElemAt" : [
-                                                            "$answers", 
+                                                        "$cond" : [
                                                             {
-                                                                "$indexOfArray" : [
-                                                                    "$questions", 
-                                                                    "$$question"
+                                                                "$arrayElemAt" : [
+                                                                    "$answers", 
+                                                                    {
+                                                                        "$indexOfArray" : [
+                                                                            "$questions", 
+                                                                            "$$question"
+                                                                        ]
+                                                                    }
                                                                 ]
-                                                            }
+                                                            }, 
+                                                            {
+                                                                "$arrayElemAt" : [
+                                                                    "$answers", 
+                                                                    {
+                                                                        "$indexOfArray" : [
+                                                                            "$questions", 
+                                                                            "$$question"
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }, 
+                                                            [
+                                                                ""
+                                                            ]
                                                         ]
                                                     }
                                                 }, 
@@ -104,17 +135,22 @@
                                 "then" : {
                                     "k" : "$$question", 
                                     "v" : {
-                                        "$min" : {
-                                            "$arrayElemAt" : [
-                                                "$answers", 
-                                                {
-                                                    "$indexOfArray" : [
-                                                        "$questions", 
-                                                        "$$question"
+                                        "$ifNull" : [
+                                            {
+                                                "$min" : {
+                                                    "$arrayElemAt" : [
+                                                        "$answers", 
+                                                        {
+                                                            "$indexOfArray" : [
+                                                                "$questions", 
+                                                                "$$question"
+                                                            ]
+                                                        }
                                                     ]
                                                 }
-                                            ]
-                                        }
+                                            }, 
+                                            ""
+                                        ]
                                     }
                                 }, 
                                 "else" : {
@@ -141,12 +177,12 @@
     { 
         "$addFields" : {
             "key_value._id" : "$id", 
-            "key_value._case_number" : "$case_number", 
-            "key_value._form_name" : "$form_name", 
-            "key_value._form_date_created" : "$form_date_created",
             "key_value._case_id" : "$case_id", 
-            "key_value._form_id" : "$form_id",
-            "key_value._diagnosis": "$diagnosis"
+            "key_value._case_number" : "$case_number", 
+            "key_value._form_id" : "$form_id", 
+            "key_value._form_name" : "$form_name", 
+            "key_value._form_date_created" : "$form_date_created", 
+            "key_value._diagnosis" : "$diagnosis"
         }
     }, 
     { 
@@ -215,9 +251,7 @@
     }, 
     { 
         "$unwind" : {
-            "path" : "$map", 
-            "includeArrayIndex" : "arrayIndex", 
-            "preserveNullAndEmptyArrays" : false
+            "path" : "$map"
         }
     }, 
     { 
@@ -234,12 +268,6 @@
         }
     }, 
     { 
-        "$match" : {
-            "_form_name" : "Breast Cancer Form"
-        }
-    }, 
-    { 
         "$out" : "medicalreports"
     }
 ]
-

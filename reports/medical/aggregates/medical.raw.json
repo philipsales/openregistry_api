@@ -1,0 +1,363 @@
+[
+    { 
+        "$project" : {
+            "_id" : 1.0, 
+            "case_number" : "$case_number", 
+            "diagnosis" : "$diagnosis", 
+            "forms" : "$forms"
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$forms"
+        }
+    }, 
+    { 
+        "$lookup" : {
+            "from" : "questions_label", 
+            "as" : "questions_label", 
+            "localField" : "forms.form_name", 
+            "foreignField" : "_id.form_name"
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$questions_label"
+        }
+    }, 
+    { 
+        "$lookup" : {
+            "from" : "questions_options", 
+            "as" : "questions_options", 
+            "localField" : "forms.form_name", 
+            "foreignField" : "_id.form_name"
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$questions_options"
+        }
+    }, 
+    { 
+        "$lookup" : {
+            "from" : "questions_type", 
+            "as" : "questions_type", 
+            "localField" : "forms.form_name", 
+            "foreignField" : "_id.form_name"
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$questions_type"
+        }
+    }, 
+    { 
+        "$project" : {
+            "_id" : 0.0, 
+            "case_id" : "$_id", 
+            "case_number" : "$case_number", 
+            "diagnosis" : "$diagnosis", 
+            "form_date_created" : "$forms.date_created", 
+            "form_id" : "$forms.form_id", 
+            "form_name" : "$forms.form_name", 
+            "questions" : "$questions_label.label", 
+            "type" : "$questions_type.type", 
+            "options" : "$questions_options.options", 
+            "answers" : "$forms.answers.question_answer", 
+            "size" : {
+                "$size" : "$forms.answers.question_answer"
+            }
+        }
+    }, 
+    { 
+        "$project" : {
+            "id" : true, 
+            "case_number" : true, 
+            "case_id" : true, 
+            "diagnosis" : true, 
+            "form_id" : true, 
+            "form_name" : true, 
+            "form_date_created" : true, 
+            "answers" : true, 
+            "type" : true, 
+            "key_value" : {
+                "$arrayToObject" : {
+                    "$map" : {
+                        "input" : "$questions", 
+                        "as" : "question", 
+                        "in" : {
+                            "$cond" : {
+                                "if" : {
+                                    "$eq" : [
+                                        {
+                                            "$let" : {
+                                                "vars" : {
+                                                    "varin" : {
+                                                        "$cond" : [
+                                                            {
+                                                                "$arrayElemAt" : [
+                                                                    "$answers", 
+                                                                    {
+                                                                        "$indexOfArray" : [
+                                                                            "$questions", 
+                                                                            "$$question"
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }, 
+                                                            {
+                                                                "$arrayElemAt" : [
+                                                                    "$answers", 
+                                                                    {
+                                                                        "$indexOfArray" : [
+                                                                            "$questions", 
+                                                                            "$$question"
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }, 
+                                                            [
+                                                                ""
+                                                            ]
+                                                        ]
+                                                    }
+                                                }, 
+                                                "in" : {
+                                                    "$size" : {
+                                                        "$reduce" : {
+                                                            "input" : [
+                                                                "$$varin"
+                                                            ], 
+                                                            "initialValue" : "", 
+                                                            "in" : "$$varin"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }, 
+                                        1.0
+                                    ]
+                                }, 
+                                "then" : {
+                                    "$cond" : [
+                                        {
+                                            "$or" : [
+                                                {
+                                                    "$eq" : [
+                                                        {
+                                                            "$arrayElemAt" : [
+                                                                "$type", 
+                                                                {
+                                                                    "$indexOfArray" : [
+                                                                        "$questions", 
+                                                                        "$$question"
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }, 
+                                                        "textbox"
+                                                    ]
+                                                }, 
+                                                {
+                                                    "$eq" : [
+                                                        {
+                                                            "$arrayElemAt" : [
+                                                                "$type", 
+                                                                {
+                                                                    "$indexOfArray" : [
+                                                                        "$questions", 
+                                                                        "$$question"
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }, 
+                                                        "datepicker"
+                                                    ]
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "k" : "$$question", 
+                                            "v" : {
+                                                "$ifNull" : [
+                                                    {
+                                                        "$min" : {
+                                                            "$arrayElemAt" : [
+                                                                "$answers", 
+                                                                {
+                                                                    "$indexOfArray" : [
+                                                                        "$questions", 
+                                                                        "$$question"
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    }, 
+                                                    ""
+                                                ]
+                                            }
+                                        }, 
+                                        {
+                                            "$cond" : [
+                                                {
+                                                    "$ne" : [
+                                                        {
+                                                            "$min" : {
+                                                                "$arrayElemAt" : [
+                                                                    "$answers", 
+                                                                    {
+                                                                        "$indexOfArray" : [
+                                                                            "$questions", 
+                                                                            "$$question"
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        }, 
+                                                        ""
+                                                    ]
+                                                }, 
+                                                {
+                                                    "k" : "$$question", 
+                                                    "v" : {
+                                                        "$arrayElemAt" : [
+                                                            "$answers", 
+                                                            {
+                                                                "$indexOfArray" : [
+                                                                    "$questions", 
+                                                                    "$$question"
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                }, 
+                                                {
+                                                    "k" : "$$question", 
+                                                    "v" : ""
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }, 
+                                "else" : {
+                                    "k" : "$$question", 
+                                    "v" : {
+                                        "$arrayElemAt" : [
+                                            "$answers", 
+                                            {
+                                                "$indexOfArray" : [
+                                                    "$questions", 
+                                                    "$$question"
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }, 
+    { 
+        "$addFields" : {
+            "key_value.AA_id" : "$id", 
+            "key_value.AA_case_id" : "$case_id", 
+            "key_value.AA_case_number" : "$case_number", 
+            "key_value.AA_form_id" : "$form_id", 
+            "key_value.AA_form_name" : "$form_name", 
+            "key_value.AA_form_date_created" : "$form_date_created", 
+            "key_value.AA_diagnosis" : "$diagnosis"
+        }
+    }, 
+    { 
+        "$replaceRoot" : {
+            "newRoot" : "$key_value"
+        }
+    }, 
+    { 
+        "$project" : {
+            "date_created" : "$AA_form_date_created", 
+            "ROOT" : "$$ROOT", 
+            "_id" : 1.0, 
+            "map" : {
+                "$map" : {
+                    "input" : {
+                        "$objectToArray" : "$$ROOT"
+                    }, 
+                    "as" : "root", 
+                    "in" : {
+                        "$cond" : [
+                            {
+                                "$or" : [
+                                    {
+                                        "$eq" : [
+                                            {
+                                                "$isArray" : "$$root.v"
+                                            }, 
+                                            true
+                                        ]
+                                    }
+                                ]
+                            }, 
+                            {
+                                "$arrayToObject" : {
+                                    "$map" : {
+                                        "input" : "$$root.v", 
+                                        "as" : "value", 
+                                        "in" : [
+                                            {
+                                                "$concat" : [
+                                                    "$$root.k", 
+                                                    " - ", 
+                                                    "$$value"
+                                                ]
+                                            }, 
+                                            1
+                                        ]
+                                    }
+                                }
+                            }, 
+                            {
+                                "$arrayToObject" : {
+                                    "$map" : {
+                                        "input" : {
+                                            "$objectToArray" : "$$root"
+                                        }, 
+                                        "as" : "value", 
+                                        "in" : [
+                                            "$$root.k", 
+                                            "$$root.v"
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$map"
+        }
+    }, 
+    { 
+        "$group" : {
+            "_id" : "$date_created", 
+            "results" : {
+                "$mergeObjects" : "$map"
+            }
+        }
+    }, 
+    { 
+        "$replaceRoot" : {
+            "newRoot" : "$results"
+        }
+    }, 
+    { 
+        "$out" : "medicalreports"
+    }
+]

@@ -1,0 +1,52 @@
+[
+    { 
+        "$project" : {
+            "_id" : "$_id", 
+            "name" : "$name", 
+            "organization" : "$organization", 
+            "sections" : "$sections", 
+            "answers_type" : {
+                "$map" : {
+                    "input" : "$sections.questions", 
+                    "as" : "type", 
+                    "in" : {
+                        "$map" : {
+                            "input" : "$$type.type", 
+                            "as" : "value", 
+                            "in" : "$$value"
+                        }
+                    }
+                }
+            }
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$answers_type", 
+            "includeArrayIndex" : "arrayIndex", 
+            "preserveNullAndEmptyArrays" : false
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$answers_type", 
+            "includeArrayIndex" : "arrayIndex", 
+            "preserveNullAndEmptyArrays" : false
+        }
+    }, 
+    { 
+        "$group" : {
+            "_id" : {
+                "_id" : "$_id", 
+                "form_name" : "$name", 
+                "organization" : "$organization"
+            }, 
+            "type" : {
+                "$push" : "$answers_type"
+            }
+        }
+    }, 
+    { 
+        "$out" : "questions_type"
+    }
+]
