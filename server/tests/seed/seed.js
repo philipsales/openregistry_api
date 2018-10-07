@@ -8,6 +8,8 @@ const {Question} = require('./../../models/question');
 const {Case} = require('./../../models/case');
 const {Form} = require('./../../models/form');
 const {Organization} = require('./../../models/organization');
+const {Spec} = require('./../../models/spec');
+const {SpecType} = require('./../../models/spectype');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
@@ -293,6 +295,38 @@ const cases = [{
     is_deleted: true
 }];
 
+const specs = [{
+    _id: new ObjectID(),
+    "name": "HEAD",
+    "is_deleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "HEART",
+    "is_deleted": true
+},
+{
+    _id: new ObjectID(),
+    "name": "FEET",
+    "is_deleted": false
+}];
+
+const spectypes = [{
+    _id: new ObjectID(),
+    "name": "HEAD",
+    "is_deleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "HEART",
+    "is_deleted": true
+},
+{
+    _id: new ObjectID(),
+    "name": "FEET",
+    "is_deleted": false
+}];
+
 
 const populateUsers = (done) => {
     User.remove({}).then(() => {
@@ -357,6 +391,24 @@ const populateOrganizations = (done) => {
     }).then(() => done());
 };
 
+const populateSpecs = (done) => {
+    Spec.remove({}).then(() => {
+        var spec1 = new Spec(specs[0]).save();
+        var spec2 = new Spec(specs[1]).save();
+        var spec3 = new Spec(specs[2]).save();
+        return Promise.all([spec1, spec2, spec3]);
+    }).then(() => done());
+};
+
+
+const populateSpecTypes = (done) => {
+    SpecType.remove({}).then(() => {
+        var spectype1 = new SpecType(spectypes[0]).save();
+        var spectype2 = new SpecType(spectypes[1]).save();
+        var spectype3 = new SpecType(spectypes[2]).save();
+        return Promise.all([spectype1, spectype2, spectype3]);
+    }).then(() => done());
+};
 module.exports = {
     users,
     populateUsers,
@@ -371,5 +423,9 @@ module.exports = {
     forms,
     populateForms,
     organizations,
-    populateOrganizations
+    populateOrganizations,
+    specs,
+    populateSpecs,
+    spectypes,
+    populateSpecTypes
 } 

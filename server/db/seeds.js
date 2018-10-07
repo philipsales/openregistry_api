@@ -9,6 +9,8 @@ const {Form} = require('./../models/form');
 const {Case} = require('./../models/case');
 const {Resource} = require('./../models/fhir/resource');
 const {IcdOncology} = require('./../models/icd/icdoncology');
+const {Spec} = require('./../models/spec');
+const {SpecType} = require('./../models/spectype');
 
 const Mongo = require('./../../databases/dbCmd');
 
@@ -358,6 +360,62 @@ const forms = [{
             "order": 4
         }]
     }]
+},
+{
+    _id: new ObjectID(),
+    name: "Specimen Collection Form",
+    organization: "University of the Philippines Diliman",
+    department: "Institute of Biology",
+    type: "Biobanking Repository",
+    status: "Approved",
+    sections: [{
+        key: new ObjectID,
+        name: "My Collection",
+        order: 1,
+        isTable: true,
+        questions: [{
+            "key": "QTY",
+            "label": "QTY",
+            "type": "textbox",
+            "value": "",
+            "options": "",
+            "required": false,
+            "order": 1
+        },{
+            "key": "SPECIMEN",
+            "label": "Specimen",
+            "type": "dropdown",
+            "value": "",
+            "options": "Urine|Stool",
+            "required": false,
+            "order": 2
+        },
+        {
+            "key": "COLTYPE",
+            "label": "Type",
+            "type": "dropdown",
+            "value": "",
+            "options": "Frozen|Solid",
+            "required": true,
+            "order": 3
+        },{
+            "key": "CHARACTERISTIC",
+            "label": "Characteristic",
+            "type": "textbox",
+            "value": "",
+            "options": "",
+            "required": false,
+            "order": 4
+        },{
+            "key": "QTYAVAIL",
+            "label": "Quantity Available",
+            "type": "textbox",
+            "value": "",
+            "options": "",
+            "required": false,
+            "order": 5
+        }]
+    }]
 }];
 
 const cases = [{
@@ -399,6 +457,41 @@ const cases = [{
         }]
     }]
 }];
+
+
+const specs = [{
+    _id: new ObjectID(),
+    "name": "Urine",
+    "is_deleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "Blood",
+    "is_deleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "Plasma",
+    "is_deleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "Serum",
+    "is_deleted": false
+}];
+
+const spectypes = [{
+    _id: new ObjectID(),
+    "name": "Frozen",
+    "is_deleted": false
+},
+{
+    _id: new ObjectID(),
+    "name": "Embedded",
+    "is_deleted": false
+}];
+
+
 
 const populatePermissions = () => {
     let requests = [];
@@ -442,8 +535,12 @@ const populateUsers = (done) => {
 };
 
 const populateForms = (done) => {
+    let requests = [];  
     return Form.remove({}).then(() => {
-        return new Form(forms[0]).save();
+        for(var i = 0; i < forms.length; ++i){
+            requests.push(new Form(forms[i]).save());
+        }
+        return Promise.all(requests);
     });
 };
 
@@ -507,6 +604,18 @@ const populateObgynPGHForm = (done) => {
 
 const populateTables = () => {
 
+    var specrequest = new Promise((resolve, reject) => {
+        populateSpecs().then(() => {
+            console.log('--Specs-- Loaded');
+        });
+    });
+
+    var spectyperequest = new Promise((resolve, reject) => {
+        populateSpecTypes().then(() => {
+            console.log('--Spec Types-- Loaded');
+        });
+    });
+
     var medical_standards_request = new Promise((resolve, reject) => {
         populateICDOncology().then(() => {
             console.log('--ICD -- Loaded');
@@ -557,9 +666,30 @@ const populateTables = () => {
         });
     });
     return Promise.all([
+        specrequest,
+        spectyperequest,
         medical_standards_request,
         forms_request, 
         users_etc_request])
+};
+
+
+const populateSpecs = () => {
+    return Spec.remove({}).then(() => {
+        var spec1 = new Spec(specs[0]).save();
+        var spec2 = new Spec(specs[1]).save();
+        var spec3 = new Spec(specs[2]).save();
+        return Promise.all([spec1, spec2, spec3]);
+    });
+};
+
+
+const populateSpecTypes = () => {
+    return SpecType.remove({}).then(() => {
+        var spectype1 = new SpecType(spectypes[0]).save();
+        var spectype2 = new SpecType(spectypes[1]).save();
+        return Promise.all([spectype1, spectype2]);
+    });
 };
 
 module.exports = {

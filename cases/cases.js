@@ -24,6 +24,7 @@ router.post('/', authenticate, (req, res) => {
         'organization', 
         'diagnosis', 
         'created_by',
+        'specforms',
         'forms']);
     var instance = new Case(seed);
     instance.save().then((saved_case) => {
@@ -43,6 +44,7 @@ router.get('/', authenticate, (req, res) => {
             for(let form of out.forms){
                 delete form['answers'];
             }
+            delete out['specforms'];
             return out;
         });
         res.send({data});
@@ -109,6 +111,7 @@ router.patch('/:id', authenticate, (req, res) => {
         'is_active', 
         'date_created', 
         'diagnosis', 
+        'specforms',
         'forms']);
 
     Case.findOneAndUpdate({
@@ -250,6 +253,39 @@ router.patch('/:id/forms/:formid', (req, res) => {
     });
 });
 
+
+router.patch('/:id/specforms', authenticate, (req, res) => {
+    var seed = _.pick(req.body, ['specforms']);
+    var id = req.params.id;
+
+    if (!ObjectID.isValid(id)) {
+        console.log('invalid object');
+        res.status(400).send();
+        return;
+    }
+
+    Case.findOneAndUpdate({
+        _id: id,
+        is_deleted: false
+    }, {
+        $set: seed
+    }, {
+        new: true
+    }).then((updated_case) => {
+        if (updated_case) {
+            res.send(updated_case);
+        } else {
+            res.status(404).send();
+        }
+    }).catch((error) => {
+        if (error instanceof CaseError) {
+            return res.status(400).send(JSON.parse(error.message));
+        } else {
+            console.log(error);
+            return res.status(500).send(error);
+        }
+    });
+});
 
 router.post('/upload', function(req, res) {
     var form = new formidable.IncomingForm();

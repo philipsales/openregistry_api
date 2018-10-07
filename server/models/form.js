@@ -59,6 +59,20 @@ var FormSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    is_table: {
+        type: Boolean,
+        default: false
+    },
+    table_section: [{
+        specimen: {
+            type: String,
+            required: true
+        },  
+        type: {
+            type: String,
+            required: true
+        }
+    }],
     sections: [{
         key: {
             type: String,
@@ -67,6 +81,10 @@ var FormSchema = new mongoose.Schema({
         name: {
             type: String,
             required: true
+        },
+        isTable: {
+            type: Boolean,
+            default: false
         },
         order: {
             type: Number
@@ -122,6 +140,7 @@ FormSchema.methods.toJSON = function() {
     'created_by', 
     'date_created', 
     'is_deleted', 
+    'table_section',
     'sections']);
 };
 

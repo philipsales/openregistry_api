@@ -29,6 +29,87 @@ var CaseSchema = new mongoose.Schema({
     created_by: {
         type: String
     }, 
+    specforms: [{
+        form_id : {
+            type: String,
+            required: true
+        },
+        form_name : {
+            type: String,
+            required: true
+        },
+        specimen: [{
+            qty : {
+                type: String
+            },
+            spec : {
+                type: String
+            },
+            spec_type : {
+                type: String
+            },
+            characteristic : {
+                type: String
+            },
+            history: [{
+                qty : {
+                    type: Number
+                },
+                date_done: {
+                    type: Number
+                },
+                type: {
+                    type: String
+                },
+                recipient: {
+                    type: String
+                },
+                reference: {
+                    type: String
+                }
+            }],
+        }]
+    }],
+    specform: [{
+        qty : {
+            type: String
+        },
+        spec : {
+            type: String
+        },
+        spec_type : {
+            type: String
+        },
+        characteristic : {
+            type: String
+        },
+        qty_avail : {
+            type: String
+        },
+        mta_qty : {
+            type: String
+        },
+        mta_recipient : {
+            type: String
+        },
+        mta_file : {
+            type: String
+        },
+        history: [{
+            quantity : {
+                type: Number
+            }, 
+            type: {
+                type: String
+            },
+            recipient: {
+                type: String
+            },
+            reference: {
+                type: String
+            }
+        }],
+    }],
     forms: [{
         form_id : {
             type: String,
@@ -93,6 +174,7 @@ CaseSchema.methods.toJSON = function() {
         'is_active', 
         'date_created', 
         'diagnosis', 
+        'specforms',
         'forms']);
 };
 
