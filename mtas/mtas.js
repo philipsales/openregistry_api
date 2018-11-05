@@ -48,7 +48,7 @@ router.post('/', (req, res) => {
     
     //parse the request to form data
     form.parse(req, function(err, field, files) {
-        body = _.pick(field, ['name']);
+        body = _.pick(field, ['name', 'type', 'description']);
         var data = {
             status: 'Failed',
             result: { 

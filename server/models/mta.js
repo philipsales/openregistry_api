@@ -17,6 +17,14 @@ var MTASchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    type: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
     dir_path: {
         type: String,
         required: false

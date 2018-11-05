@@ -8,9 +8,11 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
+    "handlebars": "^4.0.12",
     "jsonwebtoken": "^8.1.0",
     "lodash": "^4.17.11",
     "mongoose": "^4.13.8",
+    "nodemailer": "^4.6.8",
     "swagger-ui-express": "^2.0.13",
     "validator": "^9.2.0",
     "yargs": "^10.1.1"

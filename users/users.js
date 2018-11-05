@@ -1,7 +1,11 @@
 'use strict';
 
 const {ObjectID} = require('mongodb');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
 const _ = require('lodash');
+const mailer = require('nodemailer');
 var express = require('express')
 var router = express.Router();
 const bodyParser = require('body-parser');
@@ -39,6 +43,60 @@ router.post('/', (req, res) => {
             console.log(error);
             return res.status(500).send(error);
         }
+    });
+});
+
+router.post('/forgot', (req, res) => {
+    let body = _.pick(req.body, [
+        'username'
+    ]);
+
+    let transporter = mailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'angelomycar@gmail.com',
+            pass: 'meSmashsta5024508592236'
+        }
+    });
+
+    let tempath = path.join(__dirname, 'email.template.html');
+
+    fs.readFile(tempath, 'utf8', (err, data) => {
+        let template = handlebars.compile(data);
+        
+        let temp = Math.random().toString(36).substring(2);
+        var data = {
+            temp: temp
+        };
+        User.findOneAndUpdate({
+            username: body.username
+            }, {$set: {
+                password: temp
+            }})
+            .then(user => {
+                if (user) {
+                    var emailToSend = template(data);
+                    let mailOptions = {
+                        from: `"Mycar Angelo Peña Chu" <angelomycar@gmail.com>`,
+                        to: `${body.username}`,
+                        subject: 'Biobank: Temporary Password',
+                        // text: `Here is your temporary password: ${temp}`,
+                        html: emailToSend
+                    };
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            console.log(error);
+                            res.status(400).send({success: false, user: user});
+                        } else {
+                            res.status(200).send({success: true, error: error});
+                        }
+                    });
+                } else {
+                    res.status(404).send({success: false, text: `Can't find user.`});
+                }
+            });
     });
 });
 
@@ -155,6 +213,7 @@ router.patch('/:id', authenticate, (req, res) => {
     'last_name', 
     'gender', 
     'email', 
+    'department',
     'isDeleted', 
     'isActive', 
     'mobile_number', 
@@ -199,8 +258,9 @@ router.get('/me/:id', authenticate, (req, res) => {
     }
 });
 
-router.patch('/me/:id', authenticate, (req, res) => {
+router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
     var id = req.params.id;
+    var changepass = req.params.changepass;
     if (!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
@@ -221,6 +281,37 @@ router.patch('/me/:id', authenticate, (req, res) => {
             new: true
         }).then((user) => {
             if (user) {
+                if (changepass) {
+                    let transporter = mailer.createTransport({
+                        host: 'smtp.gmail.com',
+                        port: 465,
+                        secure: true,
+                        auth: {
+                            user: 'angelomycar@gmail.com',
+                            pass: 'meSmashsta5024508592236'
+                        }
+                    });
+                    let tempath = path.join(__dirname, 'email.change.template.html');
+                    fs.readFile(tempath, 'utf8', (err, data) => {
+                        let template = handlebars.compile(data);
+                        var emailToSend = template(user);
+                        let mailOptions = {
+                            from: `"Mycar Angelo Peña Chu" <angelomycar@gmail.com>`,
+                            to: `"philip sales" <peejaysales@gmail.com>`,
+                            subject: 'Biobank: Password Changed',
+                            html: emailToSend
+                        };
+                        transporter.sendMail(mailOptions, (error, info) => {
+                            if (error) {
+                                console.log(error);
+                                res.status(400).send({success: false, user: user});
+                            } else {
+                                res.status(200).send({success: true, error: error});
+                            }
+                        });
+
+                    });                    
+                }
                 return res.send(user);
             } else {
                 return res.status(404).send();
