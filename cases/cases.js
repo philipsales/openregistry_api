@@ -27,11 +27,20 @@ router.post('/', authenticate, (req, res) => {
         'specforms',
         'forms']);
     var instance = new Case(seed);
-    instance.save().then((saved_case) => {
-        return res.status(201).send(saved_case);
-    }, (error) => {
-        return res.status(400).send('Error on creating form');
-    })
+    
+    Case.findOne({
+        case_number: instance['case_number'], 
+        is_deleted: false}, 
+    (err, obj) => {
+        if (obj == null) {
+            instance.save().then(
+                saved_case => res.status(201).send(saved_case), 
+                
+                error => res.status(400).send('Error oncreating form'));
+        } else {
+            return res.status(409).send('Case number already exist');
+        }
+    });
 });
 
 
@@ -114,25 +123,38 @@ router.patch('/:id', authenticate, (req, res) => {
         'specforms',
         'forms']);
 
-    Case.findOneAndUpdate({
-        _id: id,
+    Case.findOne({
+        _id: {$ne: req.params.id},
+        case_number: body['case_number'],
         is_deleted: false
-    }, {
-        $set: body
-    }, {
-        new: true
-    }).then((updated_case) => {
-        if (updated_case) {
-            res.send(updated_case);
+    }, 
+    (err, obj) => {
+        if (obj == null) {
+            Case.findOneAndUpdate({
+                _id: id,
+                is_deleted: false
+            }, {
+                $set: body
+            }, {
+                new: true
+            }).then((updated_case) => {
+                if (updated_case) {
+                    res.send(updated_case);
+                } else {
+                    res.status(404).send();
+                }
+            }).catch((error) => {
+                if (error instanceof CaseError) {
+                    return res.status(400).send(JSON.parse(error.message));
+                } else {
+                    console.log(error);
+                    return res.status(500).send(error);
+                }
+            });
+
+
         } else {
-            res.status(404).send();
-        }
-    }).catch((error) => {
-        if (error instanceof CaseError) {
-            return res.status(400).send(JSON.parse(error.message));
-        } else {
-            console.log(error);
-            return res.status(500).send(error);
+            return res.status(409).send('Case number already exist');
         }
     });
 });
