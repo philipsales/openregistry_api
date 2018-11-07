@@ -1,10 +1,10 @@
 [
     { 
         "$project" : {
-            "_id" : {
-                "_id" : "$AA_id", 
-                "_form_name" : "$AA_form_name"
-            }, 
+            "_id": {
+                "_id":"$AA_id",
+                "_form_name": "$AA_form_name"
+            },
             "TEST" : {
                 "$objectToArray" : "$$ROOT"
             }, 
@@ -221,4 +221,4 @@
     { 
         "$out" : "medicalreportcounts"
     }
-]
+] 

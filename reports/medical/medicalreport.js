@@ -23,6 +23,7 @@ router.get('/medicalreports', (req, res) => {
         MedicalReport.find()
         .then((reports) => {
             var data = reports.map((report) => {
+                console.log('---/medicalreports-----');
                 return report;
             });
 
@@ -42,12 +43,18 @@ router.get('/medicalreports', (req, res) => {
     });
 });
 
-router.get('/medicalreportcounts', (req, res) => {
+router.post('/medicalreportcounts', (req, res) => {
+    //var body = _.pick(req.body, ['form']);
+    var body = _.pick(req.body, ['form_name']);
+    console.log('---body---', body);
 
-    setReportCount().then(() => {
+
+    setReportCount(body).then(() => {
+        console.log('----setReportCouht---');
         MedicalReportCount.find()
         .then((reports) => {
             var data = reports.map((report) => {
+                console.log('---/medicalreportcounts----');
                 return report;
             });
 
