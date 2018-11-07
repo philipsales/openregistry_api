@@ -17,9 +17,11 @@ var {authenticate} = require('../../server/middleware/authenticate');
 
 router.use(bodyParser.json());
 
+var foo = [];  
+
 router.get('/medicalreports', (req, res) => {
 
-    setReportRaw().then(() => {
+    setReportRaw(this.foo).then(() => {
         MedicalReport.find()
         .then((reports) => {
             var data = reports.map((report) => {
@@ -47,6 +49,8 @@ router.post('/medicalreportcounts', (req, res) => {
     //var body = _.pick(req.body, ['form']);
     var body = _.pick(req.body, ['form_name']);
     console.log('---body---', body);
+    //HACK for reportRaw
+    this.foo = body;
 
 
     setReportCount(body).then(() => {
