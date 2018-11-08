@@ -39,19 +39,6 @@
         }
     }, 
     { 
-        "$lookup" : {
-            "from" : "questions_type", 
-            "as" : "questions_type", 
-            "localField" : "forms.form_name", 
-            "foreignField" : "_id.form_name"
-        }
-    }, 
-    { 
-        "$unwind" : {
-            "path" : "$questions_type"
-        }
-    }, 
-    { 
         "$project" : {
             "_id" : 0.0, 
             "case_id" : "$_id", 
@@ -61,7 +48,6 @@
             "form_id" : "$forms.form_id", 
             "form_name" : "$forms.form_name", 
             "questions" : "$questions_label.label", 
-            "type" : "$questions_type.type", 
             "options" : "$questions_options.options", 
             "answers" : "$forms.answers.question_answer", 
             "size" : {
@@ -78,8 +64,16 @@
             "form_id" : true, 
             "form_name" : true, 
             "form_date_created" : true, 
-            "answers" : true, 
-            "type" : true, 
+            "answers" : 1.0, 
+            "arrayElement" : {
+                "$arrayElemAt" : [
+                    "$answers", 
+                    1.0
+                ]
+            }, 
+            "arrayElementz" : [
+                ""
+            ], 
             "key_value" : {
                 "$arrayToObject" : {
                     "$map" : {
@@ -139,105 +133,25 @@
                                     ]
                                 }, 
                                 "then" : {
-                                    "$cond" : [
-                                        {
-                                            "$or" : [
-                                                {
-                                                    "$eq" : [
+                                    "k" : "$$question", 
+                                    "v" : {
+                                        "$ifNull" : [
+                                            {
+                                                "$min" : {
+                                                    "$arrayElemAt" : [
+                                                        "$answers", 
                                                         {
-                                                            "$arrayElemAt" : [
-                                                                "$type", 
-                                                                {
-                                                                    "$indexOfArray" : [
-                                                                        "$questions", 
-                                                                        "$$question"
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }, 
-                                                        "textbox"
-                                                    ]
-                                                }, 
-                                                {
-                                                    "$eq" : [
-                                                        {
-                                                            "$arrayElemAt" : [
-                                                                "$type", 
-                                                                {
-                                                                    "$indexOfArray" : [
-                                                                        "$questions", 
-                                                                        "$$question"
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }, 
-                                                        "datepicker"
-                                                    ]
-                                                }
-                                            ]
-                                        }, 
-                                        {
-                                            "k" : "$$question", 
-                                            "v" : {
-                                                "$ifNull" : [
-                                                    {
-                                                        "$min" : {
-                                                            "$arrayElemAt" : [
-                                                                "$answers", 
-                                                                {
-                                                                    "$indexOfArray" : [
-                                                                        "$questions", 
-                                                                        "$$question"
-                                                                    ]
-                                                                }
+                                                            "$indexOfArray" : [
+                                                                "$questions", 
+                                                                "$$question"
                                                             ]
                                                         }
-                                                    }, 
-                                                    ""
-                                                ]
-                                            }
-                                        }, 
-                                        {
-                                            "$cond" : [
-                                                {
-                                                    "$ne" : [
-                                                        {
-                                                            "$min" : {
-                                                                "$arrayElemAt" : [
-                                                                    "$answers", 
-                                                                    {
-                                                                        "$indexOfArray" : [
-                                                                            "$questions", 
-                                                                            "$$question"
-                                                                        ]
-                                                                    }
-                                                                ]
-                                                            }
-                                                        }, 
-                                                        ""
                                                     ]
-                                                }, 
-                                                {
-                                                    "k" : "$$question", 
-                                                    "v" : {
-                                                        "$arrayElemAt" : [
-                                                            "$answers", 
-                                                            {
-                                                                "$indexOfArray" : [
-                                                                    "$questions", 
-                                                                    "$$question"
-                                                                ]
-                                                            }
-                                                        ]
-                                                    }
-                                                }, 
-                                                {
-                                                    "k" : "$$question", 
-                                                    "v" : ""
                                                 }
-                                            ]
-                                        }
-                                    ]
+                                            }, 
+                                            ""
+                                        ]
+                                    }
                                 }, 
                                 "else" : {
                                     "k" : "$$question", 
@@ -262,13 +176,13 @@
     }, 
     { 
         "$addFields" : {
-            "key_value.AA_id" : "$id", 
-            "key_value.AA_case_id" : "$case_id", 
-            "key_value.AA_case_number" : "$case_number", 
-            "key_value.AA_form_id" : "$form_id", 
-            "key_value.AA_form_name" : "$form_name", 
-            "key_value.AA_form_date_created" : "$form_date_created", 
-            "key_value.AA_diagnosis" : "$diagnosis"
+            "key_value._id" : "$id", 
+            "key_value._case_id" : "$case_id", 
+            "key_value._case_number" : "$case_number", 
+            "key_value._form_id" : "$form_id", 
+            "key_value._form_name" : "$form_name", 
+            "key_value._form_date_created" : "$form_date_created", 
+            "key_value._diagnosis" : "$diagnosis"
         }
     }, 
     { 
@@ -278,7 +192,7 @@
     }, 
     { 
         "$project" : {
-            "date_created" : "$AA_form_date_created", 
+            "date_created" : "$_form_date_created", 
             "ROOT" : "$$ROOT", 
             "_id" : 1.0, 
             "map" : {
@@ -288,20 +202,16 @@
                     }, 
                     "as" : "root", 
                     "in" : {
-                        "$cond" : [
-                            {
-                                "$or" : [
+                        "$cond" : {
+                            "if" : {
+                                "$eq" : [
                                     {
-                                        "$eq" : [
-                                            {
-                                                "$isArray" : "$$root.v"
-                                            }, 
-                                            true
-                                        ]
-                                    }
+                                        "$isArray" : "$$root.v"
+                                    }, 
+                                    true
                                 ]
                             }, 
-                            {
+                            "then" : {
                                 "$arrayToObject" : {
                                     "$map" : {
                                         "input" : "$$root.v", 
@@ -319,7 +229,7 @@
                                     }
                                 }
                             }, 
-                            {
+                            "else" : {
                                 "$arrayToObject" : {
                                     "$map" : {
                                         "input" : {
@@ -333,7 +243,7 @@
                                     }
                                 }
                             }
-                        ]
+                        }
                     }
                 }
             }
@@ -355,6 +265,11 @@
     { 
         "$replaceRoot" : {
             "newRoot" : "$results"
+        }
+    }, 
+    { 
+        "$match" : {
+            "_form_name" : "Breast Cancer Result Form"
         }
     }, 
     { 
