@@ -212,12 +212,13 @@ router.patch('/:id', authenticate, (req, res) => {
     'middle_name', 
     'last_name', 
     'gender', 
-    'email', 
+    'username', 
     'department',
     'isDeleted', 
     'isActive', 
     'mobile_number', 
     'roles']);
+    body['email'] = body['username'];
 
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
@@ -268,10 +269,11 @@ router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
         var body = _.pick(req.body, ['first_name', 
         'middle_name', 
         'last_name', 
-        'gender', 
-        'email', 
+        'gender',  
+        'username',
         'mobile_number', 
         'password']);
+        body['email'] = body['username'];
         User.findOneAndUpdate({
             _id: id,
             isDeleted: false
