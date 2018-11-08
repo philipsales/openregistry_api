@@ -56,8 +56,8 @@ router.post('/forgot', (req, res) => {
         port: 465,
         secure: true,
         auth: {
-            user: 'angelomycar@gmail.com',
-            pass: 'meSmashsta5024508592236'
+            user: 'pcari.biobank@gmail.com',
+            pass: 'pCaRi.Bi0b@nK'
         }
     });
 
@@ -79,9 +79,9 @@ router.post('/forgot', (req, res) => {
                 if (user) {
                     var emailToSend = template(data);
                     let mailOptions = {
-                        from: `"Mycar Angelo Peña Chu" <angelomycar@gmail.com>`,
+                        from: `"Philippine Phenome-Biobanking" <system@biobank.ph>`,
                         to: `${body.username}`,
-                        subject: 'Biobank: Temporary Password',
+                        subject: 'Request for Reset Password',
                         // text: `Here is your temporary password: ${temp}`,
                         html: emailToSend
                     };
@@ -289,8 +289,8 @@ router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
                         port: 465,
                         secure: true,
                         auth: {
-                            user: 'angelomycar@gmail.com',
-                            pass: 'meSmashsta5024508592236'
+                            user: 'pcari.biobank@gmail.com',
+                            pass: 'pCaRi.Bi0b@nK'
                         }
                     });
                     let tempath = path.join(__dirname, 'email.change.template.html');
@@ -298,7 +298,7 @@ router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
                         let template = handlebars.compile(data);
                         var emailToSend = template(user);
                         let mailOptions = {
-                            from: `"Mycar Angelo Peña Chu" <angelomycar@gmail.com>`,
+                            from: `"Mycar Angelo Peña Chu" <pcari.biobank@gmail.com>`,
                             to: `"philip sales" <peejaysales@gmail.com>`,
                             subject: 'Biobank: Password Changed',
                             html: emailToSend
