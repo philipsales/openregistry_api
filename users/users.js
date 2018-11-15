@@ -103,6 +103,11 @@ router.post('/forgot', (req, res) => {
 router.post('/token', (req, res) => {
     var body = _.pick(req.body, ['username', 'password']);
     User.findByCredentials(body.username, body.password).then((user) => {
+        if (!user.isActive) {
+            res.status(401.7).send();
+            return;
+        }
+
         return user.generateAuthToken().then((token) => {
             let all_permissions = new Set();
             console.log()
