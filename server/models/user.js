@@ -61,6 +61,11 @@ var UserSchema = new mongoose.Schema({
         minLength: 6,
         default: false
     },
+    dateCreated: {
+        type: String,
+        default: new Date().toISOString(),
+        require: true
+    },
     isActive: {
         type: Boolean 
     },
@@ -92,6 +97,7 @@ UserSchema.methods.toJSON = function() {
     'gender', 
     'email', 
     'mobile_number', 
+    'dateCreated',
     'isDeleted',
     'isActive',
     'department',

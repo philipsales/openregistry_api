@@ -12,6 +12,7 @@ const bodyParser = require('body-parser');
 
 var {authenticate} = require('../server/middleware/authenticate');
 var {User, UserError} = require('../server/models/user');
+var {UserHistory, UserHistoryError} = require('../server/models/userhistory');
 var {Role} = require('../server/models/role');
 
 router.use(bodyParser.json());
@@ -88,13 +89,13 @@ router.post('/forgot', (req, res) => {
                     transporter.sendMail(mailOptions, (error, info) => {
                         if (error) {
                             console.log(error);
-                            res.status(400).send({success: false, user: user});
+                            return res.status(400).send({success: false, user: user});
                         } else {
-                            res.status(200).send({success: true, error: error});
+                            return res.status(200).send({success: true, error: error});
                         }
                     });
                 } else {
-                    res.status(404).send({success: false, text: `Can't find user.`});
+                    return res.status(404).send({success: false, text: `Can't find user.`});
                 }
             });
     });
@@ -229,27 +230,59 @@ router.patch('/:id', authenticate, (req, res) => {
         return res.status(404).send();
     }
 
-    User.findOneAndUpdate({
-        _id: id,
-        isDeleted: false
-    }, {
-        $set: body
-    }, {
-        new: true
-    }).then((user) => {
-        if (user) {
-            res.send(user);
-        } else {
-            res.status(404).send();
+    User.findOne({_id: id, isDeleted: false}, (err, user) => {
+        if (err) {
+            return res.status(400).send(JSON.parse(err.message));
         }
-    }).catch((error) => {
-        if (error instanceof UserError) {
-            return res.status(400).send(JSON.parse(error.message));
+
+        if (user) {
+            var oldUser = user.toJSON();
+            User.update({_id: id}, body, (error, noOfAffected) => {
+                if (error) {
+                    return res.status(400).send(JSON.parse(error.message));
+                }
+                var tokenParam = req.header('Authorization');
+                var token = tokenParam && tokenParam.split(' ')[1];
+                User.findByToken(token).then((admin) => {
+                    var userHistory = new UserHistory({
+                        userId: id,
+                        updateById: admin.username,
+                        updateByName: admin.first_name + ' ' + admin.last_name,
+                        dateUserCreated: user.dateCreated,
+                        dateHistoryCreated: new Date().toISOString(),
+                        user: oldUser
+                    });
+    
+                    userHistory.save();
+                });
+            });
+            return res.send(user);
         } else {
-            console.log(error);
-            return res.status(500).send(error);
+            return res.status(404).send();
         }
     });
+
+    // User.findOneAndUpdate({
+    //     _id: id,
+    //     isDeleted: false
+    // }, {
+    //     $set: body
+    // }, {
+    //     new: true
+    // }).then((user) => {
+    //     if (user) {
+    //         return res.send(user);
+    //     } else {
+    //         return res.status(404).send();
+    //     }
+    // }).catch((error) => {
+    //     if (error instanceof UserError) {
+    //         return res.status(400).send(JSON.parse(error.message));
+    //     } else {
+    //         console.log(error);
+    //         return res.status(500).send(error);
+    //     }
+    // });
 });
 
 router.get('/me/:id', authenticate, (req, res) => {
@@ -278,53 +311,74 @@ router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
         'username',
         'mobile_number', 
         'password']);
-        body['email'] = body['username'];
-        User.findOneAndUpdate({
-            _id: id,
-            isDeleted: false
-        }, {
-            $set: body
-        }, {
-            new: true
-        }).then((user) => {
-            if (user) {
-                if (changepass) {
-                    let transporter = mailer.createTransport({
-                        host: 'smtp.gmail.com',
-                        port: 465,
-                        secure: true,
-                        auth: {
-                            user: 'pcari.biobank@gmail.com',
-                            pass: 'pCaRi.Bi0b@nK'
-                        }
-                    });
-                    let tempath = path.join(__dirname, 'email.change.template.html');
-                    fs.readFile(tempath, 'utf8', (err, data) => {
-                        let template = handlebars.compile(data);
-                        var emailToSend = template(user);
-                        let mailOptions = {
-                            from: `"Mycar Angelo Peña Chu" <pcari.biobank@gmail.com>`,
-                            to: `"philip sales" <peejaysales@gmail.com>`,
-                            subject: 'Biobank: Password Changed',
-                            html: emailToSend
-                        };
-                        transporter.sendMail(mailOptions, (error, info) => {
-                            if (error) {
-                                console.log(error);
-                                res.status(400).send({success: false, user: user});
-                            } else {
-                                res.status(200).send({success: true, error: error});
-                            }
-                        });
 
-                    });                    
-                }
-                return res.send(user);
+        User.findOne({_id: id, isDeleted: false}, (err, user) => {
+            if (err) {
+                return res.status(400).send(JSON.parse(err.message))
+            }
+
+            if (user) {
+                var oldUser = user.toJSON();
+
+                User.findOneAndUpdate({
+                    _id: id,
+                    isDeleted: false
+                }, {
+                    $set: body
+                }, {
+                    new: true
+                }).then((user) => {
+                    if (user) {
+                        if (changepass) {
+                            let transporter = mailer.createTransport({
+                                host: 'smtp.gmail.com',
+                                port: 465,
+                                secure: true,
+                                auth: {
+                                    user: 'pcari.biobank@gmail.com',
+                                    pass: 'pCaRi.Bi0b@nK'
+                                }
+                            });
+                            let tempath = path.join(__dirname, 'email.change.template.html');
+                            fs.readFile(tempath, 'utf8', (err, data) => {
+                                let template = handlebars.compile(data);
+                                var emailToSend = template(user);
+                                let mailOptions = {
+                                    from: `"Philippine Phenome-Biobanking" <system@biobank.ph>`,
+                                    to: user.username,
+                                    subject: 'Request for Reset Password',
+                                    html: emailToSend
+                                };
+                                transporter.sendMail(mailOptions, (error, info) => {
+                                    if (error) {
+                                        console.log(error);
+                                        return res.status(400).send({success: false, user: user});
+                                    } else {
+                                        return res.status(200).send({success: true, error: error});
+                                    }
+                                });
+        
+                            });                    
+                        }
+                        var userHistory = new UserHistory({
+                            userId: id,
+                            updateById: user.username,
+                            updateByName: user.first_name + ' ' + user.last_name,
+                            dateUserCreated: user.dateCreated,
+                            dateHistoryCreated: new Date().toISOString(),
+                            user: oldUser
+                        });
+        
+                        userHistory.save();
+                    } else {
+                        return res.status(404).send();
+                    }
+                }).catch((error) => {
+                    return res.status(400).send();
+                });
             } else {
                 return res.status(404).send();
             }
-        }).catch((error) => {
-            return res.status(400).send();
         });
     } else {
         return res.status(401).send();
