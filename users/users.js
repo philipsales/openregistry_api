@@ -212,6 +212,9 @@ router.delete('/:id', authenticate, (req, res) => {
     });
 });
 
+// used by ADMIN to update account
+// comment by: micool
+// original author: kristhian
 router.patch('/:id', authenticate, (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, ['first_name', 
@@ -223,6 +226,8 @@ router.patch('/:id', authenticate, (req, res) => {
     'isDeleted', 
     'isActive', 
     'mobile_number', 
+    'organizations',
+    'position',
     'roles']);
     body['email'] = body['username'];
 
@@ -261,28 +266,6 @@ router.patch('/:id', authenticate, (req, res) => {
             return res.status(404).send();
         }
     });
-
-    // User.findOneAndUpdate({
-    //     _id: id,
-    //     isDeleted: false
-    // }, {
-    //     $set: body
-    // }, {
-    //     new: true
-    // }).then((user) => {
-    //     if (user) {
-    //         return res.send(user);
-    //     } else {
-    //         return res.status(404).send();
-    //     }
-    // }).catch((error) => {
-    //     if (error instanceof UserError) {
-    //         return res.status(400).send(JSON.parse(error.message));
-    //     } else {
-    //         console.log(error);
-    //         return res.status(500).send(error);
-    //     }
-    // });
 });
 
 router.get('/me/:id', authenticate, (req, res) => {
@@ -291,12 +274,15 @@ router.get('/me/:id', authenticate, (req, res) => {
         return res.status(404).send();
     }
     if(req.user.id === id){
-        return res.send(req.user);
+        return res.status(200).send(req.user);
     } else {
         return res.status(401).send();
     }
 });
 
+// used by USER to update itself
+// comment by: micool
+// original author: kristhian
 router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
     var id = req.params.id;
     var changepass = req.params.changepass;
@@ -318,6 +304,7 @@ router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
             }
 
             if (user) {
+                console.log('found the user');
                 var oldUser = user.toJSON();
 
                 User.findOneAndUpdate({
@@ -329,6 +316,7 @@ router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
                     new: true
                 }).then((user) => {
                     if (user) {
+                        console.log('user was updated!');
                         if (changepass) {
                             let transporter = mailer.createTransport({
                                 host: 'smtp.gmail.com',
@@ -359,18 +347,24 @@ router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
                                 });
         
                             });                    
+                        } else {
+                            var userHistory = new UserHistory({
+                                userId: id,
+                                updateById: user.username,
+                                updateByName: user.first_name + ' ' + user.last_name,
+                                dateUserCreated: user.dateCreated,
+                                dateHistoryCreated: new Date().toISOString(),
+                                user: oldUser
+                            });
+            
+                            userHistory.save().then(history => {
+                                return res.status(200).send(history);
+                            }).catch(err => {
+                                return res.status(400).send(err);
+                            });
                         }
-                        var userHistory = new UserHistory({
-                            userId: id,
-                            updateById: user.username,
-                            updateByName: user.first_name + ' ' + user.last_name,
-                            dateUserCreated: user.dateCreated,
-                            dateHistoryCreated: new Date().toISOString(),
-                            user: oldUser
-                        });
-        
-                        userHistory.save();
                     } else {
+                        console.log('user was not updated!');
                         return res.status(404).send();
                     }
                 }).catch((error) => {

@@ -70,6 +70,10 @@ var UserSchema = new mongoose.Schema({
         type: Boolean 
     },
     roles: [String],
+    organizations: {
+        type: String
+    },
+    position: String,
     tokens: [{
         access: {
             type: String,
@@ -101,6 +105,8 @@ UserSchema.methods.toJSON = function() {
     'isDeleted',
     'isActive',
     'department',
+    'position',
+    'organizations',
     'roles']);
 };
 
