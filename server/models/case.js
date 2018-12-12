@@ -48,6 +48,9 @@ var CaseSchema = new mongoose.Schema({
             spec_type : {
                 type: String
             },
+            collectedDate: {
+                type: String
+            },
             characteristic : {
                 type: String
             },
