@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
         'isDeleted', 
         'isActive', 
         'password', 
-        'department',
+        'departments',
         'roles'
     ]);
     var user = new User(body);
@@ -222,7 +222,7 @@ router.patch('/:id', authenticate, (req, res) => {
     'last_name', 
     'gender', 
     'username', 
-    'department',
+    'departments',
     'isDeleted', 
     'isActive', 
     'mobile_number', 

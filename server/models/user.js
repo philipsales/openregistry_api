@@ -52,8 +52,8 @@ var UserSchema = new mongoose.Schema({
     verification_status: {
         type: String
     },
-    department: {
-        type: String
+    departments: {
+        type: [String]
     },
     isDeleted: {
         type: Boolean,
@@ -104,7 +104,7 @@ UserSchema.methods.toJSON = function() {
     'dateCreated',
     'isDeleted',
     'isActive',
-    'department',
+    'departments',
     'position',
     'organizations',
     'roles']);
