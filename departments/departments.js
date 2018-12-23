@@ -11,10 +11,19 @@ var {Department} = require('../server/models/department');
 
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => {
-    Department.find().then(departments => 
+router.get('/:index?/:limit?/', (req, res) => {
+    let index = req.query['index'] || 0;
+    if (index < 0) {
+        index -= 1;
+    }
+    let limit = parseInt(req.query['limit'] || 10);
+    let skip = index * limit;
+    Department.find({}, null, {skip, limit}).then(departments => 
         res.status(200).send(departments), 
-        error => res.status(400).send(error));
+        error => {
+            console.log(error, 'error');
+            res.status(400).send(error);
+        });
 });
 
 router.post('/', authenticate, (req, res) => {
