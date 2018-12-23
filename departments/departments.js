@@ -11,13 +11,14 @@ var {Department} = require('../server/models/department');
 
 router.use(bodyParser.json());
 
-router.get('/:index?/:limit?/:keywords?/', (req, res) => {
+router.get('/:index?/:limit?/:keywords?/:sort?', (req, res) => {
     let index = req.query['index'] || 0;
     let limit = parseInt(req.query['limit'] || 10);
     let keywords = req.query['keywords'] || '';
+    let sort = parseInt(req.query['sort'] || 1);
     Promise.all([
         Department.count({name: new RegExp(keywords, 'i')}),
-        getDepartments(index, limit, keywords, res)
+        getDepartments(index, limit, keywords, sort)
     ]).then(result => {
         const [count, departments] = result;
         return res.status(200).send({count, departments});
@@ -27,12 +28,16 @@ router.get('/:index?/:limit?/:keywords?/', (req, res) => {
     });
 });
 
-function getDepartments(index = 0, limit = 10, keywords='', res) {
+function getDepartments(index = 0, limit = 10, keywords='', sort=1) {
     if (index < 0) {
         index -= 1;
     }
     let skip = index * limit;
-    return Department.find({name: new RegExp(keywords, 'i')}, null, {skip, limit});
+    return Department.find(
+        {name: new RegExp(keywords, 'i')}, 
+        null, 
+        {skip, limit})
+        .sort({name: sort});
 }
 
 router.post('/', authenticate, (req, res) => {
