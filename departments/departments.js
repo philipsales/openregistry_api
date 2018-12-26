@@ -12,6 +12,12 @@ var {Department} = require('../server/models/department');
 router.use(bodyParser.json());
 
 router.get('/:index?/:limit?/:keywords?/:sort?', (req, res) => {
+    if (!req.query.index) { // for legacy support
+        return Department.find().then(departments => {
+            res.status(200).send(departments);
+        }, error => res.status(400).send(error));
+    }
+    // pagination!
     let index = req.query['index'] || 0;
     let limit = parseInt(req.query['limit'] || 10);
     let keywords = req.query['keywords'] || '';
