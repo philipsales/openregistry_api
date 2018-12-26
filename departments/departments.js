@@ -11,6 +11,32 @@ var {Department} = require('../server/models/department');
 
 router.use(bodyParser.json());
 
+router.get('/isDepartmentNameValid/:id?/:name?/', (req, res) => {
+    let id = req.query.id;
+    let name = req.query.name;
+    if (!ObjectID.isValid(id)) {
+        Department.findOne({name}).then(department => {
+            res.send(isValidDeptartmentName(department));
+        });
+    } else {
+        // set true if department is being updated with same name
+        Department.findOne({_id: id, name: name}).then(department => {
+            let isValid = isValidDeptartmentName(department);
+            if (!isValid) { // not update so check if name exist
+                Department.findOne({name}).then(department => {
+                    isValidDeptartmentName(department);
+                });
+            } else {
+                res.send(true);
+            }
+        });
+    }
+});
+
+function isValidDeptartmentName(result) {
+    return result == null;
+}
+
 router.get('/:index?/:limit?/:keywords?/:sort?', (req, res) => {
     if (!req.query.index) { // for legacy support
         return Department.find().then(departments => {
