@@ -47,7 +47,8 @@ function getDepartments(index = 0, limit = 10, keywords='', sort=1) {
 }
 
 router.post('/', authenticate, (req, res) => {
-    var body = _.pick(req.body, ['name', 'description']);
+    var body = _.pick(req.body, 
+        ['name', 'description', 'code', 'organization']);
     var department = new Department(body);
     department.save().then(new_department => 
         res.status(200).send(new_department),

@@ -11,6 +11,13 @@ var DepartmentSchema = new mongoose.Schema({
     description: {
         type: String,
         trim: true
+    },
+    code: {
+        type: String
+    },
+    organization: {
+        id: {type: String},
+        name: {type: String}
     }
 });
 
@@ -27,7 +34,7 @@ var handleDuplicateDepartment = function(error, res, next) {
                 field: 'name',
                 error: 'duplicate'
             }],
-            userMessage: 'Department already taken. Please choose another.',
+            userMessage: 'Department name\'s already taken. Please choose another.',
             internalMessage: 'duplicate department name on departments table'
         });
     } else {
