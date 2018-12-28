@@ -134,14 +134,8 @@ var getReportsMedicalParameter = () => {
 var getReportsMedicalCountResult = (parameters) => {
 
     return new Promise((resolve, reject) => {
-        // let form = parameters['form_name'];
-        //let form = [ "Diagnosis - Primary Organ Site", "General Information - Age", "General Information - Civil Status", "Histologic Type - Stage" , "Histologic Type - Grade" ] 
         let criteria = parameters['form_field'];
-        console.log('FORM FIELD', criteria);
-        let form = [ "General Information - Age", "General Information - Civil Status", "Histologic Type - Stage" , "Histologic Type - Grade" ] 
-        //let script = reportMedicalCountResult.setCountResult(form);
         let script = reportMedicalCountResult.setCountResult(criteria);
-        console.log('SCSCCRIPT', script)
 
         //Case.aggregate(reportMedicalRaw,
         MedicalReportCount.aggregate(script,
