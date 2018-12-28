@@ -7,12 +7,15 @@ var exec = require('child_process').exec;
 var {Case, CaseError} = require('../../server/models/case');
 var {Form, FormError} = require('../../server/models/form');
 var {MedicalReport, MedicalReportError} = require('../../server/models/medicalreport');
+var {MedicalReportCount, MedicalReportCountError} = require('../../server/models/medicalreportcount');
 
 const options   = require('./aggregates/medical.options');
 const types = require('./aggregates/medical.types');
 const questions = require('./aggregates/medical.questions');
 const reportMedicalRaw = require('./aggregates/medical.raws');
 const reportMedicalCount = require('./aggregates/medical.count');
+const reportMedicalParameter = require('./aggregates/medical.parameter');
+const reportMedicalCountResult = require('./aggregates/medical.count.results');
 
 var setFormsOptions = () => {
 
@@ -106,8 +109,61 @@ var getReportsMedicalRaw = (parameters) => {
     });
 };
 
-var getReportsMedicalCount = () => {
+var getReportsMedicalParameter = () => {
+    return new Promise((resolve, reject) => {
+        MedicalReportCount.aggregate(reportMedicalParameter,
+            function (err, result) {
+                if (err instanceof MedicalReportCountError) {
+                    console.log(err);
+                    reject(err);
+                    return err;
+                } 
+                else {
+                    console.log('PARAMEters_---',result);
+                    resolve(result);
+                }
+            }
+        );
+    })
+    .catch((error)=>{
+        console.log('--getReportsMedicalParameters Error encountered');
+        reject(error);
+    });
+};
 
+var getReportsMedicalCountResult = (parameters) => {
+
+    return new Promise((resolve, reject) => {
+        // let form = parameters['form_name'];
+        //let form = [ "Diagnosis - Primary Organ Site", "General Information - Age", "General Information - Civil Status", "Histologic Type - Stage" , "Histologic Type - Grade" ] 
+        let criteria = parameters['form_field'];
+        console.log('FORM FIELD', criteria);
+        let form = [ "General Information - Age", "General Information - Civil Status", "Histologic Type - Stage" , "Histologic Type - Grade" ] 
+        //let script = reportMedicalCountResult.setCountResult(form);
+        let script = reportMedicalCountResult.setCountResult(criteria);
+        console.log('SCSCCRIPT', script)
+
+        //Case.aggregate(reportMedicalRaw,
+        MedicalReportCount.aggregate(script,
+            function (err, result) {
+                if (err instanceof CaseError) {
+                    console.log(err);
+                    reject(err);
+                    return err;
+                } 
+                else {
+                    resolve(result);
+                }
+            }
+        );
+    })
+    .catch((error)=>{
+        console.log('--getReportsMedical Error encountered');
+        reject(error);
+    });
+};
+
+var getReportsMedicalCount = () => {
     return new Promise((resolve, reject) => {
         MedicalReport.aggregate(reportMedicalCount,
             function (err, result) {
@@ -151,7 +207,29 @@ var setReportCount = (parameters) => {
     return new Promise((resolve, reject) => {
         setReportRaw(parameters).then(() => {
             getReportsMedicalCount().then(() => {
-                resolve();
+                getReportsMedicalParameter().then(() => {
+                    resolve();
+                });
+            });
+        });
+    })
+    .catch((error) => {
+        console.log('--setReport Count Error encountered');
+        reject(error);
+    });
+}
+
+var setReportCountResult = (form_name, criteria) => {
+    console.log('SET REPORTCOUNTRESULT', form_name)
+    console.log('SET REPORTCOUNTRESULT', criteria)
+    return new Promise((resolve, reject) => {
+        setReportRaw(form_name).then(() => {
+            getReportsMedicalCount().then(() => {
+                getReportsMedicalParameter().then(() => {
+                    getReportsMedicalCountResult(criteria).then(() => {
+                        resolve();
+                    });
+                });
             });
         });
     })
@@ -167,6 +245,9 @@ module.exports = {
     setFormsQuestions,
     setReportRaw,
     setReportCount,
+    setReportCountResult,
     getReportsMedicalRaw,
-    getReportsMedicalCount
+    getReportsMedicalCount,
+    getReportsMedicalParameter,
+    getReportsMedicalCountResult
 }
