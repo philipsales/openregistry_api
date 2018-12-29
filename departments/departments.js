@@ -21,13 +21,13 @@ router.get('/isDepartmentNameValid/:id?/:name?/', (req, res) => {
     } else {
         // set true if department is being updated with same name
         Department.findOne({_id: id, name: name}).then(department => {
-            let isValid = isValidDeptartmentName(department);
-            if (!isValid) { // not update so check if name exist
-                Department.findOne({name}).then(department => {
-                    isValidDeptartmentName(department);
-                });
+
+            if (department) {
+                return res.send(true);
             } else {
-                res.send(true);
+                Department.findOne({name}).then(department => {
+                    return res.send(department == null);
+                });
             }
         });
     }
@@ -39,15 +39,29 @@ function isValidDeptartmentName(result) {
 
 router.get('/find/:id?/', (req, res) => {
     let id = req.query.id;
-    let error = {error: true, message: 'Department not found.'};
     if (!ObjectID.isValid(id)) {
-        return res.send(error);
-    }
+        return res.send({});
+    } //
     Department.findOne({_id:id}).then(department => {
         if (department != null) {
             return res.send(department);
         }
-        return res.send(error);
+        return res.send({});
+    });
+});
+
+router.patch('/:id?', (req, res) => {
+    let _id = req.query.id;
+    if (!ObjectID.isValid(_id)) {
+        return res.status(422).send(new Error('Invalid ID!'));
+    }
+    Department.findOneAndUpdate({_id}, req.body, {new: true}, 
+    (error, doc) => {
+        if (error) {
+            return res.status(400).send(error);
+        }
+        console.log(doc, 'new doc?');
+        return res.status(200).send(doc);
     });
 });
 
