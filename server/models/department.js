@@ -23,7 +23,7 @@ var DepartmentSchema = new mongoose.Schema({
 
 DepartmentSchema.methods.toJSON = function () {
     var caseObject = this.toObject();
-    return _.pick(caseObject, ['_id', 'name', 'description']);
+    return _.pick(caseObject, ['_id', 'name', 'description', 'code', 'organization']);
 }
 
 var handleDuplicateDepartment = function(error, res, next) {

@@ -37,7 +37,21 @@ function isValidDeptartmentName(result) {
     return result == null;
 }
 
-router.get('/:index?/:limit?/:keywords?/:sort?', (req, res) => {
+router.get('/find/:id?/', (req, res) => {
+    let id = req.query.id;
+    let error = {error: true, message: 'Department not found.'};
+    if (!ObjectID.isValid(id)) {
+        return res.send(error);
+    }
+    Department.findOne({_id:id}).then(department => {
+        if (department != null) {
+            return res.send(department);
+        }
+        return res.send(error);
+    });
+});
+
+router.get('/:index?/:limit?/:keywords?/:sort?', authenticate, (req, res) => {
     if (!req.query.index) { // for legacy support
         return Department.find().then(departments => {
             res.status(200).send(departments);
