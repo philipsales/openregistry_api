@@ -14,8 +14,7 @@ var {authenticate} = require('../server/middleware/authenticate');
 router.use(bodyParser.json());
 
 router.get('/', authenticate, (req, res) => {
-
-    Spec.find({is_deleted: false}).then((Specs) => {
+    Spec.find({is_deleted: false}).sort({name: 1}).then((Specs) => {
         var data = Specs.map((this_spec) => {
             // do something here if you need to remove some fields
             return this_spec;

@@ -15,7 +15,7 @@ router.use(bodyParser.json());
 
 router.get('/', authenticate, (req, res) => {
 
-    SpecType.find({is_deleted: false}).then((SpecTypes) => {
+    SpecType.find({is_deleted: false}).sort({name: 1}).then((SpecTypes) => {
         var data = SpecTypes.map((this_SpecType) => {
             // do something here if you need to remove some fields
             return this_SpecType;
