@@ -19,17 +19,17 @@ var FormSchema = new mongoose.Schema({
         minLength: 1
     },
     organization: {
-        type: String,
+        type: [String],
         required: true,
         minLength: 1
     },  
     department: {
-        type: String,
+        type: [String],
         required: true,
         minLength: 1
     },
     type: {
-        type: String,
+        type: [String],
         required: true,
         minLength: 1
     },
