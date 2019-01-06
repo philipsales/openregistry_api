@@ -127,6 +127,43 @@ router.post('/v0', authenticate, (req, res) => {
     });
 });
 
+router.get('/list/:type?/:index?/:limit?/:keywords?/:sort?', (req, res) => {
+    let limit = parseInt(req.query['limit'] || 10);
+    let keywords = req.query['keywords'] || '';
+    let sort = req.query['sort'] || 0;
+    let index = req.query['index'] || 0;
+    let type = req.query['type'];
+    Promise.all([
+        Form.count({type, name: new RegExp(keywords, 'i')}),
+        getForms(type, index, limit, keywords, sort)
+    ]).then(result => {
+        const [count, forms] = result;
+        return res.status(200).send({count, forms});
+    }).catch(error => {
+        console.error(error, 'error');
+        return res.status(400).send(error);
+    });
+});
+
+function getForms(type, index = 0, limit = 10, keywords='', sort=0) {
+    if (index < 0) {
+        index -= 1;
+    }
+    let skip = index * limit;
+    let condition = {
+        name: new RegExp(keywords, 'i'),
+         is_deleted: false
+    };
+    if (type != null) {
+        condition['type'] = type;
+    }
+    let args = {date_created: -1};
+    if (sort != 0) {
+        args = {status: sort};
+    }
+    return Form.find(condition, null, {skip, limit})
+    .sort(args);
+}
 
 router.get('/', authenticate, (req, res) => {
     Form.find({is_deleted: false})

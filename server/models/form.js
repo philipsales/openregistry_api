@@ -127,21 +127,25 @@ var FormSchema = new mongoose.Schema({
 FormSchema.methods.toJSON = function() {
     var form = this;
     var formObject = form.toObject();
-    return _.pick(formObject, [
-    '_id', 
-    'name', 
-    'organization', 
-    'department', 
-    'type', 
-    'dir_path', 
-    'approval', 
-    'validity_date', 
-    'status', 
-    'created_by', 
-    'date_created', 
-    'is_deleted', 
-    'table_section',
-    'sections']);
+    let json = _.pick(formObject, [
+        '_id', 
+        'name', 
+        'organization', 
+        'department', 
+        'type', 
+        'dir_path', 
+        'approval', 
+        'validity_date', 
+        'status', 
+        'created_by', 
+        'date_created', 
+        'is_deleted', 
+        'table_section',
+        'sections']);
+    let now = new Date();
+    now.setHours(0,0,0,0);
+    json['isValid'] = json['validity_date'] > now;
+    return json;
 };
 
 FormSchema.pre('save', function(next){
