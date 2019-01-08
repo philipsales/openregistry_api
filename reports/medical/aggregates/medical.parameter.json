@@ -1,0 +1,104 @@
+[
+    { 
+        "$project" : {
+            "map" : {
+                "$map" : {
+                    "input" : {
+                        "$objectToArray" : "$$ROOT"
+                    }, 
+                    "as" : "value", 
+                    "in" : {
+                        "$let" : {
+                            "vars" : {
+                                "keys" : {
+                                    "$split" : [
+                                        "$$value.k", 
+                                        " - "
+                                    ]
+                                }
+                            }, 
+                            "in" : {
+                                "$cond" : {
+                                    "if" : {
+                                        "$ne" : [
+                                            {
+                                                "$substr" : [
+                                                    {
+                                                        "$arrayElemAt" : [
+                                                            "$$keys", 
+                                                            0
+                                                        ]
+                                                    }, 
+                                                    0, 
+                                                    1
+                                                ]
+                                            }, 
+                                            "_"
+                                        ]
+                                    }, 
+                                    "then" : {
+                                        "$concat" : [
+                                            {
+                                                "$arrayElemAt" : [
+                                                    "$$keys", 
+                                                    0
+                                                ]
+                                            }, 
+                                            " - ", 
+                                            {
+                                                "$arrayElemAt" : [
+                                                    "$$keys", 
+                                                    1
+                                                ]
+                                            }
+                                        ]
+                                    }, 
+                                   "else" : {
+                                        "$arrayElemAt" : [
+                                            "$$keys", 
+                                            0
+                                        ]
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$map"
+        }
+    }, 
+    { 
+        "$group" : {
+            "_id" : null, 
+            "map" : {
+                "$addToSet" : "$map"
+            }
+        }
+    }, 
+    { 
+        "$unwind" : {
+            "path" : "$map"
+        }
+    }, 
+    { 
+        "$sort" : {
+            "map" : 1
+        }
+    }, 
+    { 
+        "$group" : {
+            "_id" : null, 
+            "questions" : {
+                "$push" : "$map"
+            }
+        }
+    },
+    { 
+        "$out" : "medicalreportparameters"
+    }
+] 
