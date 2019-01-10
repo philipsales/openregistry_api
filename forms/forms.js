@@ -134,7 +134,7 @@ router.get('/list/:type?/:index?/:limit?/:keywords?/:sort?', (req, res) => {
     let index = req.query['index'] || 0;
     let type = req.query['type'];
     Promise.all([
-        Form.count({type, name: new RegExp(keywords, 'i')}),
+        Form.count({type, name: new RegExp(keywords, 'i'), is_deleted: false}),
         getForms(type, index, limit, keywords, sort)
     ]).then(result => {
         const [count, forms] = result;
