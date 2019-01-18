@@ -30,6 +30,8 @@ router.post('/', authenticate, (req, res) => {
     form.parse(req, function(err, field, files) {
         body = _.pick(JSON.parse(field.data), [
             'name', 
+            'coinvestigator',
+            'principalinvestigator',
             'organization', 
             'department', 
             'type', 
@@ -95,6 +97,8 @@ router.post('/', authenticate, (req, res) => {
 router.post('/v0', authenticate, (req, res) => {
     var seed = _.pick(req.body, [
         'name', 
+        'coinvestigator',
+        'principalinvestigator',
         'organization', 
         'department', 
         'type', 
@@ -165,6 +169,20 @@ function getForms(type, index = 0, limit = 10, keywords='', sort=0) {
     .sort(args);
 }
 
+// to select all without pagination
+// doesn't work unless we make "type" optional
+router.get('/listall/:type?', (req, res) => {
+    let type = req.query['type'];
+    if (!type) {
+        return res.status(422).send("Type is required!");
+    }
+    Form.find({is_deleted: false, type})
+        .sort({name: 'asc'})
+        .then(forms => {
+            return res.send(forms);
+        });
+});
+
 router.get('/', authenticate, (req, res) => {
     Form.find({is_deleted: false})
         .sort({ date_created: 'desc' })
@@ -205,6 +223,8 @@ router.patch('/v0/:id', authenticate, (req, res) => {
     var id = req.params.id;
     var body = _.pick(req.body, [
         'name', 
+        'coinvestigator',
+        'principalinvestigator',
         'organization', 
         'department', 
         'validity_date', 
@@ -256,6 +276,8 @@ router.patch('/:id', authenticate, (req, res) => {
 
         body = _.pick(JSON.parse(field.data), [
             'name', 
+            'coinvestigator',
+            'principalinvestigator',
             'organization', 
             'department', 
             'dir_path', 
