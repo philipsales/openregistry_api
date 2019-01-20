@@ -45,8 +45,14 @@ router.post('/', authenticate, (req, res) => {
             'is_deleted',
             'is_table',
             'table_section', 
-            'sections']);
-
+                'sections']);
+            if (!body['principalinvestigator']) {
+                delete body['principalinvestigator'];
+            }
+            if (!body['coinvestigator']) {
+                delete body['coinvestigator'];
+            }
+            // console.log(body, 'micool body');
 
             var data = {
                 status: 'Success',
@@ -65,6 +71,7 @@ router.post('/', authenticate, (req, res) => {
     //modify file path
     form.on('fileBegin', function(name, file){
         file.path = form.uploadDir + "/" + (file.name).split(' ').join('_');;
+        console.log(file.path, 'micool path');
     });
     //after success parsing
     form.on ('end', function(){
@@ -112,6 +119,13 @@ router.post('/v0', authenticate, (req, res) => {
         'is_table',
         'table_section',
         'sections']);
+    if (!body['principalinvestigator']) {
+        delete body['principalinvestigator'];
+    }
+    if (!body['coinvestigator']) {
+        delete body['coinvestigator'];
+    }
+
     var instance = new Form(seed);
 
     Form.findOneAndRemove({name : seed.name, is_deleted: false}).then(() => {
@@ -234,6 +248,13 @@ router.patch('/v0/:id', authenticate, (req, res) => {
         'is_table',
         'table_section',
         'sections']);
+    if (!body['principalinvestigator']) {
+        delete body['principalinvestigator'];
+    }
+    if (!body['coinvestigator']) {
+        delete body['coinvestigator'];
+    }
+
     if(!ObjectID.isValid(id)) {
         return res.status(404).send();
     }
@@ -286,6 +307,12 @@ router.patch('/:id', authenticate, (req, res) => {
             'approval', 
             'status', 
             'sections']);
+        if (!body['principalinvestigator']) {
+            delete body['principalinvestigator'];
+        }
+        if (!body['coinvestigator']) {
+            delete body['coinvestigator'];
+        }
 
         var data = {
             status: 'Success',
