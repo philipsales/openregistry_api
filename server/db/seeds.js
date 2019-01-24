@@ -79,7 +79,7 @@ const permissions = [{
     perm_code: 'admin_role_permission_assign',
     module: 'Roles and Permissions',
     application: 'Administration',
-    description: 'can assign a permissions to role '
+    description: 'can assign a permissions to role'
 }, {
     _id: new ObjectID(),
     perm_code: 'admin_database_create',
@@ -160,6 +160,78 @@ const permissions = [{
     description: 'can approve a case'
 },  {
     _id: new ObjectID(),
+    perm_code: 'biobank_mta_create',
+    module: 'MTA / Agreement Form',
+    application: 'Biobank',
+    description: 'can create mta'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_mta_update',
+    module: 'MTA / Agreement Form',
+    application: 'Biobank',
+    description: 'can update mta'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_mta_view',
+    module: 'MTA / Agreement Form',
+    application: 'Biobank',
+    description: 'can view mta'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_mta_delete',
+    module: 'MTA / Agreement Form',
+    application: 'Biobank',
+    description: 'can delete mta'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_specimen_create',
+    module: 'Specimen',
+    application: 'Biobank',
+    description: 'can create specimen'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_specimen_update',
+    module: 'Specimen',
+    application: 'Biobank',
+    description: 'can update specimen'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_specimen_view',
+    module: 'Specimen',
+    application: 'Biobank',
+    description: 'can view specimen'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_specimen_delete',
+    module: 'Specimen',
+    application: 'Biobank',
+    description: 'can delete specimen'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_specimentype_create',
+    module: 'Specimen Type',
+    application: 'Biobank',
+    description: 'can create specimen type'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_specimentype_update',
+    module: 'Specimen Type',
+    application: 'Biobank',
+    description: 'can update specimen type'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_specimentype_view',
+    module: 'Specimen Type',
+    application: 'Biobank',
+    description: 'can view specimen type'
+},  {
+    _id: new ObjectID(),
+    perm_code: 'biobank_specimentype_delete',
+    module: 'Specimen Type',
+    application: 'Biobank',
+    description: 'can delete specimen type'
+},  {
+    _id: new ObjectID(),
     perm_code: 'medical_form_create',
     module: 'Medical Forms',
     application: 'Medical',
@@ -212,12 +284,6 @@ const permissions = [{
     module: 'Cases',
     application: 'Medical',
     description: 'can approve a case'
-}, {
-    _id: new ObjectID(),
-    perm_code: 'biobank_report_view',
-    module: 'Reports',
-    application: 'Biobank',
-    description: 'can view a report'
 }, {
     _id: new ObjectID(),
     perm_code: 'medical_report_download',
