@@ -119,11 +119,11 @@ router.post('/v0', authenticate, (req, res) => {
         'is_table',
         'table_section',
         'sections']);
-    if (!body['principalinvestigator']) {
-        delete body['principalinvestigator'];
+    if (!seed['principalinvestigator']) {
+        delete seed['principalinvestigator'];
     }
-    if (!body['coinvestigator']) {
-        delete body['coinvestigator'];
+    if (!seed['coinvestigator']) {
+        delete seed['coinvestigator'];
     }
 
     var instance = new Form(seed);
@@ -233,8 +233,8 @@ router.get('/:id', authenticate, (req, res) => {
 });
 
 
-router.patch('/v0/:id', authenticate, (req, res) => {
-    var id = req.params.id;
+router.patch('/medical/:id?', authenticate, (req, res) => {
+    var id = req.query.id;
     var body = _.pick(req.body, [
         'name', 
         'coinvestigator',
