@@ -65,6 +65,14 @@ router.patch('/:id?', (req, res) => {
     });
 });
 
+router.get('/all', (req, res) => {
+    Department.find().then(departments => {
+        return res.status(200).send(departments);
+    }, e => { 
+        return res.status(400).send(e);
+    });
+});
+
 router.get('/:index?/:limit?/:keywords?/:sort?', authenticate, (req, res) => {
     if (!req.query.index) { // for legacy support
         return Department.find().then(departments => {

@@ -52,9 +52,10 @@ var UserSchema = new mongoose.Schema({
     verification_status: {
         type: String
     },
-    departments: {
-        type: [String]
-    },
+    departments: [{
+        _id: String,
+        name: String
+    }],
     isDeleted: {
         type: Boolean,
         require: true,
@@ -70,10 +71,12 @@ var UserSchema = new mongoose.Schema({
         type: Boolean 
     },
     roles: [String],
-    organizations: {
-        type: String
-    },
-    position: String,
+    organizations: [{
+        _id: false,
+        id: {type: String},
+        name: {type: String}
+    }],
+    position: [String],
     tokens: [{
         access: {
             type: String,

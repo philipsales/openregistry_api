@@ -18,21 +18,7 @@ var {Role} = require('../server/models/role');
 router.use(bodyParser.json());
 
 router.post('/', (req, res) => {
-    var body = _.pick(req.body, [
-        'username', 
-        'first_name', 
-        'middle_name', 
-        'last_name', 
-        'gender', 
-        'email', 
-        'mobile_number', 
-        'isDeleted', 
-        'isActive', 
-        'password', 
-        'departments',
-        'roles'
-    ]);
-    var user = new User(body);
+    var user = new User(req.body);
     user.save().then((saved_user) => {
         return saved_user.generateAuthToken();
     }).then((token) => {

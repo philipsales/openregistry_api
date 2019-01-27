@@ -29,6 +29,14 @@ router.post('/', authenticate, (req, res) => {
 });
 
 
+router.get('/list', (req, res) => {
+    Organization.find({isDeleted: false}).then(orgs => {
+        res.send(orgs);
+    }, e => {
+        res.status(400).send(e);
+    })
+})
+
 router.get('/', (req, res) => {
     Organization.find({isDeleted: false}).then((orgs) => {
         var data = orgs.map((org) => org);
