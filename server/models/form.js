@@ -18,6 +18,11 @@ var FormSchema = new mongoose.Schema({
         required: true,
         minLength: 1
     },
+    title: {
+        type: String,
+        required: true,
+        minlength: 1
+    },
     coinvestigator: {
         type: String
     },
@@ -141,7 +146,8 @@ FormSchema.methods.toJSON = function() {
     var formObject = form.toObject();
     let json = _.pick(formObject, [
         '_id', 
-        'name', 
+        'name',
+        'title', 
         'coinvestigator',
         'principalinvestigator',
         'organization', 

@@ -30,6 +30,7 @@ router.post('/', authenticate, (req, res) => {
     form.parse(req, function(err, field, files) {
         body = _.pick(JSON.parse(field.data), [
             'name', 
+            'title',
             'coinvestigator',
             'principalinvestigator',
             'organization', 
@@ -104,6 +105,7 @@ router.post('/', authenticate, (req, res) => {
 router.post('/v0', authenticate, (req, res) => {
     var seed = _.pick(req.body, [
         'name', 
+        'title',
         'coinvestigator',
         'principalinvestigator',
         'organization', 
@@ -237,6 +239,7 @@ router.patch('/medical/:id?', authenticate, (req, res) => {
     var id = req.query.id;
     var body = _.pick(req.body, [
         'name', 
+        'title',
         'coinvestigator',
         'principalinvestigator',
         'organization', 
@@ -297,6 +300,7 @@ router.patch('/:id', authenticate, (req, res) => {
 
         body = _.pick(JSON.parse(field.data), [
             'name', 
+            'title',
             'coinvestigator',
             'principalinvestigator',
             'organization', 
