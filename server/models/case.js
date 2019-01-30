@@ -59,7 +59,7 @@ var CaseSchema = new mongoose.Schema({
                     type: Number
                 },
                 date_done: {
-                    type: Number
+                    type: String
                 },
                 type: {
                     type: String
