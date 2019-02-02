@@ -24,14 +24,16 @@ router.post('/', authenticate, (req, res) => {
         'organization', 
         'diagnosis', 
         'created_by',
+        'origin',
         'specforms',
         'forms']);
     var instance = new Case(seed);
     
     Case.findOne({
         case_number: instance['case_number'], 
-        is_deleted: false}, 
-    (err, obj) => {
+        origin: 'biobank',
+        is_deleted: false
+    }, (err, obj) => {
         if (obj == null) {
             instance.save().then(
                 saved_case => res.status(201).send(saved_case), 

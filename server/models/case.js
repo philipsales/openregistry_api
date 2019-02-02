@@ -26,6 +26,9 @@ var CaseSchema = new mongoose.Schema({
     date_created: {
         type: Number
     },
+    origin: {
+        type: String
+    },
     created_by: {
         type: String
     }, 
@@ -172,6 +175,7 @@ CaseSchema.methods.toJSON = function() {
         'case_number', 
         'organization',
         'status', 
+        'origin',
         'is_deleted', 
         'created_by', 
         'is_active', 
