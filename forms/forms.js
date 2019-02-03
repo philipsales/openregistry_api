@@ -50,6 +50,9 @@ router.post('/', authenticate, (req, res) => {
             if (!body['principalinvestigator']) {
                 delete body['principalinvestigator'];
             }
+            if (!body['title']) {
+                delete body['title'];
+            }
             if (!body['coinvestigator']) {
                 delete body['coinvestigator'];
             }
@@ -123,6 +126,9 @@ router.post('/v0', authenticate, (req, res) => {
         'sections']);
     if (!seed['principalinvestigator']) {
         delete seed['principalinvestigator'];
+    }
+    if (!seed['title']) {
+        delete seed['title'];
     }
     if (!seed['coinvestigator']) {
         delete seed['coinvestigator'];
@@ -254,6 +260,9 @@ router.patch('/medical/:id?', authenticate, (req, res) => {
     if (!body['principalinvestigator']) {
         delete body['principalinvestigator'];
     }
+    if (!body['title']) {
+        delete body['title'];
+    }
     if (!body['coinvestigator']) {
         delete body['coinvestigator'];
     }
@@ -313,6 +322,9 @@ router.patch('/:id', authenticate, (req, res) => {
             'sections']);
         if (!body['principalinvestigator']) {
             delete body['principalinvestigator'];
+        }
+        if (!body['title']) {
+            delete body['title'];
         }
         if (!body['coinvestigator']) {
             delete body['coinvestigator'];
