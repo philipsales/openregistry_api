@@ -20,7 +20,8 @@ router.use(bodyParser.json());
 router.post('/', (req, res) => {
     var user = new User(req.body);
     user.save().then((saved_user) => {
-        return saved_user.generateAuthToken();
+        notifyAdminOfNewUser(saved_user);
+        return saved_user.generateAuthToken(saved_user);
     }).then((token) => {
         return res.status(201).send({user,token});
     }).catch((error) => {
@@ -32,6 +33,49 @@ router.post('/', (req, res) => {
         }
     });
 });
+
+function notifyAdminOfNewUser(new_user) {
+    User.find({isDeleted: false}).then(users => {
+        // console.log(user.roles, 'micools');
+        users.forEach(user => {
+            user.roles.forEach(role => {
+                Role.find({rolename: role, isActive: true}).then(roles => {
+                    roles.forEach(role => {
+                        role.permissions.forEach(permission => {
+                            if (permission == "admin_user_approve") {
+                                let transporter = mailer.createTransport({
+                                    host: 'smtp.gmail.com',
+                                    port: 465,
+                                    secure: true,
+                                    auth: {
+                                        user: 'pcari.biobank@gmail.com',
+                                        pass: 'pCaRi.Bi0b@nK'
+                                    }
+                                });
+                                let tempath = path.join(__dirname, 'new.user.template.html');
+                                fs.readFile(tempath, 'utf8', (err, data) => {
+                                    let template = handlebars.compile(data);
+                                    var emailToSend = template(new_user);
+                                    let mailOptions = {
+                                        from: `"Philippine Phenome-Biobanking" <pcari.biobank@gmail.com>`,
+                                        to: user.username,
+                                        subject: 'New Account Awaiting for Activation',
+                                        html: emailToSend
+                                    };
+                                    transporter.sendMail(mailOptions, (error, info) => {
+                                        if (error) {
+                                            console.log(error, 'error');
+                                        }
+                                    });
+                                });
+                            }
+                        })
+                    });
+                });
+            });
+        });
+    });
+}
 
 router.post('/forgot', (req, res) => {
     let body = _.pick(req.body, [
