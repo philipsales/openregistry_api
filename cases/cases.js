@@ -128,6 +128,7 @@ router.patch('/:id', authenticate, (req, res) => {
     Case.findOne({
         _id: {$ne: req.params.id},
         case_number: body['case_number'],
+        origin: 'biobank',
         is_deleted: false
     }, 
     (err, obj) => {
