@@ -42,6 +42,8 @@ MTASchema.methods.toJSON = function() {
     '_id', 
     'name', 
     'dir_path',
+    'type',
+    'description',
     'is_deleted']);
 };
 

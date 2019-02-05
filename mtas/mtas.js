@@ -32,81 +32,88 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
+router.get('/find/:id?', (req, res) => {
+    let id = req.query.id;
+    if (!ObjectID.isValid(id)) {
+        return res.send({});
+    }
+    MTA.findOne({_id: id, is_deleted: false}).then(mta => {
+        if (mta != null) {
+            return res.send(mta);
+        }
+        return res.send({});
+    });
+});
+
+router.delete('/:id?', (req, res) => {
+    let id = req.query.id;
+    if (!ObjectID.isValid(id)) {
+        return res.status(404).send();
+    }
+    MTA.findOneAndUpdate({_id: id, is_deleted: false}, {
+        $set: { is_deleted: true }
+    }, {new:true}).then(mta => {
+        if (mta) {
+            return res.send(mta);
+        }
+        return res.status(404).send();
+    }).catch(error => {
+        return res.status(404).send(error);
+    });
+});
+
+router.post('/', authenticate, (req, res) => {
     var body;
-    var new_filename = '';
     var form = new formidable.IncomingForm();
 
     form.multiples = false;
     form.uploadDir = path.resolve(__dirname, upload_file);
 
-    //modify file path
-    form.on('fileBegin', function(name, file){
-        new_filename = (file.name).split(' ').join('_');
-        file.path = form.uploadDir + "/" + new_filename;
+    form.parse(req, function (err, field, files) {
+        body = _.pick(
+            JSON.parse(field.data), 
+            ['_id', 'name', 'type', 'description', 'dir_path', 'is_deleted']
+        );
+        if (err) {
+            console.error(err, 'micool');
+            res.status(400).send(err);
+        }
     });
-    
-    //parse the request to form data
-    form.parse(req, function(err, field, files) {
-        body = _.pick(field, ['name', 'type', 'description']);
-        var data = {
-            status: 'Failed',
-            result: { 
-                'payload' : []
-            },
-            error: err
-        }
 
-        if(body){
-            body['is_deleted'] = false;
-            body['dir_path'] = new_filename;
-            console.log(body);
-    
-            data = {
-                status: 'Success',
-                result: { 
-                    'payload' : []
-                },
-                error: err
-            };
+    form.on('fileBegin', function(name, file) {
+        file.path = form.uploadDir + "/" + (file.name).split(' ').join('_');
+        console.log(file.path, 'micool path');
+    });
+
+    form.on('end', function() {
+        var _id = body['_id'];
+        var is_deleted = body['is_deleted'];
+        if (ObjectID.isValid(_id)) {
+            MTA.findOneAndUpdate({_id, is_deleted}, 
+                {$set:body}, {new: true}).then(updated_mta => {
+                if (updated_mta) {
+                    return res.status(200).send(updated_mta);
+                }
+                return res.status(404).send();
+            }, error => res.status(404).send(error));
         } else {
-            res.status(400).json(data);
-            throw 'No content submitted';
+            var mta = new MTA(body);
+            mta.save().then((saved_mta) => {
+                return res.status(201).send(saved_mta);
+            }).catch((error) => {
+                if (error instanceof MTAError) {
+                    return res.status(400).send(JSON.parse(error.message));
+                } else {
+                    console.log(error);
+                    return res.status(500).send(error);
+                }
+            });
         }
-        
-        
-        if(err) {
-            res.status(400).json(data);
-            throw err;
-        }
-    }); //-- save mta
-
-    //after success parsing
-    form.on ('end', function(){
-        console.log('xxxx');
-        console.log(body);
-        body = _.assign(body);
-
-        var mta = new MTA(body);
-        mta.save()
-            .then((saved_mta) => {
-                    return res.status(201).send(saved_mta);
-        }).catch((error) => {
-            if (error instanceof MTAError) {
-                return res.status(400).send(JSON.parse(error.message));
-            } else {
-                console.log(error);
-                return res.status(500).send(error);
-            }
-        });
-
-        //res.end();
-    }); 
+    });
 
 });
 
-
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authenticate, (req, res) => {
     var id = req.params.id;
     if(!ObjectID.isValid(id)) {
         res.status(404).send();
@@ -133,7 +140,7 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-router.get('/:id/download', (req, res) => {
+router.get('/download/:id?', (req, res) => {
     var id = req.params.id;
     if (!ObjectID.isValid(id)) {
         res.status(404).send();
