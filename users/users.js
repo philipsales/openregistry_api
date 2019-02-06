@@ -35,6 +35,32 @@ router.post('/', (req, res) => {
 });
 
 function notifyAdminOfNewUser(new_user) {
+    let transporter = mailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+            user: 'pcari.biobank@gmail.com',
+            pass: 'pCaRi.Bi0b@nK'
+        }
+    });
+    let tempath = path.join(__dirname, 'user.notify.template.html');
+    fs.readFile(tempath, 'utf8', (err, data) => {
+        let template = handlebars.compile(data);
+        var emailToSend = template(new_user);
+        let mailOptions = {
+            from: `"Philippine Phenome-Biobanking" <pcari.biobank@gmail.com>`,
+            to: new_user.username,
+            subject: 'Successful Registration',
+            html: emailToSend
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log(error, 'error');
+            }
+        });
+    });
+
     User.find({isDeleted: false}).then(users => {
         // console.log(user.roles, 'micools');
         users.forEach(user => {
@@ -59,7 +85,7 @@ function notifyAdminOfNewUser(new_user) {
                                     let mailOptions = {
                                         from: `"Philippine Phenome-Biobanking" <pcari.biobank@gmail.com>`,
                                         to: user.username,
-                                        subject: 'New Account Awaiting for Activation',
+                                        subject: 'New User Registration',
                                         html: emailToSend
                                     };
                                     transporter.sendMail(mailOptions, (error, info) => {
@@ -272,6 +298,36 @@ router.patch('/:id', authenticate, (req, res) => {
 
         if (user) {
             var oldUser = user.toJSON();
+
+            if (!user.approved) {
+                body['approved'] = true;
+                let transporter = mailer.createTransport({
+                    host: 'smtp.gmail.com',
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: 'pcari.biobank@gmail.com',
+                        pass: 'pCaRi.Bi0b@nK'
+                    }
+                });
+                let tempath = path.join(__dirname, 'user.notify.approved.template.html');
+                fs.readFile(tempath, 'utf8', (err, data) => {
+                    let template = handlebars.compile(data);
+                    var emailToSend = template(user);
+                    let mailOptions = {
+                        from: `"Philippine Phenome-Biobanking" <pcari.biobank@gmail.com>`,
+                        to: user.username,
+                        subject: 'Successful Registration',
+                        html: emailToSend
+                    };
+                    transporter.sendMail(mailOptions, (error, info) => {
+                        if (error) {
+                            console.log(error, 'error');
+                        }
+                    });
+                });
+            }
+
             User.update({_id: id}, body, (error, noOfAffected) => {
                 if (error) {
                     return res.status(400).send(JSON.parse(error.message));
@@ -375,7 +431,6 @@ router.patch('/me/:id/:changepass?', authenticate, (req, res) => {
                                         return res.status(200).send({success: true, error: error});
                                     }
                                 });
-        
                             });                    
                         } else {
                             var userHistory = new UserHistory({
