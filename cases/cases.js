@@ -24,14 +24,12 @@ router.post('/', authenticate, (req, res) => {
         'organization', 
         'diagnosis', 
         'created_by',
-        'origin',
         'specforms',
         'forms']);
     var instance = new Case(seed);
     
     Case.findOne({
         case_number: instance['case_number'], 
-        origin: 'biobank',
         is_deleted: false
     }, (err, obj) => {
         if (obj == null) {
@@ -55,7 +53,7 @@ router.get('/', authenticate, (req, res) => {
             for(let form of out.forms){
                 delete form['answers'];
             }
-            delete out['specforms'];
+            // delete out['specforms'];
             return out;
         });
         res.send({data});
@@ -125,39 +123,25 @@ router.patch('/:id', authenticate, (req, res) => {
         'specforms',
         'forms']);
 
-    Case.findOne({
-        _id: {$ne: req.params.id},
-        case_number: body['case_number'],
-        origin: 'biobank',
+    Case.findOneAndUpdate({
+        _id: id,
         is_deleted: false
-    }, 
-    (err, obj) => {
-        if (obj == null) {
-            Case.findOneAndUpdate({
-                _id: id,
-                is_deleted: false
-            }, {
-                $set: body
-            }, {
-                new: true
-            }).then((updated_case) => {
-                if (updated_case) {
-                    res.send(updated_case);
-                } else {
-                    res.status(404).send();
-                }
-            }).catch((error) => {
-                if (error instanceof CaseError) {
-                    return res.status(400).send(JSON.parse(error.message));
-                } else {
-                    console.log(error);
-                    return res.status(500).send(error);
-                }
-            });
-
-
+    }, {
+        $set: body
+    }, {
+        new: true
+    }).then((updated_case) => {
+        if (updated_case) {
+            res.send(updated_case);
         } else {
-            return res.status(409).send('Case number already exist');
+            res.status(404).send();
+        }
+    }).catch((error) => {
+        if (error instanceof CaseError) {
+            return res.status(400).send(JSON.parse(error.message));
+        } else {
+            console.log(error);
+            return res.status(500).send(error);
         }
     });
 });
