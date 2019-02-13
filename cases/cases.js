@@ -46,7 +46,8 @@ router.post('/', authenticate, (req, res) => {
 
 router.get('/', authenticate, (req, res) => {
     Case.find({is_deleted: false})
-    .sort({ date_created: 'desc' })
+    .sort({ case_number: 'asc' })
+    // .sort({ case_number: 'asc' })
     .then((cases) => {
         var data = cases.map((value) => {
             var out = value.toJSON();
