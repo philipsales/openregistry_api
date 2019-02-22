@@ -63,6 +63,43 @@ router.get('/', authenticate, (req, res) => {
     });
 });
 
+router.get('/list/:index?/:limit?/:keywords?/:sort?', (req, res) => {
+    let limit = parseInt(req.query['limit'] || 10);
+    let keywords = req.query['keywords'] || '';
+    let sort = req.query['sort'] || 0;
+    let index = req.query['index'] || 0;
+
+    Promise.all([
+        Case.count({case_number: new RegExp(keywords, 'i'), is_deleted: false}),
+        getCases(index, limit, keywords, sort)
+    ]).then(result => {
+        const [count, cases] = result;
+        return res.status(200).send({count, cases});
+    }).catch(error => {
+        console.error(error, 'error');
+        return res.send(400).send(error);
+    });
+});
+
+function getCases(index = 0, limit = 10, keywords='', sort=0) {
+    if (index < 0) {
+        index -= 1;
+    }
+    let skip = index * limit;
+    let condition = {
+        case_number: new RegExp(keywords, 'i'),
+         is_deleted: false
+    };
+
+    let args = {date_created: -1};
+    if (sort != 0) {
+        args = {case_number: sort};
+    }
+    
+    return Case.find(condition, null, {skip, limit})
+    .sort(args);
+}
+
 router.get('/:id', authenticate, (req, res) => {
     var id = req.params.id;
     if (!ObjectID.isValid(id)) {
