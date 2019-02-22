@@ -153,15 +153,17 @@ router.post('/v0', authenticate, (req, res) => {
     });
 });
 
-router.get('/list/:type?/:index?/:limit?/:keywords?/:sort?', (req, res) => {
+router.get('/list/:type?/:index?/:limit?/:keywords?/:sort?/:department?', (req, res) => {
     let limit = parseInt(req.query['limit'] || 10);
     let keywords = req.query['keywords'] || '';
     let sort = req.query['sort'] || 0;
     let index = req.query['index'] || 0;
     let type = req.query['type'];
+    let department_array = req.query['department'].split(',');
+
     Promise.all([
         Form.count({type, name: new RegExp(keywords, 'i'), is_deleted: false}),
-        getForms(type, index, limit, keywords, sort)
+        getForms(type, index, limit, keywords, sort, department_array)
     ]).then(result => {
         const [count, forms] = result;
         return res.status(200).send({count, forms});
@@ -171,7 +173,7 @@ router.get('/list/:type?/:index?/:limit?/:keywords?/:sort?', (req, res) => {
     });
 });
 
-function getForms(type, index = 0, limit = 10, keywords='', sort=0) {
+function getForms(type, index = 0, limit = 10, keywords='', sort=0, department=department_array) {
     if (index < 0) {
         index -= 1;
     }
@@ -182,6 +184,7 @@ function getForms(type, index = 0, limit = 10, keywords='', sort=0) {
     };
     if (type != null) {
         condition['type'] = type;
+        condition['department'] =  { "$in" : department };
     }
     let args = {date_created: -1};
     if (sort != 0) {
