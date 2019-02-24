@@ -13,6 +13,43 @@ var {authenticate} = require('../server/middleware/authenticate');
 
 router.use(bodyParser.json());
 
+router.get('/list/:index?/:limit?/:keywords?/:sort?', (req, res) => {
+    let limit = parseInt(req.query['limit'] || 10);
+    let keywords = req.query['keywords'] || '';
+    let sort = req.query['sort'] || 0;
+    let index = req.query['index'] || 0;
+
+    Promise.all([
+        SpecType.count({name: new RegExp(keywords, 'i'), is_deleted: false}),
+        getSpecTypes(index, limit, keywords, sort)
+    ]).then(result => {
+        const [count, specTypes] = result;
+        return res.status(200).send({count, specTypes});
+    }).catch(error => {
+        console.error(error, 'error');
+        return res.send(400).send(error);
+    });;
+});
+
+function getSpecTypes(index = 0, limit = 10, keywords='', sort=0) {
+    if (index < 0) {
+        index -= 1;
+    }
+    let skip = index * limit;
+    let condition = {
+        name: new RegExp(keywords, 'i'),
+         is_deleted: false
+    };
+
+    let args = {name: -1};
+    if (sort != 0) {
+        args = {name: sort};
+    }
+
+    return SpecType.find(condition, null, {skip, limit})
+    .sort(args);
+}
+
 router.get('/', authenticate, (req, res) => {
 
     SpecType.find({is_deleted: false}).sort({name: 1}).then((SpecTypes) => {
