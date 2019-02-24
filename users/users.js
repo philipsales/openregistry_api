@@ -17,6 +17,47 @@ var {Role} = require('../server/models/role');
 
 router.use(bodyParser.json());
 
+router.get('/list/:index?/:limit?/:keywords?/:sort?', (req, res) => {
+    let limit = parseInt(req.query['limit'] || 10);
+    let keywords = req.query['keywords'] || '';
+    let sort = req.query['sort'] || 0;
+    let index = req.query['index'] || 0;
+
+    Promise.all([
+        User.count({
+            first_name: new RegExp(keywords, 'i'),
+            last_name: new RegExp(keywords, 'i'), 
+            isDeleted: false}
+        ),
+        getUsers(index, limit, keywords, sort)
+    ]).then(result => {
+        const [count, users] = result;
+        return res.status(200).send({count, users});
+    }).catch(error => {
+        console.error(error, 'error');
+        return res.send(400).send(error);
+    });
+});
+
+function getUsers(index = 0, limit = 10, keywords='', sort=0) {
+    if (index < 0) {
+        index -= 1;
+    }
+    let skip = index * limit;
+    let condition = {
+        first_name: new RegExp(keywords, 'i'),
+        isDeleted: false
+    };
+
+    let args = {first_name: 1};
+    if (sort != 0) {
+        args = {first_name: sort};
+    }
+
+    return User.find(condition, null, {skip, limit})
+    .sort(args);
+}
+
 router.post('/', (req, res) => {
     var user = new User(req.body);
     user.save().then((saved_user) => {
