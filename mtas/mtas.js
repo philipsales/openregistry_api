@@ -16,6 +16,43 @@ var upload_file = process.env.UPLOAD_DIR + "mtas/";
 
 router.use(bodyParser.json());
 
+router.get('/list/:index?/:limit?/:keywords?/:sort?', (req, res) => {
+    let limit = parseInt(req.query['limit'] || 10);
+    let keywords = req.query['keywords'] || '';
+    let sort = req.query['sort'] || 0;
+    let index = req.query['index'] || 0;
+
+    Promise.all([
+        MTA.count({name: new RegExp(keywords, 'i'), is_deleted: false}),
+        getMTAs(index, limit, keywords, sort)
+    ]).then(result => {
+        const [count, mtas] = result;
+        return res.status(200).send({count, mtas});
+    }).catch(error => {
+        console.error(error, 'error');
+        return res.send(400).send(error);
+    });
+});
+
+function getMTAs(index = 0, limit = 10, keywords='', sort=0) {
+    if (index < 0) {
+        index -= 1;
+    }
+    let skip = index * limit;
+    let condition = {
+        name: new RegExp(keywords, 'i'),
+         is_deleted: false
+    };
+
+    let args = {};
+    if (sort != 0) {
+        args = {name: sort};
+    }
+
+    return MTA.find(condition, null, {skip, limit})
+        .sort(args);
+}
+
 router.get('/', (req, res) => {
     MTA.find({is_deleted: false})
            .then((mtas) => {
