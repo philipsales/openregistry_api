@@ -20,9 +20,7 @@ const permissions = [{
     module: 'User Registration',
     application: 'Administration',
     description: 'can create a user'
-}
-
-, {
+}, {
     _id: new ObjectID(),
     perm_code: 'admin_user_approve',
     module: 'User Registration',
@@ -299,23 +297,39 @@ const permissions = [{
     application: 'Medical',
     description: 'can view a report'
 }
-
 ];
 
 const roles = [{
     _id: new ObjectID(),
     rolename: 'Admin',
     description: 'role for Administrators',
-    permissions: [
-        'admin_user_create', 
-        'admin_user_approve', 
-        'admin_user_view', 
-        'admin_role_create', 
-        'admin_role_update', 
-        'admin_role_view'],
+    permissions: ['admin_user_create', 'admin_user_approve', 'admin_user_view', 'admin_role_create', 'admin_role_update', 'admin_role_view', 'admin_database_create'],
     isActive: true
-} 
-];
+}, {
+    _id: new ObjectID(),
+    rolename: 'Biobank Researcher',
+    description: 'role for Researchers from UPD',
+    permissions: ['biobank_form_create', 'biobank_form_approve', 'biobank_form_view', 'biobank_form_update', 'biobank_form_delete', 'biobank_case_create', 'biobank_case_view', 'biobank_case_update', 'biobank_report_view'],
+    isActive: false
+}, {
+    _id: new ObjectID(),
+    rolename: 'Medical Researcher',
+    description: 'role for Researchers from PGH',
+    permissions: ['medical_form_create', 'medical_form_approve', 'medical_form_view', 'medical_form_update', 'medical_form_delete', 'medical_case_create', 'medical_case_view', 'medical_case_update', 'medical_report_view'],
+    isActive: false
+}, {
+    _id: new ObjectID(),
+    rolename: 'Physician',
+    description: 'role for Physicians',
+    permissions: [],
+    isActive: false
+}, {
+    _id: new ObjectID(),
+    rolename: 'Encoder',
+    description: 'role for Encoders',
+    permissions: [],
+    isActive: false
+}];
 
 const organizations = [{
     _id: new ObjectID(),
@@ -691,14 +705,13 @@ const populateTables = () => {
             reject();
     });
 
-   
     var forms_request = populateForms().then(() => {
         console.log('--Forms-- Loaded');
         populateCases().then(() => {
             console.log('--Cases-- Loaded');
         });
     });
-
+    
     var users_etc_request = new Promise((resolve, reject) => {
         populatePermissions().then(() => {
             console.log('--Permissions-- Loaded');
@@ -718,14 +731,12 @@ const populateTables = () => {
             reject();
         });
     });
-     
     return Promise.all([
         specrequest,
         spectyperequest,
         medical_standards_request,
-        forms_request,
-        users_etc_request
-    ])
+        forms_request, 
+        users_etc_request])
 };
 
 

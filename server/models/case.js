@@ -182,14 +182,14 @@ CaseSchema.methods.toJSON = function() {
 };
 
 CaseSchema.pre('save', function(next){
-    console.log('---_FIND_SAVE--',this.forms);
+    //console.log('---_FIND_SAVE--',this.forms);
     if(!this.date_created) {
         this.date_created = (new Date()).getTime();
     }
     var total_forms = this.forms.length;
 
     for(var i = 0; i < total_forms; ++i){
-        console.log('---_FIND_ANSWERS--',this.forms[i].answers);
+        //console.log('---_FIND_ANSWERS--',this.forms[i].answers);
         if(!this.forms[i].date_created){
             this.forms[i].date_created = (new Date()).getTime();
         }
