@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"BiobankAPI.roles"},{"v":2,"unique":true,"key":{"rolename":1},"name":"rolename_1","ns":"BiobankAPI.roles","background":true}],"uuid":"fdea38a8403a43cabf734207968fcaac"}

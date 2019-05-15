@@ -312,7 +312,12 @@ const roles = [{
         'admin_user_view', 
         'admin_role_create', 
         'admin_role_update', 
-        'admin_role_view'],
+        'admin_role_view',
+        'admin_database_create',
+        'admin_database_update',
+        'admin_database_restore',
+        'admin_database_download'
+    ],
     isActive: true
 } 
 ];
