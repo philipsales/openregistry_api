@@ -339,7 +339,7 @@ const users = [{
     middle_name: 'J',
     password: 'kryptonite',
     isDeleted: false,
-    department: 'General Surgery Department',
+    isActive: true,
     roles: ['Admin'],
     tokens: [{
         access: 'auth',
@@ -353,7 +353,8 @@ const users = [{
     middle_name: 'J',
     password: 'topsecret',
     isDeleted: false,
-    department: 'Institute of Biology',
+    isActive: true,
+    department: ['Institute of Biology'],
     roles: ['Biobank Researcher'],
     tokens: [{
         access: 'auth',
@@ -367,7 +368,8 @@ const users = [{
     middle_name: 'J',
     password: 'topsecret',
     isDeleted: false,
-    department: 'General Surgery Department',
+    isActive: true,
+    department: ['General Surgery Department'],
     roles: ['Medical Researcher'],
     tokens: [{
         access: 'auth',
