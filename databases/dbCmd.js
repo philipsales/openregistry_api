@@ -60,7 +60,7 @@ const dbRestore = (path) => {
               " --db=" + "'" + dbOptions.database +  "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".permissions" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".databases" + "'" +
-              " --nsExclude=" + "'" + dbOptions.database+ ".roles" + "'" +
+              //" --nsExclude=" + "'" + dbOptions.database+ ".roles" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".users" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".icdoncologies" + "'" +
               " --nsExclude=" + "'" + dbOptions.database+ ".naaccr" + "'" +
