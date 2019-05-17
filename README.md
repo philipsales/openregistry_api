@@ -107,9 +107,10 @@ Please do the following:
 
 ### Who do I talk to? ###
 
-* b.kristhian.tiu@gmail.com
-* pjsales@ittc.up.edu.ph
-* 
+* ** [Kristhian Tiu](https://github.com/chantiu) ** - *Lead Software Developer* 
+* ** [Philip Sales](https://github.com/philipsales) ** - *Lead Health Informaticist* 
+* ** [Miko Chu](https://github.com/meSmashsta) ** - *Lead Computer Scientist* 
+
 **Have fun CODING! TEAM!**
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
